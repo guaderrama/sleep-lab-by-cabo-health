@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLEEP_LAB by Cabo Health</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --primary-glow: #00f3ff;
+            --secondary-glow: #bc13fe;
+            --accent-color: #00f3ff;
+            --deep-bg: #050510;
+            /* Darker card background for better readability */
+            --card-bg: rgba(10, 10, 20, 0.85); 
+            --text-main: #e0e0e0;
+        }
+
+        body.night-mode {
+            --primary-glow: #ff3c00;
+            --secondary-glow: #ff8800;
+            --accent-color: #ff3c00;
+            --deep-bg: #0f0202;
+            --card-bg: rgba(25, 5, 5, 0.9);
+            --text-main: #ffccaa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--deep-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; }
+
+        #canvas-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.5;
+            /* Fallback gradient if WebGL fails */
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+            transition: opacity 0.5s ease;
+        }
+
+        /* Improved Glassmorphism */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-glow);
+            box-shadow: 0 10px 40px -10px rgba(0, 243, 255, 0.15);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background 0.5s ease;
+        }
+
+        .fade-up { opacity: 0; transform: translateY(30px); }
+
+        /* Tabs */
+        .tab-btn { position: relative; overflow: hidden; white-space: nowrap; }
+        .tab-btn.active { color: var(--primary-glow); background: rgba(255, 255, 255, 0.08); border-bottom: 2px solid var(--primary-glow); }
+        .tab-content { display: none; animation: fadeIn 0.5s ease forwards; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Breathing Circle */
+        .breath-circle {
+            width: 180px; height: 180px; border-radius: 50%;
+            border: 3px solid var(--primary-glow);
+            position: relative; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 25px var(--primary-glow), inset 0 0 15px var(--primary-glow); 
+            transform: scale(1);
+        }
+        .breath-text { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: bold; color: white; text-shadow: 0 0 10px var(--primary-glow); }
+
+        /* Floating Buttons */
+        .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 100; display: flex; flex-direction: column; gap: 15px; }
+        .fab-btn {
+            width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.8);
+            border: 1px solid var(--primary-glow); color: var(--primary-glow);
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+            cursor: pointer; box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); transition: all 0.3s ease;
+        }
+        .fab-btn:hover { transform: scale(1.1); background: var(--primary-glow); color: black; }
+        
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Flip Cards */
+        .flip-container { perspective: 1000px; height: 240px; cursor: pointer; }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; text-align: center;
+            transition: transform 0.6s; transform-style: preserve-3d;
+        }
+        .flip-container:hover .flip-card-inner, .flip-container.hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-front, .flip-back {
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 1rem; padding: 1.5rem;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); background: var(--card-bg);
+        }
+        .flip-back {
+            transform: rotateY(180deg); background: rgba(15, 15, 25, 0.98);
+            border: 1px solid var(--primary-glow); align-items: flex-start; text-align: left;
+            overflow-y: auto;
+        }
+
+        /* Synthesizer */
+        .audio-bar { width: 6px; background-color: var(--primary-glow); height: 5px; border-radius: 2px; transition: height 0.1s ease; }
+        .playing .audio-bar { animation: soundWave 1s infinite ease-in-out; }
+        @keyframes soundWave { 0%, 100% { height: 5px; opacity: 0.5; } 50% { height: 30px; opacity: 1; } }
+        
+        .synth-btn.active { background: var(--primary-glow); color: black; box-shadow: 0 0 15px var(--primary-glow); border-color: var(--primary-glow); }
+
+        /* Utilities */
+        .text-dynamic { color: var(--primary-glow); transition: color 0.3s; }
+        .bg-dynamic { background-color: var(--primary-glow); transition: background-color 0.3s; }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050510; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-glow); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="canvas-container"></div>
+
+    <!-- Floating Actions -->
+    <div class="fab-container">
+        <button class="fab-btn" onclick="toggleNightMode()" title="Night Mode"><i class="fa-solid fa-moon"></i></button>
+        <button class="fab-btn text-xs font-bold" onclick="toggleLanguage()">EN</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-microchip text-dynamic text-3xl mr-3"></i>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-2xl tracking-wider text-white leading-none">SLEEP<span class="text-dynamic">_LAB</span></span>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em] text-right">by Cabo Health</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#how-to" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Manual</a>
+                        <a href="#tools" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Tools</a>
+                        <a href="#diagnosis" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Diagnosis</a>
+                        <a href="#supplements" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Supplements</a>
+                        <a href="#protocol" class="bg-dynamic text-black px-5 py-2 rounded-full text-sm font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition">Start Plan</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-white hover:text-dynamic p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed top-16 right-0 w-64 h-screen bg-black/95 border-l border-white/10 p-6 md:hidden">
+            <div class="flex flex-col space-y-6">
+                <a href="#how-to" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Manual</a>
+                <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Tools</a>
+                <a href="#diagnosis" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Diagnosis</a>
+                <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Supplements</a>
+                <a href="#protocol" onclick="toggleMobileMenu()" class="text-lg text-dynamic font-bold">Action Plan</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden pt-16">
+        <div class="text-center z-10 px-4 max-w-4xl">
+            <div class="inline-block px-4 py-1 mb-6 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-dynamic text-xs font-bold tracking-widest uppercase fade-up">
+                Scientific Sleep Optimization
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight fade-up">
+                SLEEP <br><span class="text-gradient">RE-ENGINEERED</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed fade-up">
+                The ultimate protocol for biological repair. <br>
+                From curing insomnia to elite performance recovery.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-up">
+                <a href="#tools" class="px-8 py-4 bg-dynamic text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                    <i class="fa-solid fa-wave-square mr-2"></i> Open Neuro-Lab
+                </a>
+                <a href="#diagnosis" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/10 text-white font-bold rounded-lg transition flex items-center justify-center">
+                    <i class="fa-solid fa-stethoscope mr-2"></i> Diagnose Me
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- 0. User Manual -->
+    <section id="how-to" class="py-24 bg-black/30 border-y border-white/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center text-white"><span class="text-dynamic">00.</span> How to use this Guide</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl text-center fade-up border-t-2 border-white/20 hover:border-dynamic transition-colors">
+                    <div class="h-14 w-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl">1</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Identify</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Don't guess. Use the <strong>Diagnosis Center</strong> to find if your problem is Latency, Fragmentation, or Biological.</p>
+                    <a href="#diagnosis" class="text-xs text-dynamic font-bold uppercase tracking-wider hover:text-white transition">Go to Diagnosis &rarr;</a>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl text-center fade-up border-t-2 border-white/20 hover:border-dynamic transition-colors" style="transition-delay: 100ms;">
+                    <div class="h-14 w-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl">2</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Equip</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Use the <strong>Biochemical Arsenal</strong> to build your stack. Click cards to see dosages, mechanisms, and expert warnings.</p>
+                    <a href="#supplements" class="text-xs text-dynamic font-bold uppercase tracking-wider hover:text-white transition">See Supplements &rarr;</a>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl text-center fade-up border-t-2 border-white/20 hover:border-dynamic transition-colors" style="transition-delay: 200ms;">
+                    <div class="h-14 w-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl">3</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Modulate</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Use the <strong>Sonic Pharmacy</strong> tools below. Isochronic tones for strong entrainment, 4-7-8 for vagus nerve activation.</p>
+                    <a href="#tools" class="text-xs text-dynamic font-bold uppercase tracking-wider hover:text-white transition">Open Lab &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. Tools (Interactive) -->
+    <section id="tools" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-dynamic">01.</span> Neuro-Acoustic Lab</h2>
+            
+            <!-- Neuro Synthesizer -->
+            <div class="glass-card p-6 md:p-10 rounded-3xl mb-12 fade-up border border-white/10">
+                <div class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-8">
+                    <div class="flex-1">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> Neuro-Synthesizer</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed max-w-2xl">
+                            Real-time algorithmic entrainment engine. Uses mathematical sound pulses to guide your brainwaves into specific relaxation states (FFR).
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-volume-high mr-2 text-green-400"></i>Speakers OK (Isochronic)</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-headphones mr-2 text-blue-400"></i>Headphones (Binaural)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full lg:w-auto flex flex-col items-end">
+                        <div id="synthStatus" class="text-xs font-mono text-dynamic mb-3 tracking-widest">SYSTEM STANDBY</div>
+                        <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center">
+                            <i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Visualizer -->
+                <div class="audio-bar-container mb-10 h-16 opacity-30 transition-opacity duration-500" id="visualizer">
+                    <!-- Bars generated by JS -->
+                </div>
+                
+                <!-- Controls -->
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-12 border-t border-white/10 pt-8">
+                    <!-- Left: Mode & Timer -->
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Target Brainwave State</h4>
+                        <div class="grid grid-cols-3 gap-3 mb-6">
+                            <button onclick="setSynthMode('sleep')" class="synth-btn active flex flex-col items-center py-4" id="mode-sleep">
+                                <i class="fa-solid fa-moon text-2xl mb-2"></i>
+                                <span class="font-bold">Deep Sleep</span>
+                                <span class="text-[10px] opacity-70 mt-1">0.5 Hz (Delta)</span>
+                            </button>
+                            <button onclick="setSynthMode('relax')" class="synth-btn flex flex-col items-center py-4" id="mode-relax">
+                                <i class="fa-solid fa-water text-2xl mb-2"></i>
+                                <span class="font-bold">Relax</span>
+                                <span class="text-[10px] opacity-70 mt-1">10 Hz (Alpha)</span>
+                            </button>
+                            <button onclick="setSynthMode('calm')" class="synth-btn flex flex-col items-center py-4" id="mode-calm">
+                                <i class="fa-solid fa-om text-2xl mb-2"></i>
+                                <span class="font-bold">Meditate</span>
+                                <span class="text-[10px] opacity-70 mt-1">6 Hz (Theta)</span>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 bg-black/30 p-3 rounded-xl border border-white/5">
+                            <i class="fa-solid fa-hourglass-half text-gray-400 pl-2"></i>
+                            <select id="synthTimer" class="bg-transparent text-white text-sm w-full focus:outline-none cursor-pointer">
+                                <option value="0">Continuous Play</option>
+                                <option value="15">Timer: 15 Minutes</option>
+                                <option value="30" selected>Timer: 30 Minutes</option>
+                                <option value="60">Timer: 1 Hour</option>
+                                <option value="480">Timer: 8 Hours</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Right: Method & Volume -->
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Modulation Technique</h4>
+                        <div class="grid grid-cols-2 gap-3 mb-6">
+                            <button onclick="setSynthMethod('isochronic')" class="synth-btn active h-full text-left px-4" id="method-isochronic">
+                                <strong class="block text-sm mb-1">Isochronic</strong>
+                                <span class="text-[10px] opacity-70 block leading-tight">Rhythmic pulses. Strongest effect. Speakers OK.</span>
+                            </button>
+                            <button onclick="setSynthMethod('binaural')" class="synth-btn h-full text-left px-4" id="method-binaural">
+                                <strong class="block text-sm mb-1">Binaural</strong>
+                                <span class="text-[10px] opacity-70 block leading-tight">Frequency difference. Smoother. <strong>Headphones Only.</strong></span>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
+                                <span class="text-sm text-gray-300 ml-2"><i class="fa-solid fa-wind mr-2 text-pink-400"></i>Pink Noise</span>
+                                <button onclick="toggleNoise()" id="noiseBtn" class="w-12 h-6 rounded-full bg-gray-700 relative transition-colors">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                                <div class="flex justify-between mb-2 text-xs text-gray-400 px-1">
+                                    <span>Volume</span>
+                                    <span id="volDisplay">30%</span>
+                                </div>
+                                <input type="range" min="0" max="100" value="30" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[var(--primary-glow)]" oninput="updateVolume(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breathing & Calc -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Breathing Tool -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-up">
+                    <h3 class="text-xl font-bold text-white mb-2"><i class="fa-solid fa-lungs text-dynamic mr-2"></i> Vagus Nerve Reset</h3>
+                    <p class="text-xs text-gray-400 mb-8 max-w-xs">4-7-8 Rhythm. Activates the parasympathetic nervous system to switch off stress instantly.</p>
+                    
+                    <div id="breathCircle" class="breath-circle mb-8 transition-all duration-[4000ms] ease-in-out">
+                        <span id="breathText" class="breath-text">Ready</span>
+                    </div>
+                    <button onclick="toggleBreathing()" id="breathBtn" class="px-8 py-3 border border-white/20 rounded-full text-sm font-bold hover:bg-white/10 transition">
+                        Start Breathing
+                    </button>
+                </div>
+
+                <!-- Sleep Calculator -->
+                <div class="glass-card p-8 rounded-2xl fade-up flex flex-col justify-center" style="transition-delay: 100ms;">
+                    <h3 class="text-xl font-bold text-white mb-2 text-center"><i class="fa-solid fa-calculator text-dynamic mr-2"></i> Cycle Calculator</h3>
+                    <p class="text-xs text-gray-400 mb-8 text-center">Avoid Sleep Inertia. Wake up at the end of a 90-min cycle.</p>
+                    
+                    <div class="bg-black/30 p-6 rounded-xl mb-6">
+                        <label class="text-xs text-gray-400 uppercase tracking-widest mb-3 block text-center">I want to wake up at:</label>
+                        <input type="time" id="wakeTime" class="bg-transparent border-b border-white/20 text-white text-3xl w-full text-center focus:outline-none focus:border-dynamic pb-2 font-mono" value="07:00">
+                    </div>
+                    
+                    <button onclick="calculateSleep()" class="w-full py-3 bg-white/10 hover:bg-dynamic hover:text-black text-white rounded-lg font-bold transition mb-6">
+                        Calculate Optimal Bedtime
+                    </button>
+
+                    <div id="sleepResults" class="hidden grid grid-cols-3 gap-3 text-center">
+                        <div class="p-3 bg-white/5 rounded-lg border border-white/5"><span class="block text-lg font-bold text-white" id="time1">--</span><span class="text-[10px] text-gray-500 block mt-1">9h (6 Cycles)</span></div>
+                        <div class="p-3 bg-dynamic text-black rounded-lg border border-dynamic shadow-[0_0_10px_var(--primary-glow)] transform scale-105"><span class="block text-lg font-bold" id="time2">--</span><span class="text-[10px] opacity-70 block mt-1 font-bold">7.5h (5 Cycles)</span></div>
+                        <div class="p-3 bg-white/5 rounded-lg border border-white/5"><span class="block text-lg font-bold text-white" id="time3">--</span><span class="text-[10px] text-gray-500 block mt-1">6h (4 Cycles)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. DIAGNOSIS -->
+    <section id="diagnosis" class="py-24 bg-black/30 border-y border-white/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">02.</span> Diagnosis Center</h2>
+            <p class="text-center text-gray-400 mb-12">Select your primary symptom to reveal the specific combat protocol.</p>
+            
+            <!-- Scrollable Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 pb-4">
+                <button onclick="openTab('nocturia')" class="tab-btn active px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-nocturia"><i class="fa-solid fa-toilet mr-2 text-blue-400"></i> Urine</button>
+                <button onclick="openTab('mente')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-mente"><i class="fa-solid fa-brain mr-2 text-purple-400"></i> Mind</button>
+                <button onclick="openTab('despertar')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-despertar"><i class="fa-regular fa-clock mr-2 text-yellow-400"></i> 3:00 AM</button>
+                <button onclick="openTab('shallow')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-shallow"><i class="fa-solid fa-battery-quarter mr-2 text-gray-400"></i> Shallow</button>
+                <button onclick="openTab('apnea')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-apnea"><i class="fa-solid fa-lungs mr-2 text-red-400"></i> Apnea</button>
+                <button onclick="openTab('piernas')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-piernas"><i class="fa-solid fa-bolt mr-2 text-orange-400"></i> RLS</button>
+                <button onclick="openTab('sofocos')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-sofocos"><i class="fa-solid fa-fire mr-2 text-pink-400"></i> Flashes</button>
+                <button onclick="openTab('restriccion')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-restriccion"><i class="fa-solid fa-ban mr-2 text-red-500"></i> SRT</button>
+            </div>
+
+            <div class="glass-card p-8 md:p-10 rounded-3xl min-h-[300px]">
+                <!-- Tab Content: Nocturia -->
+                <div id="nocturia" class="tab-content active">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="md:w-1/3 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Nocturia</h3>
+                            <p class="text-xs text-blue-400 uppercase tracking-widest mb-4 font-bold">Nighttime Urination</p>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                <strong>The Hidden Cause:</strong> It is rarely a "small bladder". It is usually caused by <em>Cardiac Stress</em> from poor breathing/apnea. The heart releases ANP (Atrial Natriuretic Peptide) signaling kidneys to dump water to lower pressure.
+                            </p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Correction Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
+                                    <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-tape text-blue-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Mouth Taping</p><p class="text-xs text-gray-400 mt-1">Use 3M Micropore tape. Nasal breathing calms the heart rate and stops ANP production.</p></div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
+                                    <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-glass-water text-blue-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Salt + Water Hack</p><p class="text-xs text-gray-400 mt-1">Sip a tiny amount of water with a pinch of sea salt before bed. Helps retain fluid in cells, not the bladder.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content: Monkey Mind -->
+                <div id="mente" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="md:w-1/3 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Monkey Mind</h3>
+                            <p class="text-xs text-purple-400 uppercase tracking-widest mb-4 font-bold">Rumination & Anxiety</p>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                <strong>The Problem:</strong> Cognitive Hyperarousal. A lack of GABA inhibition or high evening Cortisol keeps the prefrontal cortex active. Your brain hasn't received the "safe" signal.
+                            </p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Correction Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
+                                    <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-temperature-arrow-up text-purple-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Hot Bath (90 min before)</p><p class="text-xs text-gray-400 mt-1">Vasodilation pushes blood to skin, triggering a rapid core temp drop afterwards (a sleep signal).</p></div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
+                                    <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-capsules text-purple-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">L-Theanine (200-400mg)</p><p class="text-xs text-gray-400 mt-1">Increases Alpha brainwaves, quieting internal dialogue without sedation.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: 3AM -->
+                <div id="despertar" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="md:w-1/3 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">3:00 AM Wakeup</h3>
+                            <p class="text-xs text-yellow-400 uppercase tracking-widest mb-4 font-bold">Maintenance Insomnia</p>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                <strong>The Cause:</strong> Usually Hypoglycemia (Low Blood Sugar). The brain panics, releasing Adrenaline and Cortisol to liberate stored glucose. This adrenaline spike wakes you up alert.
+                            </p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Correction Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
+                                    <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-jar text-yellow-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Raw Honey / MCT Oil</p><p class="text-xs text-gray-400 mt-1">1 tsp right before bed provides stable fuel for the brain, preventing the adrenaline spike.</p></div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
+                                    <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-eye-slash text-yellow-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">NSDR (Non-Sleep Deep Rest)</p><p class="text-xs text-gray-400 mt-1">If you wake up, do NOT check the time. Immediately start a Yoga Nidra body scan.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content: Shallow -->
+                <div id="shallow" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                         <div class="md:w-1/3 border-r border-white/10 pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Shallow Sleep</h3>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest mb-4 font-bold">Unrefreshing Sleep</p>
+                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Cause:</strong> Often due to high core body temperature, residual caffeine, or alcohol. The body cannot drop into NREM3 (Restorative) stages.</p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-gray-700 p-2 rounded-lg mr-4"><i class="fa-solid fa-snowflake text-white"></i></div><div><p class="font-bold text-white text-sm">Glycine (3-5g)</p><p class="text-xs text-gray-400">Actively lowers core body temperature.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-gray-700 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-white"></i></div><div><p class="font-bold text-white text-sm">Zero Alcohol</p><p class="text-xs text-gray-400">Alcohol fragments REM sleep. Cut it out.</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Apnea -->
+                <div id="apnea" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                         <div class="md:w-1/3 border-r border-white/10 pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Apnea</h3>
+                            <p class="text-xs text-red-400 uppercase tracking-widest mb-4 font-bold">Hypoxia</p>
+                            <p class="text-gray-300 text-sm leading-relaxed"><strong>Danger:</strong> Airway collapse cuts off oxygen, destroying testosterone production and stressing the heart.</p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-bed text-red-400"></i></div><div><p class="font-bold text-white text-sm">Side Sleeping</p><p class="text-xs text-gray-400">Avoid supine position to keep airways open.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-user-doctor text-red-400"></i></div><div><p class="font-bold text-white text-sm">Sleep Study</p><p class="text-xs text-gray-400">Mandatory if you snore loudly. Get a CPAP.</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Legs -->
+                <div id="piernas" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                         <div class="md:w-1/3 border-r border-white/10 pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Restless Legs</h3>
+                            <p class="text-xs text-orange-400 uppercase tracking-widest mb-4 font-bold">RLS</p>
+                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Cause:</strong> Often linked to low brain iron (Ferritin) or Magnesium deficiency.</p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-vial text-orange-400"></i></div><div><p class="font-bold text-white text-sm">Check Ferritin</p><p class="text-xs text-gray-400">Must be >50 ng/mL. Supplement Iron + Vit C.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-orange-400"></i></div><div><p class="font-bold text-white text-sm">Avoid Triggers</p><p class="text-xs text-gray-400">No antihistamines (Benadryl worsens RLS).</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Hot Flashes -->
+                <div id="sofocos" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                         <div class="md:w-1/3 border-r border-white/10 pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Hot Flashes</h3>
+                            <p class="text-xs text-pink-400 uppercase tracking-widest mb-4 font-bold">Thermoregulation</p>
+                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Cause:</strong> Hormonal drops (Estrogen) wreck the body's thermostat.</p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-pink-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-snowflake text-pink-400"></i></div><div><p class="font-bold text-white text-sm">Active Cooling</p><p class="text-xs text-gray-400">Eight Sleep or ChiliPad is non-negotiable.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-pink-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-leaf text-pink-400"></i></div><div><p class="font-bold text-white text-sm">Vitamin E (400IU)</p><p class="text-xs text-gray-400">Clinically shown to reduce hot flash severity.</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: SRT -->
+                <div id="restriccion" class="tab-content">
+                    <div class="flex flex-col md:flex-row gap-10">
+                         <div class="md:w-1/3 border-r border-white/10 pr-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Sleep Restriction</h3>
+                            <p class="text-xs text-red-500 uppercase tracking-widest mb-4 font-bold">Severe Insomnia</p>
+                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Hard Reset:</strong> If you are in bed 8h but sleep 5h, your brain associates bed with being awake. We must break that link.</p>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <div class="grid gap-4">
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-clock text-red-400"></i></div><div><p class="font-bold text-white text-sm">Fixed Wake Time</p><p class="text-xs text-gray-400">06:30 AM every day. No sleeping in.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-hourglass-end text-red-400"></i></div><div><p class="font-bold text-white text-sm">Restrict Bed Time</p><p class="text-xs text-gray-400">Only go to bed at 1 AM initially (5.5h window).</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ARCHITECTURE -->
+    <section id="architecture" class="py-24">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-white"><span class="text-dynamic">03.</span> Sleep Architecture</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Not all hours are equal. The first half is for the body (Deep), the second for the mind (REM).</p>
+
+            <div class="glass-card p-8 rounded-3xl overflow-hidden relative border border-white/10">
+                <div class="flex items-end justify-between h-48 md:h-64 gap-2 md:gap-3 mb-4 relative z-10 px-4">
+                    <!-- Animated Bars -->
+                    <div class="w-full bg-blue-900/30 rounded-t relative group h-[80%] flex flex-col justify-end bar-anim"><div class="w-full bg-blue-500 h-[60%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-purple-900/30 rounded-t relative group h-[30%] flex flex-col justify-end bar-anim" style="transition-delay: 100ms;"><div class="w-full bg-purple-500 h-[30%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-blue-900/30 rounded-t relative group h-[70%] flex flex-col justify-end bar-anim" style="transition-delay: 200ms;"><div class="w-full bg-blue-500 h-[50%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-purple-900/30 rounded-t relative group h-[40%] flex flex-col justify-end bar-anim" style="transition-delay: 300ms;"><div class="w-full bg-purple-500 h-[40%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-blue-900/30 rounded-t relative group h-[40%] flex flex-col justify-end bar-anim" style="transition-delay: 400ms;"><div class="w-full bg-blue-500 h-[30%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-purple-900/30 rounded-t relative group h-[60%] flex flex-col justify-end bar-anim" style="transition-delay: 500ms;"><div class="w-full bg-purple-500 h-[60%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-blue-900/30 rounded-t relative group h-[20%] flex flex-col justify-end bar-anim" style="transition-delay: 600ms;"><div class="w-full bg-blue-500 h-[10%] rounded-t opacity-80 transition"></div></div>
+                    <div class="w-full bg-purple-900/30 rounded-t relative group h-[80%] flex flex-col justify-end bar-anim" style="transition-delay: 700ms;"><div class="w-full bg-purple-500 h-[80%] rounded-t opacity-80 transition"></div></div>
+                </div>
+                <div class="flex justify-between text-xs text-gray-500 border-t border-white/10 pt-4 font-mono px-4">
+                    <span>Hour 0</span><span>Hour 2</span><span>Hour 4</span><span>Hour 6</span><span>Hour 8</span>
+                </div>
+                <div class="mt-6 flex justify-center gap-8 text-sm">
+                    <div class="flex items-center"><div class="w-3 h-3 bg-blue-500 rounded mr-2"></div> <span class="text-gray-300">Deep Sleep (Phys)</span></div>
+                    <div class="flex items-center"><div class="w-3 h-3 bg-purple-500 rounded mr-2"></div> <span class="text-gray-300">REM (Mental)</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SUPPLEMENTS (Expanded with FLIP Cards) -->
+    <section id="supplements" class="py-24 bg-gradient-to-b from-black/50 to-blue-900/10">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">04.</span> Biochemical Arsenal</h2>
+            <p class="text-center text-gray-400 mb-12 text-sm">Hover to see mechanism & dosages.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Magnesium -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Magnesium</h3><span class="bg-cyan-900 text-cyan-300 text-xs px-2 py-1 rounded mb-2">Essential</span><p class="text-xs text-gray-400 mt-2">Universal relaxant.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Form:</strong> Bisglycinate or Threonate.</li><li><strong>Dose:</strong> 400mg.</li><li><strong>Timing:</strong> 1h before bed.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Melatonin -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Melatonin</h3><span class="bg-red-900 text-red-300 text-xs px-2 py-1 rounded mb-2">Clock</span><p class="text-xs text-gray-400 mt-2">Signal, not sedative.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Microdose:</strong> 0.3mg - 1mg.</li><li><strong>Warning:</strong> High doses (>5mg) ruin natural production.</li></ul></div>
+                    </div>
+                </div>
+                <!-- L-Theanine -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">L-Theanine</h3><span class="bg-green-900 text-green-300 text-xs px-2 py-1 rounded mb-2">Calm</span><p class="text-xs text-gray-400 mt-2">Alpha waves.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 200-400mg.</li><li><strong>Effect:</strong> Quiets racing thoughts.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Rhodiola -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Rhodiola</h3><span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded mb-2">Adaptogen</span><p class="text-xs text-gray-400 mt-2">Stress resilience.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Timing:</strong> Morning (AM).</li><li><strong>Effect:</strong> Lowers cortisol later.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Glycine -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Glycine</h3><span class="bg-blue-900 text-blue-300 text-xs px-2 py-1 rounded mb-2">Thermal</span><p class="text-xs text-gray-400 mt-2">Lowers temp.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 3-5g.</li><li><strong>Benefit:</strong> Improves Deep Sleep.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Zinc -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Zinc</h3><span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded mb-2">Hormonal</span><p class="text-xs text-gray-400 mt-2">Testosterone.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 15-30mg.</li><li><strong>Target:</strong> Men. ZMA stack.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Tart Cherry -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Tart Cherry</h3><span class="bg-red-900 text-red-300 text-xs px-2 py-1 rounded mb-2">Natural</span><p class="text-xs text-gray-400 mt-2">Recovery.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Benefit:</strong> Natural melatonin.</li><li><strong>Best for:</strong> Athletes.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Apigenin -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Apigenin</h3><span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded mb-2">Sedative</span><p class="text-xs text-gray-400 mt-2">Chamomile.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 50mg.</li><li><strong>Effect:</strong> Mild GABA effect.</li></ul></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROFILES -->
+    <section id="profiles" class="py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-dynamic">05.</span> Elite Profiles</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                 <div class="glass-card p-8 rounded-2xl border-l-4 border-blue-500 fade-up">
+                    <h3 class="text-2xl font-bold text-blue-400 mb-2"><i class="fa-solid fa-mars mr-3"></i> Men</h3>
+                    <p class="text-sm text-gray-300 mb-4">Focus: Apnea Prevention & Testosterone.</p>
+                    <ul class="text-xs text-gray-400 space-y-2 list-disc pl-4">
+                        <li>Sleep on SIDE (Avoid supine).</li>
+                        <li>Mouth Taping is mandatory.</li>
+                        <li>Zinc + Boron for T levels.</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-pink-500 fade-up">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-2"><i class="fa-solid fa-venus mr-3"></i> Women</h3>
+                    <p class="text-sm text-gray-300 mb-4">Focus: Hormonal Fluctuation.</p>
+                    <ul class="text-xs text-gray-400 space-y-2 list-disc pl-4">
+                        <li>Luteal Phase: Needs extra cooling.</li>
+                        <li>Check Ferritin (Iron) for RLS.</li>
+                        <li>Bioidentical Progesterone (Menopause).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-2xl border-t-4 border-yellow-500 fade-up">
+                    <h3 class="text-xl font-bold text-yellow-500 mb-2"><i class="fa-solid fa-briefcase mr-2"></i> The Executive</h3>
+                    <p class="text-sm text-gray-300 mb-4">High Cortisol. Stressed.</p>
+                    <div class="text-xs space-y-1 text-gray-400">
+                        <p><strong>Morning:</strong> Caffeine + L-Tyrosine.</p>
+                        <p><strong>Night:</strong> Rhodiola (AM) + Phosphatidylserine (PM).</p>
+                        <p><strong>Rule:</strong> Zero email 90min before bed.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border-t-4 border-red-500 fade-up">
+                    <h3 class="text-xl font-bold text-red-500 mb-2"><i class="fa-solid fa-dumbbell mr-2"></i> The Athlete</h3>
+                    <p class="text-sm text-gray-300 mb-4">Needs Max HGH & Repair.</p>
+                    <div class="text-xs space-y-1 text-gray-400">
+                        <p><strong>Dinner:</strong> High Carb (Serotonin boost).</p>
+                        <p><strong>Stack:</strong> Tart Cherry + ZMA + Glycine.</p>
+                        <p><strong>Rule:</strong> Cold bed (18°C) for deep sleep.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FRONTIER -->
+    <section id="frontier" class="py-24 bg-black/20">
+        <div class="max-w-7xl mx-auto px-4">
+             <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-purple-400">06.</span> Advanced Frontier</h2>
+             <div class="grid lg:grid-cols-3 gap-6">
+                <div class="glass-card p-8 rounded-2xl bg-purple-900/10 border border-purple-500/20 hover:border-purple-500/50 transition">
+                    <h3 class="text-xl font-bold text-purple-400 mb-4"><i class="fa-solid fa-dna mr-2"></i> Peptides</h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><strong>Epitalon:</strong> Restores pineal gland.</li>
+                        <li><strong>DSIP:</strong> Forces Delta waves.</li>
+                        <li><strong>BPC-157:</strong> Repairs GABA damage.</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl bg-blue-900/10 border border-blue-500/20 hover:border-blue-500/50 transition">
+                    <h3 class="text-xl font-bold text-blue-400 mb-4"><i class="fa-solid fa-hospital mr-2"></i> Clinical</h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><strong>HBOT:</strong> Hyperbaric Oxygen.</li>
+                        <li><strong>NAD+ IV:</strong> Mitochondrial reset.</li>
+                        <li><strong>Stem Cells:</strong> Systemic repair.</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl bg-cyan-900/10 border border-cyan-500/20 hover:border-cyan-500/50 transition">
+                    <h3 class="text-xl font-bold text-dynamic mb-4"><i class="fa-solid fa-microchip mr-2"></i> Hardware</h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><strong>Eight Sleep:</strong> Thermal regulation.</li>
+                        <li><strong>Oura:</strong> Predictive tracking.</li>
+                        <li><strong>PEMF:</strong> Cellular recharging.</li>
+                    </ul>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- 7. PROTOCOL -->
+    <section id="protocol" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center text-white"><span class="text-dynamic">07.</span> 30-Day Action Plan</h2>
+            <div class="relative border-l-2 border-white/10 ml-4 md:ml-0 space-y-12 pl-8 md:pl-0">
+                <div class="relative md:flex items-center justify-between group fade-up">
+                    <div class="absolute -left-11 md:left-1/2 md:-ml-3 h-6 w-6 rounded-full bg-dynamic border-4 border-black z-10"></div>
+                    <div class="md:w-[45%] mb-4 md:mb-0 md:text-right md:pr-8">
+                        <h3 class="text-2xl font-bold text-white">Week 1: Reset</h3>
+                        <p class="text-dynamic font-bold mb-2">Fundamentals</p>
+                        <p class="text-gray-400 text-sm">Fix wake time. Sun AM. Zero Caffeine PM. Dark room.</p>
+                    </div>
+                    <div class="md:w-[45%]"></div>
+                </div>
+                <div class="relative md:flex items-center justify-between group fade-up">
+                    <div class="absolute -left-11 md:left-1/2 md:-ml-3 h-6 w-6 rounded-full bg-dynamic border-4 border-black z-10"></div>
+                    <div class="md:w-[45%] md:pr-8 order-2 md:order-1"></div>
+                    <div class="md:w-[45%] mb-4 md:mb-0 md:pl-8 order-1 md:order-2">
+                        <h3 class="text-2xl font-bold text-white">Week 2: Chemistry</h3>
+                        <p class="text-dynamic font-bold mb-2">Supplements</p>
+                        <p class="text-gray-400 text-sm">Introduce Magnesium + Theanine. Melatonin if needed.</p>
+                    </div>
+                </div>
+                <div class="relative md:flex items-center justify-between group fade-up">
+                    <div class="absolute -left-11 md:left-1/2 md:-ml-3 h-6 w-6 rounded-full bg-dynamic border-4 border-black z-10"></div>
+                    <div class="md:w-[45%] mb-4 md:mb-0 md:text-right md:pr-8">
+                        <h3 class="text-2xl font-bold text-white">Week 3: Therapy</h3>
+                        <p class="text-dynamic font-bold mb-2">CBT-I & Adaptogens</p>
+                        <p class="text-gray-400 text-sm">Start Sleep Restriction if severe. Add Glycine.</p>
+                    </div>
+                    <div class="md:w-[45%]"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. INVESTMENT -->
+    <section id="investment" class="py-24 bg-black/40">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-green-400">08.</span> Investment ROI</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-0 rounded-xl overflow-hidden border-t-4 border-gray-500">
+                    <div class="bg-gray-800 p-6 text-center"><h3 class="text-xl font-bold text-white">Level Zero</h3><p class="text-sm text-gray-400">$0 / mo</p></div>
+                    <div class="p-6 text-center"><p class="text-gray-300 text-sm mb-4">Sun + Fasting + Cold Room</p><p class="text-green-400 font-bold">Gain: 30-40%</p></div>
+                </div>
+                <div class="glass-card p-0 rounded-xl overflow-hidden border-t-4 border-cyan-500 transform scale-105 shadow-2xl">
+                    <div class="bg-cyan-900/50 p-6 text-center"><h3 class="text-xl font-bold text-white">Biohacker</h3><p class="text-sm text-cyan-300">$50 - $150</p></div>
+                    <div class="p-6 text-center"><p class="text-gray-300 text-sm mb-4">Supplements + Oura + Glasses</p><p class="text-cyan-400 font-bold">Gain: 70-85%</p></div>
+                </div>
+                <div class="glass-card p-0 rounded-xl overflow-hidden border-t-4 border-purple-500">
+                    <div class="bg-purple-900/50 p-6 text-center"><h3 class="text-xl font-bold text-white">Elite</h3><p class="text-sm text-purple-300">$500+</p></div>
+                    <div class="p-6 text-center"><p class="text-gray-300 text-sm mb-4">Eight Sleep + Peptides</p><p class="text-purple-400 font-bold">Gain: 95-99%</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. MYTHS -->
+    <section id="myths" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 fade-up">
+            <h2 class="text-3xl font-bold mb-8 text-center text-white"><span class="text-red-500">09.</span> Myths</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="flip-card">
+                    <div class="flip-card-inner-myth">
+                        <div class="flip-card-front-myth"><i class="fa-solid fa-wine-glass text-red-500 text-3xl mb-4"></i><h3 class="font-bold text-white">"Alcohol helps"</h3></div>
+                        <div class="flip-card-back-myth"><h3 class="font-bold mb-2">FALSE</h3><p class="text-xs">Sedation ≠ Sleep. Destroys REM.</p></div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner-myth">
+                        <div class="flip-card-front-myth"><i class="fa-solid fa-calendar-week text-red-500 text-3xl mb-4"></i><h3 class="font-bold text-white">"Catch up later"</h3></div>
+                        <div class="flip-card-back-myth"><h3 class="font-bold mb-2">FALSE</h3><p class="text-xs">You can't pay back neural debt.</p></div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner-myth">
+                        <div class="flip-card-front-myth"><i class="fa-solid fa-tv text-red-500 text-3xl mb-4"></i><h3 class="font-bold text-white">"TV to sleep"</h3></div>
+                        <div class="flip-card-back-myth"><h3 class="font-bold mb-2">BAD</h3><p class="text-xs">Blue light + Alertness = Shallow sleep.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPENDIX: TECH LAB -->
+    <section id="tech-lab" class="py-24 bg-gradient-to-b from-black/80 to-black/40">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">10.</span> Tech Lab</h2>
+            <p class="text-center text-gray-400 mb-12">Passive Monitoring vs Active Intervention.</p>
+            <div class="tech-grid mb-12">
+                <div class="glass-card p-8 border border-white/10">
+                    <div class="flex justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Oura Ring</h3>
+                        <i class="fa-solid fa-ring text-3xl text-gray-400"></i>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4"><strong>The Predictor.</strong> Passive tracker.</p>
+                    <ul class="text-xs text-gray-400 space-y-2 list-disc pl-4">
+                        <li>Illness detection (fever) days in advance.</li>
+                        <li>Daily Readiness Score.</li>
+                        <li>Best for: General Health & Budget.</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 border border-white/10">
+                    <div class="flex justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Eight Sleep</h3>
+                        <i class="fa-solid fa-temperature-low text-3xl text-blue-400"></i>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4"><strong>The Intervener.</strong> Active cooling.</p>
+                    <ul class="text-xs text-gray-400 space-y-2 list-disc pl-4">
+                        <li>Autopilot adjusts temp 3,200x/night.</li>
+                        <li>Increases Deep Sleep by 20%+.</li>
+                        <li>Best for: Insomnia & Hot Sleepers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPENDIX: ARCHITECTS -->
+    <section id="maestros" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-dynamic">11.</span> The Architects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500/50"><h3 class="text-lg font-bold mb-1">Matthew Walker</h3><p class="text-xs text-gray-400">Neuroscience. QQRT Rule.</p></div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-yellow-500/50"><h3 class="text-lg font-bold mb-1">Andrew Huberman</h3><p class="text-xs text-gray-400">Neurobiology. Light/Temp.</p></div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-green-500/50"><h3 class="text-lg font-bold mb-1">Peter Attia</h3><p class="text-xs text-gray-400">Longevity MD.</p></div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500/50"><h3 class="text-lg font-bold mb-1">Chris Winter</h3><p class="text-xs text-gray-400">Neurology. Sleep Restriction.</p></div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-orange-500/50"><h3 class="text-lg font-bold mb-1">Michael Breus</h3><p class="text-xs text-gray-400">Psychology. Chronotypes.</p></div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-red-500/50"><h3 class="text-lg font-bold mb-1">Asprey / Johnson</h3><p class="text-xs text-gray-400">Biohacking Pioneers.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPENDIX: CHRONOTYPES -->
+    <section id="chronotypes" class="py-24 bg-black/20">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-white"><span class="text-orange-400">12.</span> Chronotypes</h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="glass-card p-6 border border-white/10 hover:border-orange-500 transition text-center"><i class="fa-solid fa-sun text-2xl text-orange-500 mb-2"></i><h3 class="font-bold text-white">Lion</h3><p class="text-xs text-gray-400">Early Riser.</p></div>
+                <div class="glass-card p-6 border border-white/10 hover:border-blue-500 transition text-center"><i class="fa-solid fa-paw text-2xl text-blue-500 mb-2"></i><h3 class="font-bold text-white">Bear</h3><p class="text-xs text-gray-400">Solar Cycle.</p></div>
+                <div class="glass-card p-6 border border-white/10 hover:border-purple-500 transition text-center"><i class="fa-solid fa-moon text-2xl text-purple-500 mb-2"></i><h3 class="font-bold text-white">Wolf</h3><p class="text-xs text-gray-400">Night Owl.</p></div>
+                <div class="glass-card p-6 border border-white/10 hover:border-cyan-500 transition text-center"><i class="fa-solid fa-water text-2xl text-cyan-500 mb-2"></i><h3 class="font-bold text-white">Dolphin</h3><p class="text-xs text-gray-400">Insomniac.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-500 text-sm border-t border-white/10 bg-black">
+        <p>SLEEP_LAB © 2025 by Cabo Health | Based on Science. Optimized for Humans.</p>
+    </footer>
+
+    <script>
+        // 1. Tab Logic
+        function openTab(tabName) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active", "bg-white/10", "text-dynamic"); buttons[i].classList.add("text-gray-300"); }
+            document.getElementById(tabName).classList.add("active");
+            const activeBtn = document.getElementById("btn-" + tabName);
+            activeBtn.classList.add("active", "bg-white/10", "text-dynamic"); activeBtn.classList.remove("text-gray-300");
+        }
+        
+        // 2. Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        // 3. Night Mode
+        function toggleNightMode() { document.body.classList.toggle('night-mode'); }
+        function toggleLanguage() { alert("Spanish version coming soon!"); }
+
+        // 4. Audio Logic
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let synthRunning = false; let currentMode = 'sleep'; let currentMethod = 'isochronic';
+        let carrierOscL, carrierOscR, masterGain, lfoOsc, noiseNode, noiseGain;
+        let isNoiseOn = false; let timerInterval; let currentVolume = 0.3;
+
+        const PRESETS = { sleep: { targetHz: 0.5, carrier: 100 }, relax: { targetHz: 10, carrier: 200 }, calm: { targetHz: 6, carrier: 150 } };
+
+        function setSynthMode(mode) { currentMode = mode; document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('active')); document.getElementById('mode-' + mode).classList.add('active'); if(synthRunning) updateSynthParams(); }
+        function setSynthMethod(method) { currentMethod = method; document.querySelectorAll('[id^="method-"]').forEach(btn => btn.classList.remove('active')); document.getElementById('method-' + method).classList.add('active'); if(synthRunning) { stopSynth(); startSynth(); } }
+        function updateVolume(val) { currentVolume = val / 100; document.getElementById('volDisplay').innerText = val + '%'; if(masterGain) masterGain.gain.setTargetAtTime(currentVolume, audioCtx.currentTime, 0.1); }
+        function toggleSynth() { 
+            if(!synthRunning) { startSynth(); document.getElementById('mainPlayBtn').innerHTML = 'DEACTIVATE'; document.getElementById('mainPlayBtn').classList.replace('bg-white/10', 'bg-red-500/20'); document.getElementById('visualizer').classList.add('playing'); document.getElementById('visualizer').classList.remove('opacity-30');
+                const mins = parseInt(document.getElementById('synthTimer').value);
+                if(mins > 0) { timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000); }
+            } else { stopSynth(); document.getElementById('mainPlayBtn').innerHTML = 'ACTIVATE'; document.getElementById('mainPlayBtn').classList.replace('bg-red-500/20', 'bg-white/10'); document.getElementById('visualizer').classList.remove('playing'); document.getElementById('visualizer').classList.add('opacity-30'); if(timerInterval) clearTimeout(timerInterval); }
+        }
+        function toggleNoise() { isNoiseOn = !isNoiseOn; const t = document.getElementById('noiseToggle'); if(isNoiseOn) { t.style.transform = 'translateX(24px)'; t.parentElement.classList.replace('bg-gray-700', 'bg-green-500'); startNoise(); } else { t.style.transform = 'translateX(0)'; t.parentElement.classList.replace('bg-green-500', 'bg-gray-700'); stopNoise(); } }
+
+        function startSynth() {
+            synthRunning = true; if(audioCtx.state === 'suspended') audioCtx.resume();
+            const config = PRESETS[currentMode]; masterGain = audioCtx.createGain(); masterGain.gain.value = currentVolume; masterGain.connect(audioCtx.destination);
+            
+            if(currentMethod === 'isochronic') {
+                carrierOscL = audioCtx.createOscillator(); carrierOscL.frequency.value = config.carrier;
+                const ampGain = audioCtx.createGain(); ampGain.gain.value = 0.5;
+                lfoOsc = audioCtx.createOscillator(); lfoOsc.type = 'square'; lfoOsc.frequency.value = config.targetHz;
+                const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 0.5;
+                carrierOscL.connect(ampGain); ampGain.connect(masterGain); lfoOsc.connect(lfoGain); lfoGain.connect(ampGain.gain);
+                carrierOscL.start(); lfoOsc.start();
+            } else {
+                const merger = audioCtx.createChannelMerger(2);
+                carrierOscL = audioCtx.createOscillator(); carrierOscR = audioCtx.createOscillator();
+                carrierOscL.frequency.value = config.carrier; carrierOscR.frequency.value = config.carrier + config.targetHz;
+                carrierOscL.connect(merger, 0, 0); carrierOscR.connect(merger, 0, 1); merger.connect(masterGain);
+                carrierOscL.start(); carrierOscR.start();
+            }
+            if(isNoiseOn) startNoise();
+        }
+        function stopSynth() { synthRunning = false; if(carrierOscL) { carrierOscL.stop(); carrierOscL.disconnect(); } if(carrierOscR) { carrierOscR.stop(); carrierOscR.disconnect(); } if(lfoOsc) { lfoOsc.stop(); lfoOsc.disconnect(); } if(noiseNode && !isNoiseOn) stopNoise(); } 
+        function updateSynthParams() { if(!synthRunning) return; const config = PRESETS[currentMode]; const now = audioCtx.currentTime; 
+            if(currentMethod === 'isochronic') { lfoOsc.frequency.linearRampToValueAtTime(config.targetHz, now+0.5); carrierOscL.frequency.linearRampToValueAtTime(config.carrier, now+0.5); }
+            else { carrierOscL.frequency.linearRampToValueAtTime(config.carrier, now+0.5); carrierOscR.frequency.linearRampToValueAtTime(config.carrier+config.targetHz, now+0.5); }
+        }
+        
+        function startNoise() { 
+            if(noiseNode) return; // Prevent double noise
+            const bS = 2 * audioCtx.sampleRate; const b = audioCtx.createBuffer(1, bS, audioCtx.sampleRate); const o = b.getChannelData(0);
+            for (let i=0; i<bS; i++) { 
+                const white = Math.random() * 2 - 1; 
+                o[i] = (lastOut + (0.02 * white)) / 1.02; 
+                lastOut = o[i]; 
+                o[i] *= 3.5; 
+            }
+            noiseNode = audioCtx.createBufferSource(); noiseNode.buffer = b; noiseNode.loop = true;
+            noiseGain = audioCtx.createGain(); noiseGain.gain.value = 0.05; noiseNode.connect(noiseGain); noiseGain.connect(audioCtx.destination); noiseNode.start();
+        }
+        let lastOut = 0;
+        function stopNoise() { if(noiseNode) { noiseNode.stop(); noiseNode.disconnect(); noiseNode=null; } if(noiseGain) noiseGain.disconnect(); }
+
+        // Breathing & Calc
+        let isBreathing = false; let breathInterval;
+        function toggleBreathing() { 
+            const btn = document.getElementById('breathBtn'); const text = document.getElementById('breathText'); const circle = document.getElementById('breathCircle');
+            if (!isBreathing) { isBreathing = true; btn.innerText = "Stop"; runBreathCycle(); } else { isBreathing = false; btn.innerText = "Start Session"; text.innerText = "Ready"; circle.style.transform = "scale(1)"; clearTimeout(breathInterval); }
+        }
+        function runBreathCycle() {
+            if (!isBreathing) return;
+            const text = document.getElementById('breathText'); const circle = document.getElementById('breathCircle');
+            text.innerText = "Inhale"; circle.style.transition = "transform 4s ease-in-out"; circle.style.transform = "scale(1.5)";
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) return; text.innerText = "Hold";
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) return; text.innerText = "Exhale"; circle.style.transition = "transform 8s ease-in-out"; circle.style.transform = "scale(1)";
+                    breathInterval = setTimeout(runBreathCycle, 8000);
+                }, 7000);
+            }, 4000);
+        }
+        function calculateSleep() {
+            const val = document.getElementById('wakeTime').value; if(!val) return;
+            let [h, m] = val.split(':').map(Number);
+            function fmt(d) { return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0'); }
+            let d = new Date(); d.setHours(h, m, 0);
+            let t1 = new Date(d.getTime() - 9*60*60*1000); let t2 = new Date(d.getTime() - 7.5*60*60*1000); let t3 = new Date(d.getTime() - 6*60*60*1000);
+            document.getElementById('time1').innerText = fmt(t1); document.getElementById('time2').innerText = fmt(t2); document.getElementById('time3').innerText = fmt(t3);
+            document.getElementById('sleepResults').classList.remove('hidden');
+        }
+
+        // Visualizer Bars
+        const viz = document.getElementById('visualizer'); for(let i=0; i<20; i++) { const b = document.createElement('div'); b.className = 'audio-bar'; b.style.animationDelay = Math.random()*0.5+'s'; viz.appendChild(b); }
+
+        // GSAP & ThreeJS
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.fade-up').forEach(e => gsap.fromTo(e, {opacity:0, y:50}, {opacity:1, y:0, duration:0.8, scrollTrigger:{trigger:e, start:"top 85%"}}));
+        gsap.utils.toArray('.bar-anim').forEach(e => gsap.fromTo(e, {scaleY:0, transformOrigin:"bottom"}, {scaleY:1, duration:1, scrollTrigger:{trigger:e, start:"top 80%"}}));
+
+        const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        const geo = new THREE.BufferGeometry(); const count = 800; const pos = new Float32Array(count*3);
+        for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5)*20;
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const mat = new THREE.PointsMaterial({ size: 0.03, color: 0x00f3ff, transparent: true, opacity: 0.6 });
+        const mesh = new THREE.Points(geo, mat); scene.add(mesh);
+        const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(4, 1), new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.05 })); scene.add(sphere);
+        camera.position.z = 5;
+        function animate() { 
+            requestAnimationFrame(animate); 
+            const t = Date.now()*0.0005; 
+            mesh.rotation.y = t*0.05; sphere.rotation.y = t*0.05; 
+            if(document.body.classList.contains('night-mode')) { mat.color.setHex(0xff3c00); sphere.material.color.setHex(0xff3c00); } 
+            else { mat.color.setHex(0x00f3ff); sphere.material.color.setHex(0x00f3ff); }
+            renderer.render(scene, camera); 
+        }
+        animate();
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    </script>
+</body>
+</html>
