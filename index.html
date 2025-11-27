@@ -184,7 +184,8 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
-                        <a href="#how-to" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Manual</a>
+                        <a href="#why-sleep" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Why Sleep</a>
+                        <a href="#foundation" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Foundation</a>
                         <a href="#tools" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Tools</a>
                         <a href="#diagnosis" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Diagnosis</a>
                         <a href="#supplements" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Supplements</a>
@@ -204,7 +205,8 @@
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed top-16 right-0 w-64 h-screen bg-black/95 border-l border-white/10 p-6 md:hidden">
             <div class="flex flex-col space-y-6">
-                <a href="#how-to" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Manual</a>
+                <a href="#why-sleep" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Why Sleep</a>
+                <a href="#foundation" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Foundation</a>
                 <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Tools</a>
                 <a href="#diagnosis" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Diagnosis</a>
                 <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Supplements</a>
@@ -240,6 +242,95 @@
         </div>
     </header>
 
+    <!-- WHY WE SLEEP - Introduction -->
+    <section id="why-sleep" class="py-24 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-dynamic text-xs font-bold uppercase tracking-widest">Understanding Sleep</span>
+                <h2 class="text-3xl md:text-5xl font-bold mt-4 text-white">Why Do We <span class="text-gradient">Sleep?</span></h2>
+            </div>
+
+            <div class="glass-card p-8 md:p-12 rounded-3xl mb-12 fade-up border border-white/10">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3 text-center">
+                        <div class="text-6xl mb-4">🏙️</div>
+                        <h3 class="text-xl font-bold text-white">The City Analogy</h3>
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-gray-300 leading-relaxed mb-4">
+                            Imagine your body is a <strong class="text-white">city</strong>. During the day, there's traffic, commerce, and garbage accumulates everywhere.
+                        </p>
+                        <p class="text-dynamic font-bold text-lg">
+                            Sleep is NOT shutting down the system. It's the night shift for the cleaning and construction crews.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Glymphatic System -->
+                <div class="glass-card p-8 rounded-2xl fade-up border-l-4 border-blue-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-500/20 p-3 rounded-xl mr-4">
+                            <i class="fa-solid fa-truck-moving text-blue-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Glymphatic System</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        The <strong class="text-blue-400">brain's garbage truck</strong>. It only comes out when you sleep deeply to clean toxins (like those that cause Alzheimer's).
+                    </p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-flask mr-2"></i> Beta-amyloid plaques are cleared 60% faster during deep sleep.
+                    </p>
+                </div>
+
+                <!-- Hormones -->
+                <div class="glass-card p-8 rounded-2xl fade-up border-l-4 border-purple-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-500/20 p-3 rounded-xl mr-4">
+                            <i class="fa-solid fa-gas-pump text-purple-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Hormonal Refueling</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        Your <strong class="text-purple-400">"fuel"</strong> (Testosterone, Growth Hormone) only refills during deep sleep. Skip it, and you run on empty.
+                    </p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-chart-line mr-2"></i> 70% of daily HGH is released in the first deep sleep cycle.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sleep Phases -->
+            <div class="glass-card p-8 md:p-10 rounded-3xl fade-up">
+                <h3 class="text-2xl font-bold text-white mb-8 text-center">The Three Stages of Sleep</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-gray-400 transition">
+                        <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-door-open text-gray-300 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-2">Light Sleep</h4>
+                        <p class="text-xs text-gray-400">The "lobby" of sleep. Transition phase. Easy to wake up.</p>
+                    </div>
+                    <div class="text-center p-6 bg-blue-900/20 rounded-2xl border border-blue-500/30 hover:border-blue-500 transition">
+                        <div class="w-16 h-16 bg-blue-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-wrench text-blue-400 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-blue-400 mb-2">Deep Sleep (NREM)</h4>
+                        <p class="text-xs text-gray-300"><strong>Physical Repair.</strong> Muscles heal, toxins clear, physical memory consolidates.</p>
+                    </div>
+                    <div class="text-center p-6 bg-purple-900/20 rounded-2xl border border-purple-500/30 hover:border-purple-500 transition">
+                        <div class="w-16 h-16 bg-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-brain text-purple-400 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-purple-400 mb-2">REM Sleep</h4>
+                        <p class="text-xs text-gray-300"><strong>Emotional Therapy.</strong> Dreams process emotions and trauma. Like therapy while you sleep.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 0. User Manual -->
     <section id="how-to" class="py-24 bg-black/30 border-y border-white/5">
         <div class="max-w-6xl mx-auto px-4">
@@ -265,6 +356,152 @@
                     <h3 class="text-xl font-bold text-white mb-3">Modulate</h3>
                     <p class="text-sm text-gray-400 mb-6 leading-relaxed">Use the <strong>Sonic Pharmacy</strong> tools below. Isochronic tones for strong entrainment, 4-7-8 for vagus nerve activation.</p>
                     <a href="#tools" class="text-xs text-dynamic font-bold uppercase tracking-wider hover:text-white transition">Open Lab &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDATION PROTOCOL - The Free Essentials -->
+    <section id="foundation" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="bg-green-500/20 text-green-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest">$0 Cost</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-6 text-white">Foundation <span class="text-gradient">Protocol</span></h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Without these basics, supplements won't work. Master these first for 1 week before adding anything else.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Light AM -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-yellow-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-500/20 p-3 rounded-xl mr-4 group-hover:bg-yellow-500/30 transition">
+                            <i class="fa-solid fa-sun text-yellow-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">Morning Light</h3>
+                            <span class="text-xs text-yellow-400">ON Signal</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Go outside within 30 min of waking. <strong class="text-white">10 minutes</strong> of sunlight directly to eyes (no sunglasses).</p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-lightbulb mr-2 text-yellow-400"></i> This starts your 16-hour countdown to melatonin release.
+                    </p>
+                </div>
+
+                <!-- Light PM -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-orange-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-orange-500/20 p-3 rounded-xl mr-4 group-hover:bg-orange-500/30 transition">
+                            <i class="fa-solid fa-moon text-orange-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">Evening Darkness</h3>
+                            <span class="text-xs text-orange-400">OFF Signal</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">After 8 PM: dim/warm lights only (red/orange). <strong class="text-white">Zero screens</strong> 1 hour before bed.</p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-glasses mr-2 text-orange-400"></i> Blue light blockers (TrueDark) if you must use screens.
+                    </p>
+                </div>
+
+                <!-- Temperature -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-cyan-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-cyan-500/20 p-3 rounded-xl mr-4 group-hover:bg-cyan-500/30 transition">
+                            <i class="fa-solid fa-temperature-low text-cyan-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">Cool Room</h3>
+                            <span class="text-xs text-cyan-400">18-20°C / 65-68°F</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Your body must drop <strong class="text-white">1°C</strong> to enter deep sleep. Cold room is non-negotiable.</p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-shower mr-2 text-cyan-400"></i> Hot shower before bed → rapid cooling → sleep trigger.
+                    </p>
+                </div>
+
+                <!-- Caffeine -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-red-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-500/20 p-3 rounded-xl mr-4 group-hover:bg-red-500/30 transition">
+                            <i class="fa-solid fa-mug-hot text-red-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">Caffeine Curfew</h3>
+                            <span class="text-xs text-red-400">Stop by 12:00 PM</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Caffeine has a <strong class="text-white">6-hour half-life</strong>. That 3 PM coffee is still 25% active at 9 PM.</p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-clock mr-2 text-red-400"></i> Even "decaf" has 15-30% caffeine. Switch to herbal tea.
+                    </p>
+                </div>
+
+                <!-- Schedule -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-purple-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-500/20 p-3 rounded-xl mr-4 group-hover:bg-purple-500/30 transition">
+                            <i class="fa-solid fa-alarm-clock text-purple-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">Fixed Wake Time</h3>
+                            <span class="text-xs text-purple-400">±30 min always</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Wake at the <strong class="text-white">same time every day</strong>, including weekends. This anchors your circadian rhythm.</p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-ban mr-2 text-purple-400"></i> No "sleeping in" on weekends. It causes social jet lag.
+                    </p>
+                </div>
+
+                <!-- Dinner -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-green-500/50 transition group">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-500/20 p-3 rounded-xl mr-4 group-hover:bg-green-500/30 transition">
+                            <i class="fa-solid fa-utensils text-green-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">Light Dinner</h3>
+                            <span class="text-xs text-green-400">3 hours before bed</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4">Heavy meals force digestion, raising core temperature. Eat light, <strong class="text-white">3 hours before</strong> sleep.</p>
+                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                        <i class="fa-solid fa-wine-glass mr-2 text-green-400"></i> Zero alcohol. It's a sedative, not sleep. Destroys REM.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Checklist -->
+            <div class="glass-card p-8 rounded-2xl bg-gradient-to-r from-green-900/20 to-cyan-900/20 border border-green-500/20">
+                <h3 class="text-xl font-bold text-white mb-6 text-center"><i class="fa-solid fa-clipboard-check text-green-400 mr-3"></i>Week 1 Daily Checklist</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center bg-black/30 p-4 rounded-xl">
+                        <i class="fa-regular fa-square text-gray-500 mr-4 text-lg"></i>
+                        <span class="text-gray-300">Sunlight in face within 30 min of waking</span>
+                    </div>
+                    <div class="flex items-center bg-black/30 p-4 rounded-xl">
+                        <i class="fa-regular fa-square text-gray-500 mr-4 text-lg"></i>
+                        <span class="text-gray-300">No caffeine after 12:00 PM</span>
+                    </div>
+                    <div class="flex items-center bg-black/30 p-4 rounded-xl">
+                        <i class="fa-regular fa-square text-gray-500 mr-4 text-lg"></i>
+                        <span class="text-gray-300">Dim lights after 8 PM</span>
+                    </div>
+                    <div class="flex items-center bg-black/30 p-4 rounded-xl">
+                        <i class="fa-regular fa-square text-gray-500 mr-4 text-lg"></i>
+                        <span class="text-gray-300">Room temperature 18-20°C</span>
+                    </div>
+                    <div class="flex items-center bg-black/30 p-4 rounded-xl">
+                        <i class="fa-regular fa-square text-gray-500 mr-4 text-lg"></i>
+                        <span class="text-gray-300">Light dinner 3h before bed</span>
+                    </div>
+                    <div class="flex items-center bg-black/30 p-4 rounded-xl">
+                        <i class="fa-regular fa-square text-gray-500 mr-4 text-lg"></i>
+                        <span class="text-gray-300">Same wake time (even weekends)</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -450,6 +687,10 @@
                                     <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-glass-water text-blue-400"></i></div>
                                     <div><p class="font-bold text-white text-sm">Salt + Water Hack</p><p class="text-xs text-gray-400 mt-1">Sip a tiny amount of water with a pinch of sea salt before bed. Helps retain fluid in cells, not the bladder.</p></div>
                                 </div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
+                                    <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-blue-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Zero Liquids 2h Before</p><p class="text-xs text-gray-400 mt-1">Stop drinking water 2 hours before bed. Empty bladder right before sleeping.</p></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -475,6 +716,14 @@
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-capsules text-purple-400"></i></div>
                                     <div><p class="font-bold text-white text-sm">L-Theanine (200-400mg)</p><p class="text-xs text-gray-400 mt-1">Increases Alpha brainwaves, quieting internal dialogue without sedation.</p></div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
+                                    <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-pen-to-square text-purple-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Cognitive Dump (Journaling)</p><p class="text-xs text-gray-400 mt-1">2 hours before bed, write ALL your pending tasks on paper. Get them out of your head and onto the page.</p></div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
+                                    <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-headphones text-purple-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Boring Distraction</p><p class="text-xs text-gray-400 mt-1">Listen to a boring audiobook or "Sleep Stories" (Calm app) so your brain focuses on something other than your problems.</p></div>
                                 </div>
                             </div>
                         </div>
@@ -502,11 +751,19 @@
                                     <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-eye-slash text-yellow-400"></i></div>
                                     <div><p class="font-bold text-white text-sm">NSDR (Non-Sleep Deep Rest)</p><p class="text-xs text-gray-400 mt-1">If you wake up, do NOT check the time. Immediately start a Yoga Nidra body scan.</p></div>
                                 </div>
+                                <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
+                                    <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-capsules text-yellow-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Inositol (2-3g)</p><p class="text-xs text-gray-400 mt-1">Keep by your bed. If you wake up, take 2-3 grams. It helps you fall back asleep quickly.</p></div>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
+                                    <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-clock text-yellow-400"></i></div>
+                                    <div><p class="font-bold text-white text-sm">Never Check the Clock</p><p class="text-xs text-gray-400 mt-1">Looking at the time triggers anxiety and cortisol. Turn clocks away from view.</p></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Tab Content: Shallow -->
                 <div id="shallow" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
@@ -690,6 +947,20 @@
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Apigenin</h3><span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded mb-2">Sedative</span><p class="text-xs text-gray-400 mt-2">Chamomile.</p></div>
                         <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 50mg.</li><li><strong>Effect:</strong> Mild GABA effect.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Ashwagandha -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Ashwagandha</h3><span class="bg-orange-900 text-orange-300 text-xs px-2 py-1 rounded mb-2">Anti-Stress</span><p class="text-xs text-gray-400 mt-2">Cortisol killer.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Form:</strong> KSM-66 extract.</li><li><strong>Dose:</strong> 300-600mg.</li><li><strong>Timing:</strong> Evening (lowers cortisol).</li><li><strong>Best for:</strong> Chronic stress, high-achievers.</li></ul></div>
+                    </div>
+                </div>
+                <!-- Inositol -->
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flip-card-inner">
+                        <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Inositol</h3><span class="bg-pink-900 text-pink-300 text-xs px-2 py-1 rounded mb-2">Rescue</span><p class="text-xs text-gray-400 mt-2">Back to sleep.</p></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 2-3 grams.</li><li><strong>When:</strong> If you wake at 3 AM.</li><li><strong>Effect:</strong> Helps return to sleep quickly.</li></ul></div>
                     </div>
                 </div>
             </div>
