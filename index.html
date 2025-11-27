@@ -1290,6 +1290,47 @@
                     </div>
                 </div>
 
+                <!-- What to Expect Panel -->
+                <div class="expect-panel mb-6">
+                    <button onclick="toggleExpectPanel('synth')" class="w-full flex items-center justify-between bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-xl p-4 hover:border-yellow-500/50 transition">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-sparkles text-yellow-400"></i>
+                            <span class="text-sm font-bold text-yellow-300" data-i18n="expect.title">What to Expect</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-yellow-400 transition-transform" id="expectIconSynth"></i>
+                    </button>
+                    <div id="expectContentSynth" class="hidden mt-3 bg-black/40 border border-white/10 rounded-xl p-5">
+                        <div class="grid md:grid-cols-3 gap-4 text-sm">
+                            <div>
+                                <p class="text-yellow-400 font-bold mb-2 text-xs"><i class="fa-solid fa-clock mr-2"></i><span data-i18n="expect.synth.timing">TIMING</span></p>
+                                <ul class="text-gray-300 text-xs space-y-1">
+                                    <li data-i18n="expect.synth.timing1">• First 5 min: May feel strange/unusual</li>
+                                    <li data-i18n="expect.synth.timing2">• 10-15 min: Brain starts synchronizing</li>
+                                    <li data-i18n="expect.synth.timing3">• 20+ min: Full entrainment effect</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-green-400 font-bold mb-2 text-xs"><i class="fa-solid fa-check mr-2"></i><span data-i18n="expect.synth.normal">NORMAL SENSATIONS</span></p>
+                                <ul class="text-gray-300 text-xs space-y-1">
+                                    <li data-i18n="expect.synth.normal1">• Tingling in head/scalp</li>
+                                    <li data-i18n="expect.synth.normal2">• Feeling of "floating"</li>
+                                    <li data-i18n="expect.synth.normal3">• Slowed breathing</li>
+                                    <li data-i18n="expect.synth.normal4">• Heavy eyelids</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-red-400 font-bold mb-2 text-xs"><i class="fa-solid fa-triangle-exclamation mr-2"></i><span data-i18n="expect.synth.stop">STOP IF</span></p>
+                                <ul class="text-gray-300 text-xs space-y-1">
+                                    <li data-i18n="expect.synth.stop1">• Headache or dizziness</li>
+                                    <li data-i18n="expect.synth.stop2">• Nausea</li>
+                                    <li data-i18n="expect.synth.stop3">• Anxiety increases</li>
+                                    <li class="text-gray-500 italic" data-i18n="expect.synth.stop4">(Rare - usually means volume too high)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-8">
                     <div class="flex-1">
                         <h3 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> Neuro-Synthesizer</h3>
@@ -1402,7 +1443,7 @@
                 <!-- Breathing Tool -->
                 <div class="glass-card p-6 rounded-2xl fade-up">
                     <!-- User Guide -->
-                    <div class="tool-info-card mb-6">
+                    <div class="tool-info-card mb-4">
                         <h4><i class="fa-solid fa-circle-info mr-2"></i> Breathing Guide</h4>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
@@ -1420,6 +1461,33 @@
                                     <li>During stress (Box)</li>
                                     <li>Panic attack (Sigh)</li>
                                 </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- What to Expect Panel - Breathing -->
+                    <div class="expect-panel mb-4">
+                        <button onclick="toggleExpectPanel('breath')" class="w-full flex items-center justify-between bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg p-3 hover:border-yellow-500/50 transition">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-sparkles text-yellow-400 text-sm"></i>
+                                <span class="text-xs font-bold text-yellow-300" data-i18n="expect.title">What to Expect</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-yellow-400 text-xs transition-transform" id="expectIconBreath"></i>
+                        </button>
+                        <div id="expectContentBreath" class="hidden mt-2 bg-black/40 border border-white/10 rounded-lg p-4">
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <p class="text-green-400 font-bold mb-1"><i class="fa-solid fa-check mr-1"></i><span data-i18n="expect.breath.normal">NORMAL</span></p>
+                                    <ul class="text-gray-300 space-y-1">
+                                        <li data-i18n="expect.breath.normal1">• Light-headedness (first cycles)</li>
+                                        <li data-i18n="expect.breath.normal2">• Tingling in fingers/lips</li>
+                                        <li data-i18n="expect.breath.normal3">• Deep calm after 4+ cycles</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-yellow-400 font-bold mb-1"><i class="fa-solid fa-lightbulb mr-1"></i><span data-i18n="expect.breath.tip">TIP</span></p>
+                                    <p class="text-gray-300" data-i18n="expect.breath.tipText">If dizzy, breathe normally for 30 sec then resume. Gets easier with practice.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2656,6 +2724,16 @@
             content.classList.toggle('active');
         }
 
+        // Toggle "What to Expect" panels
+        function toggleExpectPanel(tool) {
+            const content = document.getElementById('expectContent' + tool.charAt(0).toUpperCase() + tool.slice(1));
+            const icon = document.getElementById('expectIcon' + tool.charAt(0).toUpperCase() + tool.slice(1));
+            if(content && icon) {
+                content.classList.toggle('hidden');
+                icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
+        }
+
         // Initialize accordion keyboard support
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.accordion-header').forEach(header => {
@@ -2975,7 +3053,30 @@
                 'quiz.result.title': 'Your Recommended Protocol:',
                 'quiz.result.view': 'View Protocol',
                 'quiz.result.restart': 'Retake Quiz',
-                'diagnosis.orSelect': 'Or select your symptom directly:'
+                'diagnosis.orSelect': 'Or select your symptom directly:',
+
+                // What to Expect Panels
+                'expect.title': 'What to Expect',
+                'expect.synth.timing': 'TIMING',
+                'expect.synth.timing1': '• First 5 min: May feel strange/unusual',
+                'expect.synth.timing2': '• 10-15 min: Brain starts synchronizing',
+                'expect.synth.timing3': '• 20+ min: Full entrainment effect',
+                'expect.synth.normal': 'NORMAL SENSATIONS',
+                'expect.synth.normal1': '• Tingling in head/scalp',
+                'expect.synth.normal2': '• Feeling of "floating"',
+                'expect.synth.normal3': '• Slowed breathing',
+                'expect.synth.normal4': '• Heavy eyelids',
+                'expect.synth.stop': 'STOP IF',
+                'expect.synth.stop1': '• Headache or dizziness',
+                'expect.synth.stop2': '• Nausea',
+                'expect.synth.stop3': '• Anxiety increases',
+                'expect.synth.stop4': '(Rare - usually means volume too high)',
+                'expect.breath.normal': 'NORMAL',
+                'expect.breath.normal1': '• Light-headedness (first cycles)',
+                'expect.breath.normal2': '• Tingling in fingers/lips',
+                'expect.breath.normal3': '• Deep calm after 4+ cycles',
+                'expect.breath.tip': 'TIP',
+                'expect.breath.tipText': 'If dizzy, breathe normally for 30 sec then resume. Gets easier with practice.'
             },
             es: {
                 // Navigation
@@ -3179,7 +3280,30 @@
                 'quiz.result.title': 'Protocolo Recomendado:',
                 'quiz.result.view': 'Ver Protocolo',
                 'quiz.result.restart': 'Repetir Quiz',
-                'diagnosis.orSelect': 'O selecciona tu síntoma directamente:'
+                'diagnosis.orSelect': 'O selecciona tu síntoma directamente:',
+
+                // What to Expect Panels
+                'expect.title': 'Qué Esperar',
+                'expect.synth.timing': 'TIEMPO',
+                'expect.synth.timing1': '• Primeros 5 min: Puede sentirse extraño',
+                'expect.synth.timing2': '• 10-15 min: El cerebro comienza a sincronizar',
+                'expect.synth.timing3': '• 20+ min: Efecto completo de entrainment',
+                'expect.synth.normal': 'SENSACIONES NORMALES',
+                'expect.synth.normal1': '• Hormigueo en cabeza/cuero cabelludo',
+                'expect.synth.normal2': '• Sensación de "flotar"',
+                'expect.synth.normal3': '• Respiración más lenta',
+                'expect.synth.normal4': '• Párpados pesados',
+                'expect.synth.stop': 'DETENTE SI',
+                'expect.synth.stop1': '• Dolor de cabeza o mareo',
+                'expect.synth.stop2': '• Náuseas',
+                'expect.synth.stop3': '• La ansiedad aumenta',
+                'expect.synth.stop4': '(Raro - usualmente significa volumen muy alto)',
+                'expect.breath.normal': 'NORMAL',
+                'expect.breath.normal1': '• Mareo leve (primeros ciclos)',
+                'expect.breath.normal2': '• Hormigueo en dedos/labios',
+                'expect.breath.normal3': '• Calma profunda después de 4+ ciclos',
+                'expect.breath.tip': 'CONSEJO',
+                'expect.breath.tipText': 'Si te mareas, respira normal por 30 seg y retoma. Se vuelve más fácil con práctica.'
             }
         };
 
