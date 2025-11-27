@@ -346,12 +346,12 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#quick-start" class="text-cyan-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.quickStart">Quick Start</a>
                         <a href="#why-sleep" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.whySleep">Why Sleep</a>
                         <a href="#foundation" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.foundation">Foundation</a>
-                        <a href="#advanced-protocols" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.protocols">Protocols</a>
+                        <a href="#tools" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.tools">Tools</a>
                         <a href="#diagnosis" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.diagnosis">Diagnosis</a>
                         <a href="#supplements" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.supplements">Supplements</a>
-                        <a href="#frontier" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.frontier">Frontier</a>
                         <a href="#protocol" class="bg-dynamic text-black px-5 py-2 rounded-full text-sm font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition" data-i18n="nav.startPlan">Start Plan</a>
                     </div>
                 </div>
@@ -368,13 +368,12 @@
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed top-16 right-0 w-64 h-screen bg-black/95 border-l border-white/10 p-6 md:hidden overflow-y-auto">
             <div class="flex flex-col space-y-5">
+                <a href="#quick-start" onclick="toggleMobileMenu()" class="text-lg text-cyan-400 font-bold" data-i18n="nav.quickStart">Quick Start</a>
                 <a href="#why-sleep" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.whySleep">Why Sleep</a>
                 <a href="#foundation" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.foundation">Foundation</a>
-                <a href="#advanced-protocols" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.protocols">Protocols</a>
-                <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Tools</a>
+                <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.tools">Tools</a>
                 <a href="#diagnosis" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.diagnosis">Diagnosis</a>
                 <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.supplements">Supplements</a>
-                <a href="#frontier" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.frontier">Frontier</a>
                 <a href="#protocol" onclick="toggleMobileMenu()" class="text-lg text-dynamic font-bold" data-i18n="nav.startPlan">Start Plan</a>
             </div>
         </div>
@@ -405,6 +404,76 @@
             <i class="fa-solid fa-chevron-down text-2xl"></i>
         </div>
     </header>
+
+    <!-- QUICK START - 3 Essential Steps for Beginners -->
+    <section id="quick-start" class="py-20 bg-gradient-to-b from-cyan-900/10 to-transparent border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="bg-cyan-500/20 text-cyan-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest" data-i18n="quickStart.badge">Start Here</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-6 text-white" data-i18n="quickStart.title">Quick Start: <span class="text-gradient">3 Essential Steps</span></h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto" data-i18n="quickStart.subtitle">New to sleep optimization? Start with these 3 FREE fundamentals. No supplements, no devices - just science.</p>
+            </div>
+
+            <!-- 3 Essential Steps -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <!-- Step 1: Morning Light -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-yellow-500/50 transition group relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-yellow-500 text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                    <div class="bg-yellow-500/20 p-4 rounded-xl w-fit mb-4 group-hover:bg-yellow-500/30 transition">
+                        <i class="fa-solid fa-sun text-yellow-400 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-xl mb-2" data-i18n="quickStart.step1.title">Morning Sunlight</h3>
+                    <p class="text-sm text-gray-300 mb-4" data-i18n="quickStart.step1.desc">Get 10 minutes of sunlight within 30 min of waking. This resets your circadian clock and starts a 16-hour countdown to natural melatonin release.</p>
+                    <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-lg">
+                        <p class="text-xs text-yellow-300"><i class="fa-solid fa-clock mr-2"></i><span data-i18n="quickStart.step1.action">Do this FIRST thing every morning</span></p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Caffeine Curfew -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-red-500/50 transition group relative overflow-hidden" style="transition-delay: 100ms;">
+                    <div class="absolute top-4 right-4 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                    <div class="bg-red-500/20 p-4 rounded-xl w-fit mb-4 group-hover:bg-red-500/30 transition">
+                        <i class="fa-solid fa-mug-hot text-red-400 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-xl mb-2" data-i18n="quickStart.step2.title">No Caffeine After Noon</h3>
+                    <p class="text-sm text-gray-300 mb-4" data-i18n="quickStart.step2.desc">Caffeine has a 6-hour half-life. That 3 PM coffee is still 25% active at 9 PM. Cut it off at 12:00 PM to protect your deep sleep.</p>
+                    <div class="bg-red-500/10 border border-red-500/30 p-3 rounded-lg">
+                        <p class="text-xs text-red-300"><i class="fa-solid fa-ban mr-2"></i><span data-i18n="quickStart.step2.action">Switch to herbal tea after noon</span></p>
+                    </div>
+                </div>
+
+                <!-- Step 3: Cool & Dark -->
+                <div class="glass-card p-6 rounded-2xl fade-up border border-white/10 hover:border-cyan-500/50 transition group relative overflow-hidden" style="transition-delay: 200ms;">
+                    <div class="absolute top-4 right-4 bg-cyan-500 text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                    <div class="bg-cyan-500/20 p-4 rounded-xl w-fit mb-4 group-hover:bg-cyan-500/30 transition">
+                        <i class="fa-solid fa-temperature-low text-cyan-400 text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-xl mb-2" data-i18n="quickStart.step3.title">Cool & Dark Room</h3>
+                    <p class="text-sm text-gray-300 mb-4" data-i18n="quickStart.step3.desc">Set your bedroom to 18-20°C (65-68°F). Your body must drop 1°C to initiate deep sleep. Complete darkness triggers melatonin.</p>
+                    <div class="bg-cyan-500/10 border border-cyan-500/30 p-3 rounded-lg">
+                        <p class="text-xs text-cyan-300"><i class="fa-solid fa-snowflake mr-2"></i><span data-i18n="quickStart.step3.action">Hot shower → Cold room = Sleep trigger</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Start Challenge -->
+            <div class="glass-card p-8 rounded-2xl bg-gradient-to-r from-cyan-900/30 to-purple-900/30 border border-cyan-500/30 fade-up">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="bg-cyan-500/20 p-5 rounded-2xl">
+                        <i class="fa-solid fa-trophy text-cyan-400 text-4xl"></i>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-white mb-2" data-i18n="quickStart.challenge.title">7-Day Quick Start Challenge</h3>
+                        <p class="text-gray-400 text-sm" data-i18n="quickStart.challenge.desc">Follow these 3 steps for just 7 days. Most people report noticeable improvement in sleep quality within the first week - no supplements needed.</p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <a href="#foundation" class="px-6 py-3 bg-white/10 border border-white/20 rounded-full text-white text-sm font-bold hover:bg-white/20 transition text-center" data-i18n="quickStart.challenge.learnMore">Learn Full Protocol</a>
+                        <a href="#tools" class="px-6 py-3 bg-dynamic text-black rounded-full text-sm font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition text-center" data-i18n="quickStart.challenge.tryTool">Try Sleep Tools</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- WHY WE SLEEP - Introduction -->
     <section id="why-sleep" class="py-24 relative overflow-hidden">
@@ -1119,6 +1188,73 @@
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-dynamic">01.</span> Neuro-Acoustic Lab</h2>
 
+            <!-- Guided Sessions - Pre-configured Presets -->
+            <div class="mb-12 fade-up">
+                <div class="text-center mb-6">
+                    <span class="text-xs text-gray-400 uppercase tracking-widest" data-i18n="guided.title">Quick Sessions - Click to Auto-Configure</span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Bedtime Session -->
+                    <button onclick="startGuidedSession('bedtime')" class="guided-session-btn glass-card p-5 rounded-2xl border border-white/10 hover:border-purple-500/50 transition group text-left">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-purple-500/20 p-2 rounded-lg group-hover:bg-purple-500/30 transition">
+                                <i class="fa-solid fa-moon text-purple-400 text-lg"></i>
+                            </div>
+                            <span class="text-xs text-gray-500">30 min</span>
+                        </div>
+                        <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.bedtime.title">Bedtime Routine</h4>
+                        <p class="text-[10px] text-gray-400" data-i18n="guided.bedtime.desc">Delta waves + Pink noise + 4-7-8 breathing</p>
+                    </button>
+
+                    <!-- Power Nap Session -->
+                    <button onclick="startGuidedSession('nap')" class="guided-session-btn glass-card p-5 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition group text-left">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-cyan-500/20 p-2 rounded-lg group-hover:bg-cyan-500/30 transition">
+                                <i class="fa-solid fa-bolt text-cyan-400 text-lg"></i>
+                            </div>
+                            <span class="text-xs text-gray-500">20 min</span>
+                        </div>
+                        <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.nap.title">Power Nap</h4>
+                        <p class="text-[10px] text-gray-400" data-i18n="guided.nap.desc">Theta waves for quick recovery without grogginess</p>
+                    </button>
+
+                    <!-- Stress Relief Session -->
+                    <button onclick="startGuidedSession('stress')" class="guided-session-btn glass-card p-5 rounded-2xl border border-white/10 hover:border-green-500/50 transition group text-left">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-green-500/20 p-2 rounded-lg group-hover:bg-green-500/30 transition">
+                                <i class="fa-solid fa-heart-pulse text-green-400 text-lg"></i>
+                            </div>
+                            <span class="text-xs text-gray-500">15 min</span>
+                        </div>
+                        <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.stress.title">Stress Relief</h4>
+                        <p class="text-[10px] text-gray-400" data-i18n="guided.stress.desc">Alpha waves + Box breathing for instant calm</p>
+                    </button>
+
+                    <!-- Deep Focus Session -->
+                    <button onclick="startGuidedSession('focus')" class="guided-session-btn glass-card p-5 rounded-2xl border border-white/10 hover:border-yellow-500/50 transition group text-left">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-yellow-500/20 p-2 rounded-lg group-hover:bg-yellow-500/30 transition">
+                                <i class="fa-solid fa-brain text-yellow-400 text-lg"></i>
+                            </div>
+                            <span class="text-xs text-gray-500">60 min</span>
+                        </div>
+                        <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.focus.title">Deep Focus</h4>
+                        <p class="text-[10px] text-gray-400" data-i18n="guided.focus.desc">Gamma waves for enhanced concentration</p>
+                    </button>
+                </div>
+
+                <!-- Session Active Indicator -->
+                <div id="guidedSessionIndicator" class="hidden mt-4 bg-purple-500/20 border border-purple-500/50 rounded-xl p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                            <span class="text-sm text-purple-300" id="guidedSessionName">Bedtime Session Active</span>
+                        </div>
+                        <button onclick="stopGuidedSession()" class="text-xs text-gray-400 hover:text-white transition" data-i18n="guided.stop">End Session</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Neuro Synthesizer -->
             <div class="glass-card p-6 md:p-10 rounded-3xl mb-12 fade-up border border-white/10">
                 <!-- User Guide Card -->
@@ -1399,8 +1535,134 @@
     <section id="diagnosis" class="py-24 bg-black/30 border-y border-white/5">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">02.</span> Diagnosis Center</h2>
-            <p class="text-center text-gray-400 mb-12">Select your primary symptom to reveal the specific combat protocol.</p>
-            
+            <p class="text-center text-gray-400 mb-12" data-i18n="diagnosis.subtitle">Select your primary symptom to reveal the specific combat protocol.</p>
+
+            <!-- Interactive Diagnostic Quiz -->
+            <div id="diagnosticQuiz" class="glass-card p-8 rounded-3xl mb-12 fade-up border border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-transparent">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-full mb-4">
+                        <i class="fa-solid fa-stethoscope text-purple-400"></i>
+                        <span class="text-purple-400 text-sm font-bold" data-i18n="quiz.badge">Quick Diagnosis</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2" data-i18n="quiz.title">Not Sure What's Causing Your Sleep Issues?</h3>
+                    <p class="text-gray-400 text-sm" data-i18n="quiz.subtitle">Answer 3 quick questions to identify your specific problem</p>
+                </div>
+
+                <!-- Quiz Steps -->
+                <div id="quizContainer">
+                    <!-- Question 1 -->
+                    <div id="quizStep1" class="quiz-step">
+                        <p class="text-sm text-gray-300 mb-4 text-center" data-i18n="quiz.q1">What is your main problem?</p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <button onclick="answerQuiz(1, 'falling')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-bed text-purple-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a1.falling">Can't fall asleep</p>
+                            </button>
+                            <button onclick="answerQuiz(1, 'staying')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-clock text-yellow-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a1.staying">Wake up at night</p>
+                            </button>
+                            <button onclick="answerQuiz(1, 'quality')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-battery-quarter text-gray-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a1.quality">Sleep but wake tired</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 (Falling asleep branch) -->
+                    <div id="quizStep2-falling" class="quiz-step hidden">
+                        <p class="text-sm text-gray-300 mb-4 text-center" data-i18n="quiz.q2.falling">What keeps you awake?</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="answerQuiz(2, 'thoughts')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-brain text-purple-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.thoughts">Racing thoughts / Anxiety</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'restless')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-bolt text-orange-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.restless">Restless legs / Can't get comfortable</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'hot')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-fire text-pink-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.hot">Too hot / Night sweats</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'wired')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-mug-hot text-red-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.wired">Feel wired / Not sleepy</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 (Staying asleep branch) -->
+                    <div id="quizStep2-staying" class="quiz-step hidden">
+                        <p class="text-sm text-gray-300 mb-4 text-center" data-i18n="quiz.q2.staying">When/why do you wake up?</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="answerQuiz(2, 'bathroom')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-toilet text-blue-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.bathroom">Need to urinate</p>
+                            </button>
+                            <button onclick="answerQuiz(2, '3am')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-clock text-yellow-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.3am">Around 3 AM (no reason)</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'breathing')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-lungs text-red-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.breathing">Gasping / Can't breathe</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'thoughts2')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-brain text-purple-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.thoughts2">Racing thoughts</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 (Quality branch) -->
+                    <div id="quizStep2-quality" class="quiz-step hidden">
+                        <p class="text-sm text-gray-300 mb-4 text-center" data-i18n="quiz.q2.quality">What else do you experience?</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="answerQuiz(2, 'snoring')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-volume-high text-red-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.snoring">Snoring / Partner complains</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'alcohol')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-wine-glass text-gray-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.alcohol">Drink alcohol or late caffeine</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'temp')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-temperature-high text-orange-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.temp">Bedroom too warm</p>
+                            </button>
+                            <button onclick="answerQuiz(2, 'stress')" class="quiz-answer-btn p-4 rounded-xl border border-white/10 hover:border-purple-500/50 hover:bg-purple-500/10 transition text-left">
+                                <i class="fa-solid fa-brain text-purple-400 mb-2 text-lg"></i>
+                                <p class="text-white text-sm font-medium" data-i18n="quiz.a2.stress">High stress / Anxiety</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Result -->
+                    <div id="quizResult" class="quiz-step hidden text-center">
+                        <div class="bg-green-500/20 border border-green-500/50 rounded-xl p-6 mb-4">
+                            <i class="fa-solid fa-circle-check text-green-400 text-3xl mb-3"></i>
+                            <h4 class="text-lg font-bold text-white mb-2" data-i18n="quiz.result.title">Your Recommended Protocol:</h4>
+                            <p class="text-green-300 text-xl font-bold" id="quizResultProtocol">Monkey Mind</p>
+                            <p class="text-gray-400 text-sm mt-2" id="quizResultDesc">Cognitive hyperarousal - your brain needs help shutting down</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <button onclick="jumpToProtocol()" class="px-6 py-3 bg-dynamic text-black rounded-full font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition" data-i18n="quiz.result.view">View Protocol</button>
+                            <button onclick="resetQuiz()" class="px-6 py-3 bg-white/10 border border-white/20 text-white rounded-full font-bold hover:bg-white/20 transition" data-i18n="quiz.result.restart">Retake Quiz</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Dots -->
+                <div id="quizProgress" class="flex justify-center gap-2 mt-6">
+                    <div class="quiz-dot w-3 h-3 rounded-full bg-purple-500"></div>
+                    <div class="quiz-dot w-3 h-3 rounded-full bg-gray-600"></div>
+                    <div class="quiz-dot w-3 h-3 rounded-full bg-gray-600"></div>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 text-sm mb-8" data-i18n="diagnosis.orSelect">Or select your symptom directly:</p>
+
             <!-- Scrollable Tabs -->
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 pb-4">
                 <button onclick="openTab('nocturia')" class="tab-btn active px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-nocturia"><i class="fa-solid fa-toilet mr-2 text-blue-400"></i> Urine</button>
@@ -2420,6 +2682,75 @@
             activeBtn.classList.add("active", "bg-white/10", "text-dynamic"); activeBtn.classList.remove("text-gray-300");
         }
 
+        // ========== DIAGNOSTIC QUIZ ==========
+        let quizStep = 1;
+        let quizBranch = '';
+        let quizResultTab = 'mente';
+
+        const QUIZ_RESULTS = {
+            thoughts: { tab: 'mente', nameEn: 'Monkey Mind', nameEs: 'Mente de Mono', descEn: 'Cognitive hyperarousal - your brain needs help shutting down', descEs: 'Hiperactivación cognitiva - tu cerebro necesita ayuda para apagarse' },
+            thoughts2: { tab: 'mente', nameEn: 'Monkey Mind', nameEs: 'Mente de Mono', descEn: 'Cognitive hyperarousal - your brain needs help shutting down', descEs: 'Hiperactivación cognitiva - tu cerebro necesita ayuda para apagarse' },
+            restless: { tab: 'piernas', nameEn: 'Restless Leg Syndrome', nameEs: 'Síndrome de Piernas Inquietas', descEn: 'Possible mineral deficiency or nerve issue', descEs: 'Posible deficiencia de minerales o problema nervioso' },
+            hot: { tab: 'sofocos', nameEn: 'Night Sweats / Hot Flashes', nameEs: 'Sudores Nocturnos / Sofocos', descEn: 'Temperature regulation issue - common in perimenopause', descEs: 'Problema de regulación de temperatura - común en perimenopausia' },
+            wired: { tab: 'restriccion', nameEn: 'Sleep Restriction Therapy', nameEs: 'Terapia de Restricción del Sueño', descEn: 'Your sleep drive may be weak - consider SRT protocol', descEs: 'Tu impulso de sueño puede ser débil - considera protocolo SRT' },
+            bathroom: { tab: 'nocturia', nameEn: 'Nocturia', nameEs: 'Nocturia', descEn: 'Nighttime urination - often linked to cardiac stress or apnea', descEs: 'Micción nocturna - frecuentemente relacionada con estrés cardíaco o apnea' },
+            '3am': { tab: 'despertar', nameEn: '3 AM Wakeup', nameEs: 'Despertar a las 3 AM', descEn: 'Blood sugar crash triggering cortisol spike', descEs: 'Caída de azúcar en sangre que activa pico de cortisol' },
+            breathing: { tab: 'apnea', nameEn: 'Sleep Apnea', nameEs: 'Apnea del Sueño', descEn: 'Possible airway obstruction - consider sleep study', descEs: 'Posible obstrucción de vías respiratorias - considera estudio del sueño' },
+            snoring: { tab: 'apnea', nameEn: 'Sleep Apnea', nameEs: 'Apnea del Sueño', descEn: 'Snoring indicates possible airway obstruction', descEs: 'Los ronquidos indican posible obstrucción de vías respiratorias' },
+            alcohol: { tab: 'shallow', nameEn: 'Shallow Sleep', nameEs: 'Sueño Superficial', descEn: 'Alcohol/caffeine destroying sleep architecture', descEs: 'Alcohol/cafeína destruyendo arquitectura del sueño' },
+            temp: { tab: 'shallow', nameEn: 'Shallow Sleep', nameEs: 'Sueño Superficial', descEn: 'Room temperature preventing deep sleep entry', descEs: 'Temperatura de la habitación impidiendo sueño profundo' },
+            stress: { tab: 'mente', nameEn: 'Monkey Mind', nameEs: 'Mente de Mono', descEn: 'High cortisol preventing restorative sleep', descEs: 'Cortisol alto impidiendo sueño restaurador' }
+        };
+
+        function answerQuiz(step, answer) {
+            // Hide current step
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.add('hidden'));
+
+            if(step === 1) {
+                quizBranch = answer;
+                quizStep = 2;
+                // Show appropriate step 2
+                document.getElementById('quizStep2-' + answer).classList.remove('hidden');
+                // Update progress
+                document.querySelectorAll('.quiz-dot')[1].classList.replace('bg-gray-600', 'bg-purple-500');
+            } else if(step === 2) {
+                quizStep = 3;
+                // Get result
+                const result = QUIZ_RESULTS[answer] || QUIZ_RESULTS['thoughts'];
+                quizResultTab = result.tab;
+
+                // Update result display
+                document.getElementById('quizResultProtocol').textContent = currentLang === 'es' ? result.nameEs : result.nameEn;
+                document.getElementById('quizResultDesc').textContent = currentLang === 'es' ? result.descEs : result.descEn;
+
+                // Show result
+                document.getElementById('quizResult').classList.remove('hidden');
+
+                // Update progress
+                document.querySelectorAll('.quiz-dot')[2].classList.replace('bg-gray-600', 'bg-green-500');
+            }
+        }
+
+        function jumpToProtocol() {
+            openTab(quizResultTab);
+            // Scroll to the tabs
+            document.querySelector('.tab-btn.active').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetQuiz() {
+            quizStep = 1;
+            quizBranch = '';
+            // Hide all steps
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.add('hidden'));
+            // Show step 1
+            document.getElementById('quizStep1').classList.remove('hidden');
+            // Reset progress dots
+            const dots = document.querySelectorAll('.quiz-dot');
+            dots[0].className = 'quiz-dot w-3 h-3 rounded-full bg-purple-500';
+            dots[1].className = 'quiz-dot w-3 h-3 rounded-full bg-gray-600';
+            dots[2].className = 'quiz-dot w-3 h-3 rounded-full bg-gray-600';
+        }
+
         // 2. Mobile Menu
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
@@ -2444,8 +2775,10 @@
         const translations = {
             en: {
                 // Navigation
+                'nav.quickStart': 'Quick Start',
                 'nav.whySleep': 'Why Sleep',
                 'nav.foundation': 'Foundation',
+                'nav.tools': 'Tools',
                 'nav.protocols': 'Protocols',
                 'nav.diagnosis': 'Diagnosis',
                 'nav.supplements': 'Supplements',
@@ -2458,6 +2791,24 @@
                 'hero.description': 'Evidence-based protocols to transform your sleep architecture. From circadian biology to cutting-edge interventions.',
                 'hero.cta': 'EXPLORE PROTOCOL',
                 'hero.scrollText': 'Scroll to discover',
+
+                // Quick Start Section
+                'quickStart.badge': 'Start Here',
+                'quickStart.title': 'Quick Start: 3 Essential Steps',
+                'quickStart.subtitle': 'New to sleep optimization? Start with these 3 FREE fundamentals. No supplements, no devices - just science.',
+                'quickStart.step1.title': 'Morning Sunlight',
+                'quickStart.step1.desc': 'Get 10 minutes of sunlight within 30 min of waking. This resets your circadian clock and starts a 16-hour countdown to natural melatonin release.',
+                'quickStart.step1.action': 'Do this FIRST thing every morning',
+                'quickStart.step2.title': 'No Caffeine After Noon',
+                'quickStart.step2.desc': 'Caffeine has a 6-hour half-life. That 3 PM coffee is still 25% active at 9 PM. Cut it off at 12:00 PM to protect your deep sleep.',
+                'quickStart.step2.action': 'Switch to herbal tea after noon',
+                'quickStart.step3.title': 'Cool & Dark Room',
+                'quickStart.step3.desc': 'Set your bedroom to 18-20°C (65-68°F). Your body must drop 1°C to initiate deep sleep. Complete darkness triggers melatonin.',
+                'quickStart.step3.action': 'Hot shower → Cold room = Sleep trigger',
+                'quickStart.challenge.title': '7-Day Quick Start Challenge',
+                'quickStart.challenge.desc': 'Follow these 3 steps for just 7 days. Most people report noticeable improvement in sleep quality within the first week - no supplements needed.',
+                'quickStart.challenge.learnMore': 'Learn Full Protocol',
+                'quickStart.challenge.tryTool': 'Try Sleep Tools',
 
                 // Why Sleep Section
                 'whySleep.title': 'Why Optimize Sleep?',
@@ -2584,12 +2935,54 @@
                 'common.close': 'Close',
                 'common.min': 'min',
                 'common.hours': 'hours',
-                'common.minutes': 'Minutes'
+                'common.minutes': 'Minutes',
+
+                // Guided Sessions
+                'guided.title': 'Quick Sessions - Click to Auto-Configure',
+                'guided.bedtime.title': 'Bedtime Routine',
+                'guided.bedtime.desc': 'Delta waves + Pink noise + 4-7-8 breathing',
+                'guided.nap.title': 'Power Nap',
+                'guided.nap.desc': 'Theta waves for quick recovery without grogginess',
+                'guided.stress.title': 'Stress Relief',
+                'guided.stress.desc': 'Alpha waves + Box breathing for instant calm',
+                'guided.focus.title': 'Deep Focus',
+                'guided.focus.desc': 'Gamma waves for enhanced concentration',
+                'guided.stop': 'End Session',
+
+                // Diagnostic Quiz
+                'quiz.badge': 'Quick Diagnosis',
+                'quiz.title': 'Not Sure What\'s Causing Your Sleep Issues?',
+                'quiz.subtitle': 'Answer 3 quick questions to identify your specific problem',
+                'quiz.q1': 'What is your main problem?',
+                'quiz.a1.falling': 'Can\'t fall asleep',
+                'quiz.a1.staying': 'Wake up at night',
+                'quiz.a1.quality': 'Sleep but wake tired',
+                'quiz.q2.falling': 'What keeps you awake?',
+                'quiz.q2.staying': 'When/why do you wake up?',
+                'quiz.q2.quality': 'What else do you experience?',
+                'quiz.a2.thoughts': 'Racing thoughts / Anxiety',
+                'quiz.a2.restless': 'Restless legs / Can\'t get comfortable',
+                'quiz.a2.hot': 'Too hot / Night sweats',
+                'quiz.a2.wired': 'Feel wired / Not sleepy',
+                'quiz.a2.bathroom': 'Need to urinate',
+                'quiz.a2.3am': 'Around 3 AM (no reason)',
+                'quiz.a2.breathing': 'Gasping / Can\'t breathe',
+                'quiz.a2.thoughts2': 'Racing thoughts',
+                'quiz.a2.snoring': 'Snoring / Partner complains',
+                'quiz.a2.alcohol': 'Drink alcohol or late caffeine',
+                'quiz.a2.temp': 'Bedroom too warm',
+                'quiz.a2.stress': 'High stress / Anxiety',
+                'quiz.result.title': 'Your Recommended Protocol:',
+                'quiz.result.view': 'View Protocol',
+                'quiz.result.restart': 'Retake Quiz',
+                'diagnosis.orSelect': 'Or select your symptom directly:'
             },
             es: {
                 // Navigation
+                'nav.quickStart': 'Inicio Rápido',
                 'nav.whySleep': 'Por Qué Dormir',
                 'nav.foundation': 'Fundamentos',
+                'nav.tools': 'Herramientas',
                 'nav.protocols': 'Protocolos',
                 'nav.diagnosis': 'Diagnóstico',
                 'nav.supplements': 'Suplementos',
@@ -2602,6 +2995,24 @@
                 'hero.description': 'Protocolos basados en evidencia para transformar tu arquitectura del sueño. Desde biología circadiana hasta intervenciones de vanguardia.',
                 'hero.cta': 'EXPLORAR PROTOCOLO',
                 'hero.scrollText': 'Desliza para descubrir',
+
+                // Quick Start Section
+                'quickStart.badge': 'Empieza Aquí',
+                'quickStart.title': 'Inicio Rápido: 3 Pasos Esenciales',
+                'quickStart.subtitle': '¿Nuevo en optimización del sueño? Comienza con estos 3 fundamentos GRATIS. Sin suplementos, sin dispositivos - solo ciencia.',
+                'quickStart.step1.title': 'Luz Solar Matutina',
+                'quickStart.step1.desc': 'Recibe 10 minutos de luz solar dentro de los primeros 30 min al despertar. Esto reinicia tu reloj circadiano e inicia una cuenta regresiva de 16 horas para la liberación natural de melatonina.',
+                'quickStart.step1.action': 'Haz esto PRIMERO cada mañana',
+                'quickStart.step2.title': 'Sin Cafeína Después del Mediodía',
+                'quickStart.step2.desc': 'La cafeína tiene una vida media de 6 horas. Ese café de las 3 PM aún está 25% activo a las 9 PM. Córtalo a las 12:00 PM para proteger tu sueño profundo.',
+                'quickStart.step2.action': 'Cambia a té de hierbas después del mediodía',
+                'quickStart.step3.title': 'Habitación Fría y Oscura',
+                'quickStart.step3.desc': 'Pon tu habitación a 18-20°C. Tu cuerpo debe bajar 1°C para iniciar el sueño profundo. La oscuridad total activa la melatonina.',
+                'quickStart.step3.action': 'Ducha caliente → Cuarto frío = Disparador de sueño',
+                'quickStart.challenge.title': 'Reto de 7 Días de Inicio Rápido',
+                'quickStart.challenge.desc': 'Sigue estos 3 pasos por solo 7 días. La mayoría reporta mejoras notables en la calidad del sueño en la primera semana - sin suplementos.',
+                'quickStart.challenge.learnMore': 'Ver Protocolo Completo',
+                'quickStart.challenge.tryTool': 'Probar Herramientas',
 
                 // Why Sleep Section
                 'whySleep.title': '¿Por Qué Optimizar el Sueño?',
@@ -2728,7 +3139,47 @@
                 'common.close': 'Cerrar',
                 'common.min': 'min',
                 'common.hours': 'horas',
-                'common.minutes': 'Minutos'
+                'common.minutes': 'Minutos',
+
+                // Guided Sessions
+                'guided.title': 'Sesiones Rápidas - Clic para Auto-Configurar',
+                'guided.bedtime.title': 'Rutina Nocturna',
+                'guided.bedtime.desc': 'Ondas Delta + Ruido rosa + Respiración 4-7-8',
+                'guided.nap.title': 'Siesta Rápida',
+                'guided.nap.desc': 'Ondas Theta para recuperación rápida sin aturdimiento',
+                'guided.stress.title': 'Alivio de Estrés',
+                'guided.stress.desc': 'Ondas Alpha + Respiración Box para calma instantánea',
+                'guided.focus.title': 'Enfoque Profundo',
+                'guided.focus.desc': 'Ondas Gamma para concentración mejorada',
+                'guided.stop': 'Terminar Sesión',
+
+                // Diagnostic Quiz
+                'quiz.badge': 'Diagnóstico Rápido',
+                'quiz.title': '¿No Sabes Qué Causa Tus Problemas de Sueño?',
+                'quiz.subtitle': 'Responde 3 preguntas rápidas para identificar tu problema específico',
+                'quiz.q1': '¿Cuál es tu problema principal?',
+                'quiz.a1.falling': 'No puedo dormirme',
+                'quiz.a1.staying': 'Me despierto en la noche',
+                'quiz.a1.quality': 'Duermo pero despierto cansado',
+                'quiz.q2.falling': '¿Qué te mantiene despierto?',
+                'quiz.q2.staying': '¿Cuándo/por qué te despiertas?',
+                'quiz.q2.quality': '¿Qué más experimentas?',
+                'quiz.a2.thoughts': 'Pensamientos acelerados / Ansiedad',
+                'quiz.a2.restless': 'Piernas inquietas / No puedo estar cómodo',
+                'quiz.a2.hot': 'Demasiado calor / Sudores nocturnos',
+                'quiz.a2.wired': 'Me siento alerta / Sin sueño',
+                'quiz.a2.bathroom': 'Necesito ir al baño',
+                'quiz.a2.3am': 'Alrededor de las 3 AM (sin razón)',
+                'quiz.a2.breathing': 'Jadeo / No puedo respirar',
+                'quiz.a2.thoughts2': 'Pensamientos acelerados',
+                'quiz.a2.snoring': 'Ronquidos / Mi pareja se queja',
+                'quiz.a2.alcohol': 'Bebo alcohol o cafeína tarde',
+                'quiz.a2.temp': 'Habitación muy caliente',
+                'quiz.a2.stress': 'Alto estrés / Ansiedad',
+                'quiz.result.title': 'Protocolo Recomendado:',
+                'quiz.result.view': 'Ver Protocolo',
+                'quiz.result.restart': 'Repetir Quiz',
+                'diagnosis.orSelect': 'O selecciona tu síntoma directamente:'
             }
         };
 
@@ -2889,6 +3340,113 @@
             document.getElementById('volDisplay').innerText = val + '%';
             if(masterGain && audioCtx) masterGain.gain.setTargetAtTime(currentVolume, audioCtx.currentTime, 0.1);
             saveSettings();
+        }
+
+        // Guided Sessions - Pre-configured Presets
+        let activeGuidedSession = null;
+        const GUIDED_SESSIONS = {
+            bedtime: {
+                mode: 'sleep',
+                method: 'isochronic',
+                timer: 30,
+                noise: true,
+                noiseType: 'pink',
+                breathPattern: '478',
+                nameEn: 'Bedtime Routine',
+                nameEs: 'Rutina Nocturna'
+            },
+            nap: {
+                mode: 'calm',
+                method: 'isochronic',
+                timer: 15,
+                noise: false,
+                noiseType: 'pink',
+                breathPattern: null,
+                nameEn: 'Power Nap',
+                nameEs: 'Siesta Rápida'
+            },
+            stress: {
+                mode: 'relax',
+                method: 'binaural',
+                timer: 15,
+                noise: true,
+                noiseType: 'brown',
+                breathPattern: 'box',
+                nameEn: 'Stress Relief',
+                nameEs: 'Alivio de Estrés'
+            },
+            focus: {
+                mode: 'focus',
+                method: 'isochronic',
+                timer: 60,
+                noise: true,
+                noiseType: 'brown',
+                breathPattern: null,
+                nameEn: 'Deep Focus',
+                nameEs: 'Enfoque Profundo'
+            }
+        };
+
+        function startGuidedSession(sessionType) {
+            const session = GUIDED_SESSIONS[sessionType];
+            if(!session) return;
+
+            // Stop any running session first
+            if(synthRunning) stopSynth(true);
+            if(isBreathing) toggleBreathing();
+
+            activeGuidedSession = sessionType;
+
+            // Configure synth settings
+            setSynthMode(session.mode);
+            setSynthMethod(session.method);
+            document.getElementById('synthTimer').value = session.timer;
+
+            // Configure noise
+            if(session.noise && !isNoiseOn) {
+                toggleNoise();
+            } else if(!session.noise && isNoiseOn) {
+                toggleNoise();
+            }
+            if(session.noise) {
+                setNoiseType(session.noiseType);
+            }
+
+            // Start synth
+            toggleSynth();
+
+            // Start breathing if configured
+            if(session.breathPattern) {
+                setBreathPattern(session.breathPattern);
+                setTimeout(() => {
+                    if(!isBreathing) toggleBreathing();
+                }, 1000);
+            }
+
+            // Show indicator
+            const indicator = document.getElementById('guidedSessionIndicator');
+            const sessionName = document.getElementById('guidedSessionName');
+            if(indicator && sessionName) {
+                indicator.classList.remove('hidden');
+                sessionName.textContent = currentLang === 'es' ?
+                    session.nameEs + ' Activa' :
+                    session.nameEn + ' Active';
+            }
+
+            // Scroll to tools section
+            document.getElementById('tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function stopGuidedSession() {
+            if(synthRunning) toggleSynth();
+            if(isBreathing) toggleBreathing();
+            activeGuidedSession = null;
+
+            // Hide indicator
+            const indicator = document.getElementById('guidedSessionIndicator');
+            if(indicator) {
+                indicator.classList.add('hidden');
+            }
         }
 
         function toggleSynth() {
