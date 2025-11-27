@@ -346,13 +346,13 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
-                        <a href="#why-sleep" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Why Sleep</a>
-                        <a href="#foundation" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Foundation</a>
-                        <a href="#advanced-protocols" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Protocols</a>
-                        <a href="#diagnosis" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Diagnosis</a>
-                        <a href="#supplements" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Supplements</a>
-                        <a href="#frontier" class="text-gray-300 hover:text-dynamic text-sm font-medium transition">Frontier</a>
-                        <a href="#protocol" class="bg-dynamic text-black px-5 py-2 rounded-full text-sm font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition">Start Plan</a>
+                        <a href="#why-sleep" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.whySleep">Why Sleep</a>
+                        <a href="#foundation" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.foundation">Foundation</a>
+                        <a href="#advanced-protocols" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.protocols">Protocols</a>
+                        <a href="#diagnosis" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.diagnosis">Diagnosis</a>
+                        <a href="#supplements" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.supplements">Supplements</a>
+                        <a href="#frontier" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.frontier">Frontier</a>
+                        <a href="#protocol" class="bg-dynamic text-black px-5 py-2 rounded-full text-sm font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition" data-i18n="nav.startPlan">Start Plan</a>
                     </div>
                 </div>
 
@@ -368,14 +368,14 @@
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed top-16 right-0 w-64 h-screen bg-black/95 border-l border-white/10 p-6 md:hidden overflow-y-auto">
             <div class="flex flex-col space-y-5">
-                <a href="#why-sleep" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Why Sleep</a>
-                <a href="#foundation" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Foundation</a>
-                <a href="#advanced-protocols" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Advanced Protocols</a>
+                <a href="#why-sleep" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.whySleep">Why Sleep</a>
+                <a href="#foundation" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.foundation">Foundation</a>
+                <a href="#advanced-protocols" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.protocols">Protocols</a>
                 <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Tools</a>
-                <a href="#diagnosis" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Diagnosis</a>
-                <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Supplements</a>
-                <a href="#frontier" onclick="toggleMobileMenu()" class="text-lg text-gray-300">Frontier</a>
-                <a href="#protocol" onclick="toggleMobileMenu()" class="text-lg text-dynamic font-bold">Action Plan</a>
+                <a href="#diagnosis" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.diagnosis">Diagnosis</a>
+                <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.supplements">Supplements</a>
+                <a href="#frontier" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.frontier">Frontier</a>
+                <a href="#protocol" onclick="toggleMobileMenu()" class="text-lg text-dynamic font-bold" data-i18n="nav.startPlan">Start Plan</a>
             </div>
         </div>
     </nav>
@@ -383,15 +383,14 @@
     <!-- Hero Section -->
     <header class="relative h-screen flex items-center justify-center overflow-hidden pt-16">
         <div class="text-center z-10 px-4 max-w-4xl">
-            <div class="inline-block px-4 py-1 mb-6 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-dynamic text-xs font-bold tracking-widest uppercase fade-up">
+            <div class="inline-block px-4 py-1 mb-6 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-dynamic text-xs font-bold tracking-widest uppercase fade-up" data-i18n="hero.subtitle">
                 Scientific Sleep Optimization
             </div>
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight fade-up">
                 SLEEP <br><span class="text-gradient">RE-ENGINEERED</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed fade-up">
-                The ultimate protocol for biological repair. <br>
-                From curing insomnia to elite performance recovery.
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed fade-up" data-i18n="hero.description">
+                Evidence-based protocols to transform your sleep architecture. From circadian biology to cutting-edge interventions.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 fade-up">
                 <a href="#tools" class="px-8 py-4 bg-dynamic text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center">
@@ -1289,7 +1288,7 @@
                         </div>
                     </div>
 
-                    <h3 class="text-xl font-bold text-white mb-2 text-center"><i class="fa-solid fa-lungs text-dynamic mr-2"></i> Breathing Lab</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 text-center"><i class="fa-solid fa-lungs text-dynamic mr-2"></i> <span data-i18n="breath.title">Breathing Lab</span></h3>
 
                     <!-- Pattern Selector -->
                     <div class="flex flex-wrap justify-center gap-2 mb-6" role="group" aria-label="Breathing pattern selector">
@@ -1348,28 +1347,28 @@
                         </div>
                     </div>
 
-                    <h3 class="text-xl font-bold text-white mb-4 text-center"><i class="fa-solid fa-calculator text-dynamic mr-2"></i> Cycle Calculator</h3>
+                    <h3 class="text-xl font-bold text-white mb-4 text-center"><i class="fa-solid fa-calculator text-dynamic mr-2"></i> <span data-i18n="calc.title">Cycle Calculator</span></h3>
 
                     <!-- Mode Toggle -->
                     <div class="flex flex-wrap justify-center gap-2 mb-4" role="group" aria-label="Calculator mode selector">
-                        <button onclick="setCalcMode('bedtime')" class="noise-type-btn active text-[11px] min-w-[90px] min-h-[36px]" id="calc-bedtime" aria-pressed="true">Find Bedtime</button>
-                        <button onclick="setCalcMode('waketime')" class="noise-type-btn text-[11px] min-w-[90px] min-h-[36px]" id="calc-waketime" aria-pressed="false">Find Wake Time</button>
+                        <button onclick="setCalcMode('bedtime')" class="noise-type-btn active text-[11px] min-w-[90px] min-h-[36px]" id="calc-bedtime" aria-pressed="true" data-i18n="calc.findBedtime">Find Bedtime</button>
+                        <button onclick="setCalcMode('waketime')" class="noise-type-btn text-[11px] min-w-[90px] min-h-[36px]" id="calc-waketime" aria-pressed="false" data-i18n="calc.findWaketime">Find Wake Time</button>
                     </div>
 
                     <form onsubmit="event.preventDefault(); calculateSleep();" class="bg-black/30 p-4 rounded-xl mb-4">
                         <div id="calcBedtimeMode">
-                            <label for="wakeTime" class="text-xs text-gray-400 uppercase tracking-widest mb-2 block text-center">I want to wake up at:</label>
+                            <label for="wakeTime" class="text-xs text-gray-400 uppercase tracking-widest mb-2 block text-center" data-i18n="calc.wakeAt">I want to wake up at:</label>
                             <input type="time" id="wakeTime" name="wakeTime" class="bg-transparent border-b border-white/20 text-white text-2xl w-full text-center focus:outline-none focus:border-dynamic pb-2 font-mono" value="07:00" required>
                         </div>
                         <div id="calcWaketimeMode" class="hidden">
-                            <label for="bedTime" class="text-xs text-gray-400 uppercase tracking-widest mb-2 block text-center">I'm going to bed at:</label>
+                            <label for="bedTime" class="text-xs text-gray-400 uppercase tracking-widest mb-2 block text-center" data-i18n="calc.sleepAt">I'm going to bed at:</label>
                             <input type="time" id="bedTime" name="bedTime" class="bg-transparent border-b border-white/20 text-white text-2xl w-full text-center focus:outline-none focus:border-dynamic pb-2 font-mono" value="23:00" required>
                         </div>
                     </form>
 
                     <!-- Sleep Latency Input -->
                     <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl mb-4">
-                        <label for="sleepLatency" class="text-xs text-gray-400">Time to fall asleep:</label>
+                        <label for="sleepLatency" class="text-xs text-gray-400" data-i18n="calc.latency">Time to fall asleep:</label>
                         <select id="sleepLatency" name="sleepLatency" class="bg-transparent text-white text-sm focus:outline-none cursor-pointer" aria-describedby="latencyHelp">
                             <option value="5">5 min</option>
                             <option value="10">10 min</option>
@@ -1379,7 +1378,7 @@
                         </select>
                     </div>
 
-                    <button onclick="calculateSleep()" class="w-full py-3 bg-white/10 hover:bg-dynamic hover:text-black text-white rounded-lg font-bold transition mb-4">
+                    <button onclick="calculateSleep()" class="w-full py-3 bg-white/10 hover:bg-dynamic hover:text-black text-white rounded-lg font-bold transition mb-4" data-i18n="calc.calculate">
                         Calculate
                     </button>
 
@@ -2438,7 +2437,383 @@
 
         // 3. Night Mode
         function toggleNightMode() { document.body.classList.toggle('night-mode'); }
-        function toggleLanguage() { alert("Spanish version coming soon!"); }
+
+        // ========== INTERNATIONALIZATION (i18n) SYSTEM ==========
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                // Navigation
+                'nav.whySleep': 'Why Sleep',
+                'nav.foundation': 'Foundation',
+                'nav.protocols': 'Protocols',
+                'nav.diagnosis': 'Diagnosis',
+                'nav.supplements': 'Supplements',
+                'nav.frontier': 'Frontier',
+                'nav.startPlan': 'Start Plan',
+
+                // Hero Section
+                'hero.title': 'SLEEP_LAB',
+                'hero.subtitle': 'Scientific Sleep Optimization',
+                'hero.description': 'Evidence-based protocols to transform your sleep architecture. From circadian biology to cutting-edge interventions.',
+                'hero.cta': 'EXPLORE PROTOCOL',
+                'hero.scrollText': 'Scroll to discover',
+
+                // Why Sleep Section
+                'whySleep.title': 'Why Optimize Sleep?',
+                'whySleep.subtitle': 'Sleep isn\'t rest. It\'s active biological maintenance.',
+                'whySleep.stat1.value': '7-9h',
+                'whySleep.stat1.label': 'Optimal Duration',
+                'whySleep.stat2.value': '4-6',
+                'whySleep.stat2.label': 'Complete Cycles',
+                'whySleep.stat3.value': '~90',
+                'whySleep.stat3.label': 'Minutes per Cycle',
+                'whySleep.glymphatic.title': 'Glymphatic System',
+                'whySleep.glymphatic.desc': 'Brain\'s waste clearance system activates during deep sleep, removing beta-amyloid and tau proteins.',
+                'whySleep.memory.title': 'Memory Consolidation',
+                'whySleep.memory.desc': 'REM sleep transfers short-term memories to long-term storage through synaptic plasticity.',
+                'whySleep.hormone.title': 'Hormone Regulation',
+                'whySleep.hormone.desc': 'Growth hormone peaks during deep sleep. Cortisol follows circadian rhythm for proper metabolic function.',
+
+                // Tools Section
+                'tools.title': 'Neuro-Acoustic Lab',
+                'tools.synth.title': 'Neuro-Synthesizer',
+                'tools.synth.desc': 'Real-time algorithmic entrainment engine. Uses mathematical sound pulses to guide your brainwaves into specific relaxation states (FFR).',
+                'tools.synth.speakers': 'Speakers OK (Isochronic)',
+                'tools.synth.headphones': 'Headphones (Binaural)',
+                'tools.synth.status': 'SYSTEM STANDBY',
+                'tools.synth.activate': 'ACTIVATE SESSION',
+                'tools.synth.deactivate': 'DEACTIVATE',
+                'tools.synth.brainwave': 'Target Brainwave State',
+                'tools.synth.sleep': 'Sleep',
+                'tools.synth.meditate': 'Meditate',
+                'tools.synth.relax': 'Relax',
+                'tools.synth.focus': 'Focus',
+                'tools.synth.modulation': 'Modulation Technique',
+                'tools.synth.isochronic': 'Isochronic',
+                'tools.synth.isochronicDesc': 'Rhythmic pulses. Strongest effect. Speakers OK.',
+                'tools.synth.binaural': 'Binaural',
+                'tools.synth.binauralDesc': 'Frequency difference. Smoother. Headphones Only.',
+                'tools.synth.noise': 'Background Noise',
+                'tools.synth.volume': 'Volume',
+                'tools.synth.continuous': 'Continuous Play',
+
+                // Tool Guide
+                'tools.guide.title': 'How to Use the Neuro-Synthesizer',
+                'tools.guide.whatTitle': 'WHAT IT DOES',
+                'tools.guide.what1': 'Generates precise sound frequencies',
+                'tools.guide.what2': 'Entrains brainwaves to target states',
+                'tools.guide.what3': 'Uses scientifically validated FFR',
+                'tools.guide.whenTitle': 'WHEN TO USE',
+                'tools.guide.when1': 'Deep Sleep: 30 min before bed',
+                'tools.guide.when2': 'Relax: After work to unwind',
+                'tools.guide.when3': 'Meditate: During meditation',
+                'tools.guide.when4': 'Focus: During work/study',
+                'tools.guide.tipsTitle': 'PRO TIPS',
+                'tools.guide.tips1': 'Use headphones for binaural beats',
+                'tools.guide.tips2': 'Start with 15-30 min sessions',
+                'tools.guide.tips3': 'Add pink noise to mask distractions',
+                'tools.guide.tips4': 'Consistent daily use = better results',
+
+                // Breathing Tool
+                'breath.title': 'Breathing Lab',
+                'breath.guide.title': 'Breathing Guide',
+                'breath.guide.benefitsTitle': 'BENEFITS',
+                'breath.guide.benefit1': 'Activates vagus nerve',
+                'breath.guide.benefit2': 'Lowers cortisol instantly',
+                'breath.guide.benefit3': 'Shifts to rest mode',
+                'breath.guide.whenTitle': 'WHEN TO USE',
+                'breath.guide.when1': 'Before bed (4-7-8)',
+                'breath.guide.when2': 'During stress (Box)',
+                'breath.guide.when3': 'Panic attack (Sigh)',
+                'breath.pattern.478': '4-7-8',
+                'breath.pattern.box': 'Box',
+                'breath.pattern.sigh': 'Physio Sigh',
+                'breath.pattern.478Desc': '4-7-8: Deep relaxation, best for sleep',
+                'breath.pattern.boxDesc': 'Box: Balanced, reduces stress',
+                'breath.pattern.sighDesc': 'Sigh: Fast calm, stops panic',
+                'breath.ready': 'Ready',
+                'breath.inhale': 'Inhale',
+                'breath.hold': 'Hold',
+                'breath.exhale': 'Exhale',
+                'breath.sip': 'Sip',
+                'breath.start': 'Start',
+                'breath.stop': 'Stop',
+                'breath.cycle': 'Cycle',
+
+                // Sleep Calculator
+                'calc.title': 'Cycle Calculator',
+                'calc.guide.title': 'Calculator Guide',
+                'calc.guide.whyTitle': 'WHY IT WORKS',
+                'calc.guide.why1': 'Sleep cycles = 90 mins',
+                'calc.guide.why2': 'Waking mid-cycle = groggy',
+                'calc.guide.why3': 'End of cycle = refreshed',
+                'calc.guide.tipsTitle': 'PRO TIPS',
+                'calc.guide.tips1': '5 cycles (7.5h) is optimal',
+                'calc.guide.tips2': 'Account for fall-asleep time',
+                'calc.guide.tips3': 'Be consistent daily',
+                'calc.findBedtime': 'Find Bedtime',
+                'calc.findWaketime': 'Find Wake Time',
+                'calc.wakeAt': 'I want to wake up at:',
+                'calc.sleepAt': 'I\'m going to bed at:',
+                'calc.latency': 'Time to fall asleep:',
+                'calc.calculate': 'Calculate',
+                'calc.goBed': 'Go to bed at:',
+                'calc.wakeUp': 'Wake up at:',
+                'calc.cycles': 'Cycles',
+                'calc.error.wake': 'Please enter a wake time',
+                'calc.error.bed': 'Please enter a bedtime',
+
+                // Noise descriptions
+                'noise.pink': 'Pink: Balanced, best for sleep',
+                'noise.brown': 'Brown: Deep rumble, calms anxiety',
+                'noise.white': 'White: Static, masks all sounds',
+
+                // Diagnosis Section
+                'diagnosis.title': 'Diagnosis Center',
+                'diagnosis.subtitle': 'Select your primary symptom to reveal the specific combat protocol.',
+                'diagnosis.urine': 'Urine',
+                'diagnosis.mind': 'Mind',
+                'diagnosis.shallow': 'Shallow',
+                'diagnosis.apnea': 'Apnea',
+                'diagnosis.rls': 'RLS',
+                'diagnosis.flashes': 'Flashes',
+
+                // Common
+                'common.learnMore': 'Learn More',
+                'common.close': 'Close',
+                'common.min': 'min',
+                'common.hours': 'hours',
+                'common.minutes': 'Minutes'
+            },
+            es: {
+                // Navigation
+                'nav.whySleep': 'Por Qué Dormir',
+                'nav.foundation': 'Fundamentos',
+                'nav.protocols': 'Protocolos',
+                'nav.diagnosis': 'Diagnóstico',
+                'nav.supplements': 'Suplementos',
+                'nav.frontier': 'Frontera',
+                'nav.startPlan': 'Iniciar Plan',
+
+                // Hero Section
+                'hero.title': 'SLEEP_LAB',
+                'hero.subtitle': 'Optimización Científica del Sueño',
+                'hero.description': 'Protocolos basados en evidencia para transformar tu arquitectura del sueño. Desde biología circadiana hasta intervenciones de vanguardia.',
+                'hero.cta': 'EXPLORAR PROTOCOLO',
+                'hero.scrollText': 'Desliza para descubrir',
+
+                // Why Sleep Section
+                'whySleep.title': '¿Por Qué Optimizar el Sueño?',
+                'whySleep.subtitle': 'El sueño no es descanso. Es mantenimiento biológico activo.',
+                'whySleep.stat1.value': '7-9h',
+                'whySleep.stat1.label': 'Duración Óptima',
+                'whySleep.stat2.value': '4-6',
+                'whySleep.stat2.label': 'Ciclos Completos',
+                'whySleep.stat3.value': '~90',
+                'whySleep.stat3.label': 'Minutos por Ciclo',
+                'whySleep.glymphatic.title': 'Sistema Glinfático',
+                'whySleep.glymphatic.desc': 'El sistema de limpieza cerebral se activa durante el sueño profundo, eliminando proteínas beta-amiloide y tau.',
+                'whySleep.memory.title': 'Consolidación de Memoria',
+                'whySleep.memory.desc': 'El sueño REM transfiere memorias a corto plazo al almacenamiento a largo plazo mediante plasticidad sináptica.',
+                'whySleep.hormone.title': 'Regulación Hormonal',
+                'whySleep.hormone.desc': 'La hormona del crecimiento alcanza su pico durante el sueño profundo. El cortisol sigue el ritmo circadiano.',
+
+                // Tools Section
+                'tools.title': 'Laboratorio Neuro-Acústico',
+                'tools.synth.title': 'Neuro-Sintetizador',
+                'tools.synth.desc': 'Motor de arrastre algorítmico en tiempo real. Usa pulsos de sonido matemáticos para guiar tus ondas cerebrales a estados de relajación específicos (FFR).',
+                'tools.synth.speakers': 'Bocinas OK (Isocrónico)',
+                'tools.synth.headphones': 'Audífonos (Binaural)',
+                'tools.synth.status': 'SISTEMA EN ESPERA',
+                'tools.synth.activate': 'ACTIVAR SESIÓN',
+                'tools.synth.deactivate': 'DESACTIVAR',
+                'tools.synth.brainwave': 'Estado de Ondas Cerebrales',
+                'tools.synth.sleep': 'Dormir',
+                'tools.synth.meditate': 'Meditar',
+                'tools.synth.relax': 'Relajar',
+                'tools.synth.focus': 'Enfocar',
+                'tools.synth.modulation': 'Técnica de Modulación',
+                'tools.synth.isochronic': 'Isocrónico',
+                'tools.synth.isochronicDesc': 'Pulsos rítmicos. Efecto más fuerte. Bocinas OK.',
+                'tools.synth.binaural': 'Binaural',
+                'tools.synth.binauralDesc': 'Diferencia de frecuencia. Más suave. Solo audífonos.',
+                'tools.synth.noise': 'Ruido de Fondo',
+                'tools.synth.volume': 'Volumen',
+                'tools.synth.continuous': 'Reproducción Continua',
+
+                // Tool Guide
+                'tools.guide.title': 'Cómo Usar el Neuro-Sintetizador',
+                'tools.guide.whatTitle': 'QUÉ HACE',
+                'tools.guide.what1': 'Genera frecuencias de sonido precisas',
+                'tools.guide.what2': 'Arrastra ondas cerebrales al estado objetivo',
+                'tools.guide.what3': 'Usa FFR validado científicamente',
+                'tools.guide.whenTitle': 'CUÁNDO USAR',
+                'tools.guide.when1': 'Dormir: 30 min antes de acostarse',
+                'tools.guide.when2': 'Relajar: Después del trabajo',
+                'tools.guide.when3': 'Meditar: Durante meditación',
+                'tools.guide.when4': 'Enfocar: Durante trabajo/estudio',
+                'tools.guide.tipsTitle': 'CONSEJOS PRO',
+                'tools.guide.tips1': 'Usa audífonos para beats binaurales',
+                'tools.guide.tips2': 'Empieza con sesiones de 15-30 min',
+                'tools.guide.tips3': 'Añade ruido rosa para enmascarar',
+                'tools.guide.tips4': 'Uso diario consistente = mejores resultados',
+
+                // Breathing Tool
+                'breath.title': 'Laboratorio de Respiración',
+                'breath.guide.title': 'Guía de Respiración',
+                'breath.guide.benefitsTitle': 'BENEFICIOS',
+                'breath.guide.benefit1': 'Activa el nervio vago',
+                'breath.guide.benefit2': 'Baja el cortisol instantáneamente',
+                'breath.guide.benefit3': 'Cambia a modo descanso',
+                'breath.guide.whenTitle': 'CUÁNDO USAR',
+                'breath.guide.when1': 'Antes de dormir (4-7-8)',
+                'breath.guide.when2': 'Durante estrés (Box)',
+                'breath.guide.when3': 'Ataque de pánico (Suspiro)',
+                'breath.pattern.478': '4-7-8',
+                'breath.pattern.box': 'Box',
+                'breath.pattern.sigh': 'Suspiro Fisio',
+                'breath.pattern.478Desc': '4-7-8: Relajación profunda, ideal para dormir',
+                'breath.pattern.boxDesc': 'Box: Equilibrado, reduce estrés',
+                'breath.pattern.sighDesc': 'Suspiro: Calma rápida, detiene pánico',
+                'breath.ready': 'Listo',
+                'breath.inhale': 'Inhala',
+                'breath.hold': 'Sostén',
+                'breath.exhale': 'Exhala',
+                'breath.sip': 'Sorbo',
+                'breath.start': 'Iniciar',
+                'breath.stop': 'Detener',
+                'breath.cycle': 'Ciclo',
+
+                // Sleep Calculator
+                'calc.title': 'Calculadora de Ciclos',
+                'calc.guide.title': 'Guía de Calculadora',
+                'calc.guide.whyTitle': 'POR QUÉ FUNCIONA',
+                'calc.guide.why1': 'Ciclos de sueño = 90 min',
+                'calc.guide.why2': 'Despertar a mitad de ciclo = aturdido',
+                'calc.guide.why3': 'Fin de ciclo = renovado',
+                'calc.guide.tipsTitle': 'CONSEJOS PRO',
+                'calc.guide.tips1': '5 ciclos (7.5h) es óptimo',
+                'calc.guide.tips2': 'Considera tiempo para dormirse',
+                'calc.guide.tips3': 'Sé consistente diariamente',
+                'calc.findBedtime': 'Encontrar Hora de Dormir',
+                'calc.findWaketime': 'Encontrar Hora de Despertar',
+                'calc.wakeAt': 'Quiero despertar a las:',
+                'calc.sleepAt': 'Me voy a dormir a las:',
+                'calc.latency': 'Tiempo para dormirse:',
+                'calc.calculate': 'Calcular',
+                'calc.goBed': 'Ve a la cama a las:',
+                'calc.wakeUp': 'Despierta a las:',
+                'calc.cycles': 'Ciclos',
+                'calc.error.wake': 'Por favor ingresa hora de despertar',
+                'calc.error.bed': 'Por favor ingresa hora de dormir',
+
+                // Noise descriptions
+                'noise.pink': 'Rosa: Equilibrado, ideal para dormir',
+                'noise.brown': 'Café: Rumor profundo, calma ansiedad',
+                'noise.white': 'Blanco: Estático, enmascara todo',
+
+                // Diagnosis Section
+                'diagnosis.title': 'Centro de Diagnóstico',
+                'diagnosis.subtitle': 'Selecciona tu síntoma principal para revelar el protocolo específico.',
+                'diagnosis.urine': 'Orina',
+                'diagnosis.mind': 'Mente',
+                'diagnosis.shallow': 'Superficial',
+                'diagnosis.apnea': 'Apnea',
+                'diagnosis.rls': 'SPI',
+                'diagnosis.flashes': 'Sofocos',
+
+                // Common
+                'common.learnMore': 'Saber Más',
+                'common.close': 'Cerrar',
+                'common.min': 'min',
+                'common.hours': 'horas',
+                'common.minutes': 'Minutos'
+            }
+        };
+
+        function t(key) {
+            return translations[currentLang][key] || translations['en'][key] || key;
+        }
+
+        function applyTranslations() {
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            // Update all elements with data-i18n-placeholder attribute
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if(translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+
+            // Update noise descriptions
+            const noiseDesc = document.getElementById('noiseDescription');
+            if(noiseDesc) {
+                noiseDesc.textContent = t('noise.' + currentNoiseType);
+            }
+
+            // Update breath pattern description
+            const breathDesc = document.getElementById('breathPatternDesc');
+            if(breathDesc) {
+                breathDesc.textContent = t('breath.pattern.' + currentBreathPattern + 'Desc');
+            }
+
+            // Update synth status
+            const synthStatus = document.getElementById('synthStatus');
+            if(synthStatus && !synthRunning) {
+                synthStatus.textContent = t('tools.synth.status');
+            }
+
+            // Update breath text if ready
+            const breathText = document.getElementById('breathText');
+            if(breathText && breathText.textContent === 'Ready' || breathText?.textContent === 'Listo') {
+                breathText.textContent = t('breath.ready');
+            }
+
+            // Update breath button
+            const breathBtn = document.getElementById('breathBtn');
+            if(breathBtn) {
+                if(!isBreathing) {
+                    breathBtn.textContent = t('breath.start');
+                } else {
+                    breathBtn.textContent = t('breath.stop');
+                }
+            }
+
+            // Update cycle counter
+            const cycleCount = document.getElementById('breathCycleCount');
+            if(cycleCount) {
+                cycleCount.textContent = `${t('breath.cycle')} ${breathCycle}/${totalBreathCycles}`;
+            }
+
+            // Update calculator result label
+            const calcLabel = document.getElementById('calcResultLabel');
+            if(calcLabel && !calcLabel.classList.contains('text-red-400')) {
+                calcLabel.textContent = calcMode === 'bedtime' ? t('calc.goBed') : t('calc.wakeUp');
+            }
+
+            // Update language button
+            const langBtn = document.querySelector('.fab-btn.text-xs');
+            if(langBtn) {
+                langBtn.textContent = currentLang === 'en' ? 'ES' : 'EN';
+            }
+
+            // Update HTML lang attribute
+            document.documentElement.lang = currentLang === 'es' ? 'es' : 'en';
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            applyTranslations();
+            saveSettings();
+        }
 
         // 4. Audio Logic - Lazy AudioContext initialization
         let audioCtx = null;
@@ -2856,16 +3231,16 @@
         function startBreathing() {
             isBreathing = true;
             breathCycle = 0;
-            document.getElementById('breathBtn').innerText = "Stop";
+            document.getElementById('breathBtn').innerText = t('breath.stop');
             runBreathCycle();
         }
 
         function stopBreathing() {
             isBreathing = false;
             breathCycle = 0;
-            document.getElementById('breathBtn').innerText = "Start";
-            document.getElementById('breathText').innerText = "Ready";
-            document.getElementById('breathCycleCount').innerText = "Cycle 0/8";
+            document.getElementById('breathBtn').innerText = t('breath.start');
+            document.getElementById('breathText').innerText = t('breath.ready');
+            document.getElementById('breathCycleCount').innerText = `${t('breath.cycle')} 0/${totalBreathCycles}`;
             document.getElementById('breathCircle').style.transform = "scale(1)";
             updateBreathProgress(0, 1);
             clearTimeout(breathInterval);
@@ -2883,7 +3258,7 @@
                 return;
             }
 
-            document.getElementById('breathCycleCount').innerText = `Cycle ${breathCycle}/${totalBreathCycles}`;
+            document.getElementById('breathCycleCount').innerText = `${t('breath.cycle')} ${breathCycle}/${totalBreathCycles}`;
 
             const pattern = BREATH_PATTERNS[currentBreathPattern];
             const text = document.getElementById('breathText');
@@ -2906,7 +3281,7 @@
             let elapsed = 0;
 
             // Inhale
-            text.innerText = "Inhale";
+            text.innerText = t('breath.inhale');
             playBreathTone(440, 0.3);
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.5)";
@@ -2919,13 +3294,13 @@
             breathInterval = setTimeout(() => {
                 if (!isBreathing) { clearInterval(updateProgress); return; }
                 // Hold
-                text.innerText = "Hold";
+                text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
 
                 breathInterval = setTimeout(() => {
                     if (!isBreathing) { clearInterval(updateProgress); return; }
                     // Exhale
-                    text.innerText = "Exhale";
+                    text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
@@ -2947,26 +3322,26 @@
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
 
-            text.innerText = "Inhale";
+            text.innerText = t('breath.inhale');
             playBreathTone(440, 0.3);
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.4)";
 
             breathInterval = setTimeout(() => {
                 if (!isBreathing) { clearInterval(updateProgress); return; }
-                text.innerText = "Hold";
+                text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
 
                 breathInterval = setTimeout(() => {
                     if (!isBreathing) { clearInterval(updateProgress); return; }
-                    text.innerText = "Exhale";
+                    text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
                         if (!isBreathing) { clearInterval(updateProgress); return; }
-                        text.innerText = "Hold";
+                        text.innerText = t('breath.hold');
                         playBreathTone(392, 0.3);
 
                         breathInterval = setTimeout(() => {
@@ -2987,21 +3362,21 @@
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
 
-            text.innerText = "Inhale";
+            text.innerText = t('breath.inhale');
             playBreathTone(440, 0.3);
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.3)";
 
             breathInterval = setTimeout(() => {
                 if (!isBreathing) { clearInterval(updateProgress); return; }
-                text.innerText = "Sip";
+                text.innerText = t('breath.sip');
                 playBreathTone(523, 0.2);
                 circle.style.transition = `transform ${pattern.inhale2}s ease-in-out`;
                 circle.style.transform = "scale(1.5)";
 
                 breathInterval = setTimeout(() => {
                     if (!isBreathing) { clearInterval(updateProgress); return; }
-                    text.innerText = "Exhale";
+                    text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
@@ -3101,6 +3476,7 @@
         // ========== LOCAL STORAGE ==========
         function saveSettings() {
             const settings = {
+                language: currentLang,
                 synthMode: currentMode,
                 synthMethod: currentMethod,
                 noiseType: currentNoiseType,
@@ -3120,6 +3496,11 @@
                 const saved = localStorage.getItem('sleepLabSettings');
                 if(saved) {
                     const settings = JSON.parse(saved);
+
+                    // Load language first
+                    if(settings.language) {
+                        currentLang = settings.language;
+                    }
 
                     if(settings.synthMode) setSynthMode(settings.synthMode);
                     if(settings.synthMethod) setSynthMethod(settings.synthMethod);
@@ -3151,6 +3532,9 @@
                         if(bedInput) bedInput.value = settings.bedTime;
                     }
                 }
+
+                // Apply translations after loading settings
+                applyTranslations();
             } catch(e) {
                 console.warn('Error loading settings:', e);
             }
