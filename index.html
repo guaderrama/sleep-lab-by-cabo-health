@@ -1502,6 +1502,16 @@
                     </div>
                     <p class="text-[10px] text-gray-500 text-center mb-4" id="breathPatternDesc">4-7-8: Deep relaxation, best for sleep</p>
 
+                    <!-- Sync Mode Toggle -->
+                    <div class="flex justify-center mb-4">
+                        <button onclick="toggleSyncMode()" id="syncModeBtn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 transition text-xs" aria-pressed="false">
+                            <i class="fa-solid fa-link text-purple-400"></i>
+                            <span data-i18n="sync.button">Sync with Sound</span>
+                            <span id="syncIndicator" class="hidden w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        </button>
+                    </div>
+                    <p class="text-[9px] text-gray-600 text-center mb-4 -mt-2" data-i18n="sync.hint">Enable to sync synth volume with your breathing rhythm</p>
+
                     <div class="flex flex-col items-center">
                         <div id="breathCircle" class="breath-circle mb-4 transition-all duration-[4000ms] ease-in-out relative">
                             <!-- SVG Progress Ring -->
@@ -3076,7 +3086,11 @@
                 'expect.breath.normal2': '• Tingling in fingers/lips',
                 'expect.breath.normal3': '• Deep calm after 4+ cycles',
                 'expect.breath.tip': 'TIP',
-                'expect.breath.tipText': 'If dizzy, breathe normally for 30 sec then resume. Gets easier with practice.'
+                'expect.breath.tipText': 'If dizzy, breathe normally for 30 sec then resume. Gets easier with practice.',
+
+                // Sync Mode
+                'sync.button': 'Sync with Sound',
+                'sync.hint': 'Enable to sync synth volume with your breathing rhythm'
             },
             es: {
                 // Navigation
@@ -3303,7 +3317,11 @@
                 'expect.breath.normal2': '• Hormigueo en dedos/labios',
                 'expect.breath.normal3': '• Calma profunda después de 4+ ciclos',
                 'expect.breath.tip': 'CONSEJO',
-                'expect.breath.tipText': 'Si te mareas, respira normal por 30 seg y retoma. Se vuelve más fácil con práctica.'
+                'expect.breath.tipText': 'Si te mareas, respira normal por 30 seg y retoma. Se vuelve más fácil con práctica.',
+
+                // Sync Mode
+                'sync.button': 'Sincronizar con Sonido',
+                'sync.hint': 'Activa para sincronizar el volumen del sintetizador con tu respiración'
             }
         };
 
@@ -3830,12 +3848,57 @@
         let currentBreathPattern = '478';
         let breathSoundEnabled = true;
         let breathOscillator = null;
+        let isSyncMode = false; // Sync synth volume with breathing
 
         const BREATH_PATTERNS = {
             '478': { inhale: 4, hold: 7, exhale: 8, name: '4-7-8', desc: '4-7-8: Deep relaxation, best for sleep' },
             'box': { inhale: 4, hold: 4, exhale: 4, hold2: 4, name: 'Box', desc: 'Box: Balanced, reduces stress' },
             'sigh': { inhale: 2, inhale2: 1, exhale: 6, name: 'Physio Sigh', desc: 'Sigh: Fast calm, stops panic' }
         };
+
+        // Sync synth volume with breathing phases
+        function syncSynthWithBreath(phase, duration) {
+            if(!isSyncMode || !synthRunning || !masterGain || !audioCtx) return;
+
+            const baseVolume = currentVolume;
+            const minVolume = baseVolume * 0.3; // 30% of base during exhale
+            const maxVolume = baseVolume; // 100% during inhale
+
+            if(phase === 'inhale') {
+                // Gradually increase volume during inhale
+                masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+                masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+                masterGain.gain.linearRampToValueAtTime(maxVolume, audioCtx.currentTime + duration);
+            } else if(phase === 'hold') {
+                // Keep volume steady at current level
+                masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+                masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+            } else if(phase === 'exhale') {
+                // Gradually decrease volume during exhale
+                masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+                masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+                masterGain.gain.linearRampToValueAtTime(minVolume, audioCtx.currentTime + duration);
+            }
+        }
+
+        function toggleSyncMode() {
+            isSyncMode = !isSyncMode;
+            const btn = document.getElementById('syncModeBtn');
+            const indicator = document.getElementById('syncIndicator');
+            if(btn) {
+                btn.classList.toggle('active', isSyncMode);
+                btn.setAttribute('aria-pressed', isSyncMode);
+            }
+            if(indicator) {
+                indicator.classList.toggle('hidden', !isSyncMode);
+            }
+            // Reset volume if turning off sync
+            if(!isSyncMode && masterGain && audioCtx) {
+                masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+                masterGain.gain.linearRampToValueAtTime(currentVolume, audioCtx.currentTime + 0.5);
+            }
+            saveSettings();
+        }
 
         function setBreathPattern(pattern) {
             currentBreathPattern = pattern;
@@ -3965,6 +4028,7 @@
             // Inhale
             text.innerText = t('breath.inhale');
             playBreathTone(440, 0.3);
+            syncSynthWithBreath('inhale', pattern.inhale);
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.5)";
 
@@ -3978,12 +4042,14 @@
                 // Hold
                 text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
+                syncSynthWithBreath('hold', pattern.hold);
 
                 breathInterval = setTimeout(() => {
                     if (!isBreathing) { clearInterval(updateProgress); return; }
                     // Exhale
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
+                    syncSynthWithBreath('exhale', pattern.exhale);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
@@ -4006,6 +4072,7 @@
 
             text.innerText = t('breath.inhale');
             playBreathTone(440, 0.3);
+            syncSynthWithBreath('inhale', pattern.inhale);
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.4)";
 
@@ -4013,11 +4080,13 @@
                 if (!isBreathing) { clearInterval(updateProgress); return; }
                 text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
+                syncSynthWithBreath('hold', pattern.hold);
 
                 breathInterval = setTimeout(() => {
                     if (!isBreathing) { clearInterval(updateProgress); return; }
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
+                    syncSynthWithBreath('exhale', pattern.exhale);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
@@ -4025,6 +4094,7 @@
                         if (!isBreathing) { clearInterval(updateProgress); return; }
                         text.innerText = t('breath.hold');
                         playBreathTone(392, 0.3);
+                        syncSynthWithBreath('hold', pattern.hold2);
 
                         breathInterval = setTimeout(() => {
                             clearInterval(updateProgress);
@@ -4046,6 +4116,7 @@
 
             text.innerText = t('breath.inhale');
             playBreathTone(440, 0.3);
+            syncSynthWithBreath('inhale', pattern.inhale);
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.3)";
 
@@ -4053,6 +4124,7 @@
                 if (!isBreathing) { clearInterval(updateProgress); return; }
                 text.innerText = t('breath.sip');
                 playBreathTone(523, 0.2);
+                syncSynthWithBreath('inhale', pattern.inhale2); // Second inhale
                 circle.style.transition = `transform ${pattern.inhale2}s ease-in-out`;
                 circle.style.transform = "scale(1.5)";
 
@@ -4060,6 +4132,7 @@
                     if (!isBreathing) { clearInterval(updateProgress); return; }
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
+                    syncSynthWithBreath('exhale', pattern.exhale);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
