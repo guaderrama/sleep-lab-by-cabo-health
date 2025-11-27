@@ -346,10 +346,8 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
-                        <a href="#quick-start" class="text-cyan-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.quickStart">Quick Start</a>
-                        <a href="#why-sleep" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.whySleep">Why Sleep</a>
-                        <a href="#foundation" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.foundation">Foundation</a>
-                        <a href="#tools" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.tools">Tools</a>
+                        <a href="#my-tools" class="text-cyan-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.myTools">My Tools</a>
+                        <a href="#sleep-guide" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.guide">Guide</a>
                         <a href="#diagnosis" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.diagnosis">Diagnosis</a>
                         <a href="#supplements" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.supplements">Supplements</a>
                         <a href="#protocol" class="bg-dynamic text-black px-5 py-2 rounded-full text-sm font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.4)] transition" data-i18n="nav.startPlan">Start Plan</a>
@@ -368,10 +366,8 @@
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed top-16 right-0 w-64 h-screen bg-black/95 border-l border-white/10 p-6 md:hidden overflow-y-auto">
             <div class="flex flex-col space-y-5">
-                <a href="#quick-start" onclick="toggleMobileMenu()" class="text-lg text-cyan-400 font-bold" data-i18n="nav.quickStart">Quick Start</a>
-                <a href="#why-sleep" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.whySleep">Why Sleep</a>
-                <a href="#foundation" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.foundation">Foundation</a>
-                <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.tools">Tools</a>
+                <a href="#my-tools" onclick="toggleMobileMenu()" class="text-lg text-cyan-400 font-bold" data-i18n="nav.myTools">My Tools</a>
+                <a href="#sleep-guide" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.guide">Guide</a>
                 <a href="#diagnosis" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.diagnosis">Diagnosis</a>
                 <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.supplements">Supplements</a>
                 <a href="#protocol" onclick="toggleMobileMenu()" class="text-lg text-dynamic font-bold" data-i18n="nav.startPlan">Start Plan</a>
@@ -392,11 +388,11 @@
                 Evidence-based protocols to transform your sleep architecture. From circadian biology to cutting-edge interventions.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 fade-up">
-                <a href="#tools" class="px-8 py-4 bg-dynamic text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center">
-                    <i class="fa-solid fa-wave-square mr-2"></i> Open Neuro-Lab
+                <a href="#my-tools" class="px-8 py-4 bg-dynamic text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center" data-i18n="hero.cta1">
+                    <i class="fa-solid fa-rocket mr-2"></i> Start Now
                 </a>
-                <a href="#diagnosis" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/10 text-white font-bold rounded-lg transition flex items-center justify-center">
-                    <i class="fa-solid fa-stethoscope mr-2"></i> Diagnose Me
+                <a href="#sleep-guide" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/10 text-white font-bold rounded-lg transition flex items-center justify-center" data-i18n="hero.cta2">
+                    <i class="fa-solid fa-book-open mr-2"></i> Learn First
                 </a>
             </div>
         </div>
@@ -404,6 +400,212 @@
             <i class="fa-solid fa-chevron-down text-2xl"></i>
         </div>
     </header>
+
+    <!-- MY TOOLS DASHBOARD - Quick Access to All Tools -->
+    <section id="my-tools" class="py-12 bg-gradient-to-b from-purple-900/20 to-transparent border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest" data-i18n="myTools.badge">Daily Tools</span>
+                <h2 class="text-2xl md:text-3xl font-bold mt-4 text-white" data-i18n="myTools.title">My <span class="text-gradient">Tools</span></h2>
+                <p class="text-gray-400 mt-2 text-sm" data-i18n="myTools.subtitle">Quick access to your daily sleep optimization tools</p>
+            </div>
+
+            <!-- 4 Tool Cards Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+                <!-- 1. Neuro-Synthesizer -->
+                <a href="#tools" class="tool-dashboard-card glass-card p-5 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition group cursor-pointer block">
+                    <div class="bg-cyan-500/20 p-3 rounded-xl w-fit mb-3 group-hover:bg-cyan-500/30 transition mx-auto">
+                        <i class="fa-solid fa-wave-square text-cyan-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-center mb-1" data-i18n="myTools.synth.title">Neuro-Synth</h3>
+                    <p class="text-[10px] text-gray-400 text-center" data-i18n="myTools.synth.desc">Brainwave entrainment sounds</p>
+                    <div class="mt-3 flex justify-center">
+                        <span class="text-[9px] px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded-full" data-i18n="myTools.synth.tag">Sleep • Focus • Relax</span>
+                    </div>
+                </a>
+
+                <!-- 2. Breathing Tool -->
+                <a href="#breathing-tool" class="tool-dashboard-card glass-card p-5 rounded-2xl border border-white/10 hover:border-green-500/50 transition group cursor-pointer block">
+                    <div class="bg-green-500/20 p-3 rounded-xl w-fit mb-3 group-hover:bg-green-500/30 transition mx-auto">
+                        <i class="fa-solid fa-lungs text-green-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-center mb-1" data-i18n="myTools.breath.title">Breathing</h3>
+                    <p class="text-[10px] text-gray-400 text-center" data-i18n="myTools.breath.desc">Guided breathing exercises</p>
+                    <div class="mt-3 flex justify-center">
+                        <span class="text-[9px] px-2 py-1 bg-green-500/20 text-green-300 rounded-full" data-i18n="myTools.breath.tag">4-7-8 • Box • Sigh</span>
+                    </div>
+                </a>
+
+                <!-- 3. Sleep Calculator -->
+                <a href="#sleep-calc" class="tool-dashboard-card glass-card p-5 rounded-2xl border border-white/10 hover:border-purple-500/50 transition group cursor-pointer block">
+                    <div class="bg-purple-500/20 p-3 rounded-xl w-fit mb-3 group-hover:bg-purple-500/30 transition mx-auto">
+                        <i class="fa-solid fa-calculator text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-center mb-1" data-i18n="myTools.calc.title">Calculator</h3>
+                    <p class="text-[10px] text-gray-400 text-center" data-i18n="myTools.calc.desc">Optimal sleep cycle times</p>
+                    <div class="mt-3 flex justify-center">
+                        <span class="text-[9px] px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full" data-i18n="myTools.calc.tag">Wake Up Fresh</span>
+                    </div>
+                </a>
+
+                <!-- 4. Quick Sessions -->
+                <a href="#tools" class="tool-dashboard-card glass-card p-5 rounded-2xl border border-white/10 hover:border-yellow-500/50 transition group cursor-pointer block">
+                    <div class="bg-yellow-500/20 p-3 rounded-xl w-fit mb-3 group-hover:bg-yellow-500/30 transition mx-auto">
+                        <i class="fa-solid fa-play-circle text-yellow-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-center mb-1" data-i18n="myTools.sessions.title">Quick Sessions</h3>
+                    <p class="text-[10px] text-gray-400 text-center" data-i18n="myTools.sessions.desc">Pre-configured presets</p>
+                    <div class="mt-3 flex justify-center">
+                        <span class="text-[9px] px-2 py-1 bg-yellow-500/20 text-yellow-300 rounded-full" data-i18n="myTools.sessions.tag">Bedtime • Nap • Stress</span>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Quick Tip -->
+            <div class="mt-6 text-center">
+                <p class="text-xs text-gray-500" data-i18n="myTools.tip"><i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>New here? Scroll down for our step-by-step Sleep Guide</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLEEP GUIDE - Progressive Education -->
+    <section id="sleep-guide" class="py-16 bg-black/20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest" data-i18n="guide.badge">Learning Path</span>
+                <h2 class="text-2xl md:text-3xl font-bold mt-4 text-white" data-i18n="guide.title">Sleep <span class="text-gradient">Guide</span></h2>
+                <p class="text-gray-400 mt-2 text-sm max-w-xl mx-auto" data-i18n="guide.subtitle">Follow this step-by-step guide from beginner to expert. Click each level to expand.</p>
+            </div>
+
+            <!-- Level 1: Fundamentals -->
+            <div class="guide-accordion mb-4">
+                <button onclick="toggleGuideLevel(1)" class="guide-level-header w-full flex items-center justify-between bg-gradient-to-r from-green-500/10 to-cyan-500/10 border border-green-500/30 rounded-xl p-5 hover:border-green-500/50 transition" id="guideHeader1">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-green-500 text-black w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg">1</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-white text-lg" data-i18n="guide.level1.title">Fundamentals</h3>
+                            <p class="text-xs text-gray-400" data-i18n="guide.level1.desc">Free basics everyone should know • 5 min read</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs px-3 py-1 bg-green-500/20 text-green-300 rounded-full hidden md:block" data-i18n="guide.level1.tag">Start Here</span>
+                        <i class="fa-solid fa-chevron-down text-green-400 transition-transform" id="guideIcon1"></i>
+                    </div>
+                </button>
+                <div id="guideContent1" class="guide-level-content hidden overflow-hidden bg-black/40 border border-white/10 border-t-0 rounded-b-xl">
+                    <div class="p-6">
+                        <p class="text-sm text-gray-300 mb-4" data-i18n="guide.level1.intro">Master these 3 free fundamentals before anything else. No supplements, no devices needed.</p>
+                        <a href="#quick-start" class="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 text-green-300 rounded-lg text-sm hover:bg-green-500/30 transition">
+                            <i class="fa-solid fa-arrow-down"></i>
+                            <span data-i18n="guide.level1.cta">Go to Quick Start Guide</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level 2: Relaxation Techniques -->
+            <div class="guide-accordion mb-4">
+                <button onclick="toggleGuideLevel(2)" class="guide-level-header w-full flex items-center justify-between bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-5 hover:border-blue-500/50 transition" id="guideHeader2">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-blue-500 text-black w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg">2</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-white text-lg" data-i18n="guide.level2.title">Relaxation Techniques</h3>
+                            <p class="text-xs text-gray-400" data-i18n="guide.level2.desc">Breathing, sleep hygiene & environment • 10 min read</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full hidden md:block" data-i18n="guide.level2.tag">Easy</span>
+                        <i class="fa-solid fa-chevron-down text-blue-400 transition-transform" id="guideIcon2"></i>
+                    </div>
+                </button>
+                <div id="guideContent2" class="guide-level-content hidden overflow-hidden bg-black/40 border border-white/10 border-t-0 rounded-b-xl">
+                    <div class="p-6">
+                        <p class="text-sm text-gray-300 mb-4" data-i18n="guide.level2.intro">Learn breathing techniques and environment optimization to naturally improve sleep quality.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#foundation" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-300 rounded-lg text-sm hover:bg-blue-500/30 transition">
+                                <i class="fa-solid fa-moon"></i>
+                                <span data-i18n="guide.level2.cta1">Foundation Protocol</span>
+                            </a>
+                            <a href="#breathing-tool" class="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 text-green-300 rounded-lg text-sm hover:bg-green-500/30 transition">
+                                <i class="fa-solid fa-lungs"></i>
+                                <span data-i18n="guide.level2.cta2">Try Breathing Tool</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level 3: Advanced Tools -->
+            <div class="guide-accordion mb-4">
+                <button onclick="toggleGuideLevel(3)" class="guide-level-header w-full flex items-center justify-between bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-5 hover:border-purple-500/50 transition" id="guideHeader3">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg">3</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-white text-lg" data-i18n="guide.level3.title">Advanced Tools</h3>
+                            <p class="text-xs text-gray-400" data-i18n="guide.level3.desc">Neuro-Synthesizer, binaural beats & protocols • 15 min read</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full hidden md:block" data-i18n="guide.level3.tag">Intermediate</span>
+                        <i class="fa-solid fa-chevron-down text-purple-400 transition-transform" id="guideIcon3"></i>
+                    </div>
+                </button>
+                <div id="guideContent3" class="guide-level-content hidden overflow-hidden bg-black/40 border border-white/10 border-t-0 rounded-b-xl">
+                    <div class="p-6">
+                        <p class="text-sm text-gray-300 mb-4" data-i18n="guide.level3.intro">Use sound-based brainwave entrainment to accelerate relaxation and improve sleep quality.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#tools" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 text-purple-300 rounded-lg text-sm hover:bg-purple-500/30 transition">
+                                <i class="fa-solid fa-wave-square"></i>
+                                <span data-i18n="guide.level3.cta1">Neuro-Synthesizer</span>
+                            </a>
+                            <a href="#advanced-protocols" class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 text-pink-300 rounded-lg text-sm hover:bg-pink-500/30 transition">
+                                <i class="fa-solid fa-book"></i>
+                                <span data-i18n="guide.level3.cta2">Advanced Protocols</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level 4: Mastery -->
+            <div class="guide-accordion mb-4">
+                <button onclick="toggleGuideLevel(4)" class="guide-level-header w-full flex items-center justify-between bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-xl p-5 hover:border-yellow-500/50 transition" id="guideHeader4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-black w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg">4</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-white text-lg" data-i18n="guide.level4.title">Mastery & Optimization</h3>
+                            <p class="text-xs text-gray-400" data-i18n="guide.level4.desc">Supplements, devices & custom protocols • 20 min read</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full hidden md:block" data-i18n="guide.level4.tag">Expert</span>
+                        <i class="fa-solid fa-chevron-down text-yellow-400 transition-transform" id="guideIcon4"></i>
+                    </div>
+                </button>
+                <div id="guideContent4" class="guide-level-content hidden overflow-hidden bg-black/40 border border-white/10 border-t-0 rounded-b-xl">
+                    <div class="p-6">
+                        <p class="text-sm text-gray-300 mb-4" data-i18n="guide.level4.intro">For those who've mastered the basics. Explore supplements, tracking devices, and build custom protocols.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#supplements" class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/20 text-yellow-300 rounded-lg text-sm hover:bg-yellow-500/30 transition">
+                                <i class="fa-solid fa-capsules"></i>
+                                <span data-i18n="guide.level4.cta1">Supplements</span>
+                            </a>
+                            <a href="#diagnosis" class="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 text-orange-300 rounded-lg text-sm hover:bg-orange-500/30 transition">
+                                <i class="fa-solid fa-stethoscope"></i>
+                                <span data-i18n="guide.level4.cta2">Diagnostic Quiz</span>
+                            </a>
+                            <a href="#protocol" class="inline-flex items-center gap-2 px-4 py-2 bg-red-500/20 text-red-300 rounded-lg text-sm hover:bg-red-500/30 transition">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                                <span data-i18n="guide.level4.cta3">Custom Protocol</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- QUICK START - 3 Essential Steps for Beginners -->
     <section id="quick-start" class="py-20 bg-gradient-to-b from-cyan-900/10 to-transparent border-b border-white/5">
@@ -1441,7 +1643,7 @@
             <!-- Breathing & Calc -->
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Breathing Tool -->
-                <div class="glass-card p-6 rounded-2xl fade-up">
+                <div id="breathing-tool" class="glass-card p-6 rounded-2xl fade-up">
                     <!-- User Guide -->
                     <div class="tool-info-card mb-4">
                         <h4><i class="fa-solid fa-circle-info mr-2"></i> Breathing Guide</h4>
@@ -1537,7 +1739,7 @@
                 </div>
 
                 <!-- Sleep Calculator -->
-                <div class="glass-card p-6 rounded-2xl fade-up" style="transition-delay: 100ms;">
+                <div id="sleep-calc" class="glass-card p-6 rounded-2xl fade-up" style="transition-delay: 100ms;">
                     <!-- User Guide -->
                     <div class="tool-info-card mb-6">
                         <h4><i class="fa-solid fa-circle-info mr-2"></i> Calculator Guide</h4>
@@ -2744,6 +2946,36 @@
             }
         }
 
+        // Toggle Guide Level accordions
+        function toggleGuideLevel(level) {
+            const content = document.getElementById('guideContent' + level);
+            const icon = document.getElementById('guideIcon' + level);
+            const header = document.getElementById('guideHeader' + level);
+
+            if(content && icon) {
+                const isHidden = content.classList.contains('hidden');
+
+                // Close all other levels first
+                for(let i = 1; i <= 4; i++) {
+                    if(i !== level) {
+                        const otherContent = document.getElementById('guideContent' + i);
+                        const otherIcon = document.getElementById('guideIcon' + i);
+                        const otherHeader = document.getElementById('guideHeader' + i);
+                        if(otherContent && !otherContent.classList.contains('hidden')) {
+                            otherContent.classList.add('hidden');
+                            otherIcon.style.transform = 'rotate(0deg)';
+                            otherHeader.classList.remove('active');
+                        }
+                    }
+                }
+
+                // Toggle current level
+                content.classList.toggle('hidden');
+                icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+                header.classList.toggle('active', isHidden);
+            }
+        }
+
         // Initialize accordion keyboard support
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.accordion-header').forEach(header => {
@@ -3090,7 +3322,62 @@
 
                 // Sync Mode
                 'sync.button': 'Sync with Sound',
-                'sync.hint': 'Enable to sync synth volume with your breathing rhythm'
+                'sync.hint': 'Enable to sync synth volume with your breathing rhythm',
+
+                // Navigation (new)
+                'nav.myTools': 'My Tools',
+                'nav.guide': 'Guide',
+
+                // Hero CTAs
+                'hero.cta1': 'Start Now',
+                'hero.cta2': 'Learn First',
+
+                // My Tools Dashboard
+                'myTools.badge': 'Daily Tools',
+                'myTools.title': 'My Tools',
+                'myTools.subtitle': 'Quick access to your daily sleep optimization tools',
+                'myTools.synth.title': 'Neuro-Synth',
+                'myTools.synth.desc': 'Brainwave entrainment sounds',
+                'myTools.synth.tag': 'Sleep • Focus • Relax',
+                'myTools.breath.title': 'Breathing',
+                'myTools.breath.desc': 'Guided breathing exercises',
+                'myTools.breath.tag': '4-7-8 • Box • Sigh',
+                'myTools.calc.title': 'Calculator',
+                'myTools.calc.desc': 'Optimal sleep cycle times',
+                'myTools.calc.tag': 'Wake Up Fresh',
+                'myTools.sessions.title': 'Quick Sessions',
+                'myTools.sessions.desc': 'Pre-configured presets',
+                'myTools.sessions.tag': 'Bedtime • Nap • Stress',
+                'myTools.tip': 'New here? Scroll down for our step-by-step Sleep Guide',
+
+                // Sleep Guide Section
+                'guide.badge': 'Learning Path',
+                'guide.title': 'Sleep Guide',
+                'guide.subtitle': 'Follow this step-by-step guide from beginner to expert. Click each level to expand.',
+                'guide.level1.title': 'Fundamentals',
+                'guide.level1.desc': 'Free basics everyone should know • 5 min read',
+                'guide.level1.tag': 'Start Here',
+                'guide.level1.intro': 'Master these 3 free fundamentals before anything else. No supplements, no devices needed.',
+                'guide.level1.cta': 'Go to Quick Start Guide',
+                'guide.level2.title': 'Relaxation Techniques',
+                'guide.level2.desc': 'Breathing, sleep hygiene & environment • 10 min read',
+                'guide.level2.tag': 'Easy',
+                'guide.level2.intro': 'Learn breathing techniques and environment optimization to naturally improve sleep quality.',
+                'guide.level2.cta1': 'Foundation Protocol',
+                'guide.level2.cta2': 'Try Breathing Tool',
+                'guide.level3.title': 'Advanced Tools',
+                'guide.level3.desc': 'Neuro-Synthesizer, binaural beats & protocols • 15 min read',
+                'guide.level3.tag': 'Intermediate',
+                'guide.level3.intro': 'Use sound-based brainwave entrainment to accelerate relaxation and improve sleep quality.',
+                'guide.level3.cta1': 'Neuro-Synthesizer',
+                'guide.level3.cta2': 'Advanced Protocols',
+                'guide.level4.title': 'Mastery & Optimization',
+                'guide.level4.desc': 'Supplements, devices & custom protocols • 20 min read',
+                'guide.level4.tag': 'Expert',
+                'guide.level4.intro': 'For those who\'ve mastered the basics. Explore supplements, tracking devices, and build custom protocols.',
+                'guide.level4.cta1': 'Supplements',
+                'guide.level4.cta2': 'Diagnostic Quiz',
+                'guide.level4.cta3': 'Custom Protocol'
             },
             es: {
                 // Navigation
@@ -3321,7 +3608,62 @@
 
                 // Sync Mode
                 'sync.button': 'Sincronizar con Sonido',
-                'sync.hint': 'Activa para sincronizar el volumen del sintetizador con tu respiración'
+                'sync.hint': 'Activa para sincronizar el volumen del sintetizador con tu respiración',
+
+                // Navigation (new)
+                'nav.myTools': 'Mis Herramientas',
+                'nav.guide': 'Guía',
+
+                // Hero CTAs
+                'hero.cta1': 'Empezar Ahora',
+                'hero.cta2': 'Aprender Primero',
+
+                // My Tools Dashboard
+                'myTools.badge': 'Herramientas Diarias',
+                'myTools.title': 'Mis Herramientas',
+                'myTools.subtitle': 'Acceso rápido a tus herramientas de optimización del sueño',
+                'myTools.synth.title': 'Neuro-Synth',
+                'myTools.synth.desc': 'Sonidos de sincronización cerebral',
+                'myTools.synth.tag': 'Dormir • Enfocar • Relajar',
+                'myTools.breath.title': 'Respiración',
+                'myTools.breath.desc': 'Ejercicios de respiración guiados',
+                'myTools.breath.tag': '4-7-8 • Box • Suspiro',
+                'myTools.calc.title': 'Calculadora',
+                'myTools.calc.desc': 'Horarios óptimos de ciclos',
+                'myTools.calc.tag': 'Despierta Fresco',
+                'myTools.sessions.title': 'Sesiones Rápidas',
+                'myTools.sessions.desc': 'Presets pre-configurados',
+                'myTools.sessions.tag': 'Dormir • Siesta • Estrés',
+                'myTools.tip': '¿Nuevo aquí? Baja para ver nuestra Guía de Sueño paso a paso',
+
+                // Sleep Guide Section
+                'guide.badge': 'Camino de Aprendizaje',
+                'guide.title': 'Guía de Sueño',
+                'guide.subtitle': 'Sigue esta guía paso a paso de principiante a experto. Haz clic en cada nivel para expandir.',
+                'guide.level1.title': 'Fundamentos',
+                'guide.level1.desc': 'Básicos gratuitos que todos deben saber • 5 min de lectura',
+                'guide.level1.tag': 'Empieza Aquí',
+                'guide.level1.intro': 'Domina estos 3 fundamentos gratuitos antes que nada. Sin suplementos, sin dispositivos.',
+                'guide.level1.cta': 'Ir a Inicio Rápido',
+                'guide.level2.title': 'Técnicas de Relajación',
+                'guide.level2.desc': 'Respiración, higiene del sueño y ambiente • 10 min de lectura',
+                'guide.level2.tag': 'Fácil',
+                'guide.level2.intro': 'Aprende técnicas de respiración y optimización del ambiente para mejorar naturalmente tu sueño.',
+                'guide.level2.cta1': 'Protocolo Base',
+                'guide.level2.cta2': 'Probar Respiración',
+                'guide.level3.title': 'Herramientas Avanzadas',
+                'guide.level3.desc': 'Neuro-Sintetizador, beats binaurales y protocolos • 15 min de lectura',
+                'guide.level3.tag': 'Intermedio',
+                'guide.level3.intro': 'Usa la sincronización de ondas cerebrales basada en sonido para acelerar la relajación.',
+                'guide.level3.cta1': 'Neuro-Sintetizador',
+                'guide.level3.cta2': 'Protocolos Avanzados',
+                'guide.level4.title': 'Maestría y Optimización',
+                'guide.level4.desc': 'Suplementos, dispositivos y protocolos personalizados • 20 min de lectura',
+                'guide.level4.tag': 'Experto',
+                'guide.level4.intro': 'Para quienes dominan lo básico. Explora suplementos, dispositivos de seguimiento y crea protocolos personalizados.',
+                'guide.level4.cta1': 'Suplementos',
+                'guide.level4.cta2': 'Quiz de Diagnóstico',
+                'guide.level4.cta3': 'Protocolo Personalizado'
             }
         };
 
