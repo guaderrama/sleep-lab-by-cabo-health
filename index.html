@@ -118,15 +118,50 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Breathing Circle */
+        /* Breathing Circle with Progress Arc */
         .breath-circle {
             width: 180px; height: 180px; border-radius: 50%;
             border: 3px solid var(--primary-glow);
             position: relative; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 25px var(--primary-glow), inset 0 0 15px var(--primary-glow); 
+            box-shadow: 0 0 25px var(--primary-glow), inset 0 0 15px var(--primary-glow);
             transform: scale(1);
         }
         .breath-text { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: bold; color: white; text-shadow: 0 0 10px var(--primary-glow); }
+        .breath-progress-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .breath-progress-ring circle { fill: none; stroke-width: 4; stroke-linecap: round; }
+        .breath-progress-bg { stroke: rgba(255,255,255,0.1); }
+        .breath-progress-bar { stroke: var(--primary-glow); transition: stroke-dashoffset 0.1s linear; }
+        .breath-cycle-counter { font-size: 0.7rem; opacity: 0.7; margin-top: 4px; }
+        .breath-circle > div { position: relative; z-index: 1; }
+
+        /* Noise Type Selector */
+        .noise-type-btn { padding: 4px 10px; border-radius: 20px; font-size: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #999; transition: all 0.3s; cursor: pointer; }
+        .noise-type-btn.active { background: var(--primary-glow); color: black; border-color: var(--primary-glow); }
+        .noise-type-btn:hover:not(.active) { border-color: var(--primary-glow); color: var(--primary-glow); }
+
+        /* Tool Info Cards */
+        .tool-info-card {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05) 0%, rgba(188, 19, 254, 0.05) 100%);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .tool-info-card h4 { color: var(--primary-glow); font-size: 0.9rem; margin-bottom: 0.75rem; }
+        .tool-info-card ul { font-size: 0.8rem; color: #aaa; }
+        .tool-info-card li { margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative; }
+        .tool-info-card li::before { content: "→"; position: absolute; left: 0; color: var(--primary-glow); }
+
+        /* Real Audio Visualizer */
+        .real-visualizer { display: flex; align-items: flex-end; justify-content: center; gap: 3px; height: 60px; }
+        .real-bar { width: 4px; background: linear-gradient(to top, var(--primary-glow), var(--secondary-glow)); border-radius: 2px; min-height: 3px; transition: height 0.05s ease; }
 
         /* Floating Buttons */
         .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 100; display: flex; flex-direction: column; gap: 15px; }
@@ -1084,9 +1119,42 @@
     <section id="tools" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-dynamic">01.</span> Neuro-Acoustic Lab</h2>
-            
+
             <!-- Neuro Synthesizer -->
             <div class="glass-card p-6 md:p-10 rounded-3xl mb-12 fade-up border border-white/10">
+                <!-- User Guide Card -->
+                <div class="tool-info-card">
+                    <h4><i class="fa-solid fa-circle-info mr-2"></i> How to Use the Neuro-Synthesizer</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs text-cyan-400 font-bold mb-2">🎯 WHAT IT DOES</p>
+                            <ul>
+                                <li>Generates precise sound frequencies</li>
+                                <li>Entrains brainwaves to target states</li>
+                                <li>Uses scientifically validated FFR</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs text-purple-400 font-bold mb-2">⏰ WHEN TO USE</p>
+                            <ul>
+                                <li><strong>Deep Sleep:</strong> 30 min before bed</li>
+                                <li><strong>Relax:</strong> After work to unwind</li>
+                                <li><strong>Meditate:</strong> During meditation</li>
+                                <li><strong>Focus:</strong> During work/study</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="text-xs text-green-400 font-bold mb-2">💡 PRO TIPS</p>
+                            <ul>
+                                <li>Use headphones for binaural beats</li>
+                                <li>Start with 15-30 min sessions</li>
+                                <li>Add pink noise to mask distractions</li>
+                                <li>Consistent daily use = better results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-8">
                     <div class="flex-1">
                         <h3 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> Neuro-Synthesizer</h3>
@@ -1098,7 +1166,7 @@
                             <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-headphones mr-2 text-blue-400"></i>Headphones (Binaural)</span>
                         </div>
                     </div>
-                    
+
                     <div class="w-full lg:w-auto flex flex-col items-end">
                         <div id="synthStatus" class="text-xs font-mono text-dynamic mb-3 tracking-widest">SYSTEM STANDBY</div>
                         <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center">
@@ -1107,9 +1175,9 @@
                     </div>
                 </div>
 
-                <!-- Visualizer -->
-                <div class="audio-bar-container mb-10 h-16 opacity-30 transition-opacity duration-500" id="visualizer">
-                    <!-- Bars generated by JS -->
+                <!-- Real Audio Visualizer -->
+                <div class="real-visualizer mb-10 opacity-30 transition-opacity duration-500" id="visualizer">
+                    <!-- 32 bars for real FFT visualization -->
                 </div>
                 
                 <!-- Controls -->
@@ -1117,21 +1185,26 @@
                     <!-- Left: Mode & Timer -->
                     <div>
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Target Brainwave State</h4>
-                        <div class="grid grid-cols-3 gap-3 mb-6">
-                            <button onclick="setSynthMode('sleep')" class="synth-btn active flex flex-col items-center py-4" id="mode-sleep">
-                                <i class="fa-solid fa-moon text-2xl mb-2"></i>
-                                <span class="font-bold">Deep Sleep</span>
-                                <span class="text-[10px] opacity-70 mt-1">0.5 Hz (Delta)</span>
+                        <div class="grid grid-cols-4 gap-2 mb-6">
+                            <button onclick="setSynthMode('sleep')" class="synth-btn active flex flex-col items-center py-3" id="mode-sleep">
+                                <i class="fa-solid fa-moon text-xl mb-1"></i>
+                                <span class="font-bold text-xs">Sleep</span>
+                                <span class="text-[9px] opacity-70">0.5Hz Delta</span>
                             </button>
-                            <button onclick="setSynthMode('relax')" class="synth-btn flex flex-col items-center py-4" id="mode-relax">
-                                <i class="fa-solid fa-water text-2xl mb-2"></i>
-                                <span class="font-bold">Relax</span>
-                                <span class="text-[10px] opacity-70 mt-1">10 Hz (Alpha)</span>
+                            <button onclick="setSynthMode('calm')" class="synth-btn flex flex-col items-center py-3" id="mode-calm">
+                                <i class="fa-solid fa-om text-xl mb-1"></i>
+                                <span class="font-bold text-xs">Meditate</span>
+                                <span class="text-[9px] opacity-70">6Hz Theta</span>
                             </button>
-                            <button onclick="setSynthMode('calm')" class="synth-btn flex flex-col items-center py-4" id="mode-calm">
-                                <i class="fa-solid fa-om text-2xl mb-2"></i>
-                                <span class="font-bold">Meditate</span>
-                                <span class="text-[10px] opacity-70 mt-1">6 Hz (Theta)</span>
+                            <button onclick="setSynthMode('relax')" class="synth-btn flex flex-col items-center py-3" id="mode-relax">
+                                <i class="fa-solid fa-water text-xl mb-1"></i>
+                                <span class="font-bold text-xs">Relax</span>
+                                <span class="text-[9px] opacity-70">10Hz Alpha</span>
+                            </button>
+                            <button onclick="setSynthMode('focus')" class="synth-btn flex flex-col items-center py-3" id="mode-focus">
+                                <i class="fa-solid fa-bolt text-xl mb-1"></i>
+                                <span class="font-bold text-xs">Focus</span>
+                                <span class="text-[9px] opacity-70">40Hz Gamma</span>
                             </button>
                         </div>
                         
@@ -1162,11 +1235,19 @@
                         </div>
                         
                         <div class="space-y-4">
-                            <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
-                                <span class="text-sm text-gray-300 ml-2"><i class="fa-solid fa-wind mr-2 text-pink-400"></i>Pink Noise</span>
-                                <button onclick="toggleNoise()" id="noiseBtn" class="w-12 h-6 rounded-full bg-gray-700 relative transition-colors">
-                                    <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
-                                </button>
+                            <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm text-gray-300 ml-2"><i class="fa-solid fa-wind mr-2 text-pink-400"></i>Background Noise</span>
+                                    <button onclick="toggleNoise()" id="noiseBtn" class="w-12 h-6 rounded-full bg-gray-700 relative transition-colors" role="switch" aria-pressed="false" aria-label="Enable background noise">
+                                        <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
+                                    </button>
+                                </div>
+                                <div class="flex flex-wrap gap-2 justify-center" id="noiseTypeSelector" role="group" aria-label="Noise type selector">
+                                    <button onclick="setNoiseType('pink')" class="noise-type-btn active min-w-[50px] min-h-[36px]" id="noise-pink" aria-pressed="true">Pink</button>
+                                    <button onclick="setNoiseType('brown')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-brown" aria-pressed="false">Brown</button>
+                                    <button onclick="setNoiseType('white')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-white" aria-pressed="false">White</button>
+                                </div>
+                                <p class="text-[10px] text-gray-500 text-center mt-2" id="noiseDescription">Pink: Balanced, best for sleep</p>
                             </div>
                             
                             <div class="bg-white/5 p-3 rounded-xl border border-white/5">
@@ -1184,36 +1265,131 @@
             <!-- Breathing & Calc -->
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Breathing Tool -->
-                <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-up">
-                    <h3 class="text-xl font-bold text-white mb-2"><i class="fa-solid fa-lungs text-dynamic mr-2"></i> Vagus Nerve Reset</h3>
-                    <p class="text-xs text-gray-400 mb-8 max-w-xs">4-7-8 Rhythm. Activates the parasympathetic nervous system to switch off stress instantly.</p>
-                    
-                    <div id="breathCircle" class="breath-circle mb-8 transition-all duration-[4000ms] ease-in-out">
-                        <span id="breathText" class="breath-text">Ready</span>
+                <div class="glass-card p-6 rounded-2xl fade-up">
+                    <!-- User Guide -->
+                    <div class="tool-info-card mb-6">
+                        <h4><i class="fa-solid fa-circle-info mr-2"></i> Breathing Guide</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <p class="text-xs text-cyan-400 font-bold mb-1">🎯 BENEFITS</p>
+                                <ul class="text-[11px]">
+                                    <li>Activates vagus nerve</li>
+                                    <li>Lowers cortisol instantly</li>
+                                    <li>Shifts to rest mode</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-xs text-purple-400 font-bold mb-1">⏰ WHEN TO USE</p>
+                                <ul class="text-[11px]">
+                                    <li>Before bed (4-7-8)</li>
+                                    <li>During stress (Box)</li>
+                                    <li>Panic attack (Sigh)</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <button onclick="toggleBreathing()" id="breathBtn" class="px-8 py-3 border border-white/20 rounded-full text-sm font-bold hover:bg-white/10 transition">
-                        Start Breathing
-                    </button>
+
+                    <h3 class="text-xl font-bold text-white mb-2 text-center"><i class="fa-solid fa-lungs text-dynamic mr-2"></i> Breathing Lab</h3>
+
+                    <!-- Pattern Selector -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-6" role="group" aria-label="Breathing pattern selector">
+                        <button onclick="setBreathPattern('478')" class="noise-type-btn active text-[11px] min-w-[60px] min-h-[44px]" id="breath-478" aria-pressed="true">4-7-8</button>
+                        <button onclick="setBreathPattern('box')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-box" aria-pressed="false">Box</button>
+                        <button onclick="setBreathPattern('sigh')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-sigh" aria-pressed="false">Physio Sigh</button>
+                    </div>
+                    <p class="text-[10px] text-gray-500 text-center mb-4" id="breathPatternDesc">4-7-8: Deep relaxation, best for sleep</p>
+
+                    <div class="flex flex-col items-center">
+                        <div id="breathCircle" class="breath-circle mb-4 transition-all duration-[4000ms] ease-in-out relative">
+                            <!-- SVG Progress Ring -->
+                            <svg class="breath-progress-ring" width="200" height="200">
+                                <circle class="breath-progress-bg" cx="100" cy="100" r="95"></circle>
+                                <circle class="breath-progress-bar" id="breathProgressBar" cx="100" cy="100" r="95" stroke-dasharray="597" stroke-dashoffset="597"></circle>
+                            </svg>
+                            <div class="flex flex-col items-center">
+                                <span id="breathText" class="breath-text">Ready</span>
+                                <span id="breathCycleCount" class="breath-cycle-counter text-gray-400">Cycle 0/8</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="toggleBreathing()" id="breathBtn" class="px-6 py-2 border border-white/20 rounded-full text-sm font-bold hover:bg-white/10 transition">
+                                Start
+                            </button>
+                            <button onclick="toggleBreathSound()" id="breathSoundBtn" class="px-4 py-2 border border-white/20 rounded-full text-sm hover:bg-white/10 transition" title="Toggle audio cues">
+                                <i class="fa-solid fa-volume-high" id="breathSoundIcon"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Sleep Calculator -->
-                <div class="glass-card p-8 rounded-2xl fade-up flex flex-col justify-center" style="transition-delay: 100ms;">
-                    <h3 class="text-xl font-bold text-white mb-2 text-center"><i class="fa-solid fa-calculator text-dynamic mr-2"></i> Cycle Calculator</h3>
-                    <p class="text-xs text-gray-400 mb-8 text-center">Avoid Sleep Inertia. Wake up at the end of a 90-min cycle.</p>
-                    
-                    <div class="bg-black/30 p-6 rounded-xl mb-6">
-                        <label class="text-xs text-gray-400 uppercase tracking-widest mb-3 block text-center">I want to wake up at:</label>
-                        <input type="time" id="wakeTime" class="bg-transparent border-b border-white/20 text-white text-3xl w-full text-center focus:outline-none focus:border-dynamic pb-2 font-mono" value="07:00">
+                <div class="glass-card p-6 rounded-2xl fade-up" style="transition-delay: 100ms;">
+                    <!-- User Guide -->
+                    <div class="tool-info-card mb-6">
+                        <h4><i class="fa-solid fa-circle-info mr-2"></i> Calculator Guide</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <p class="text-xs text-cyan-400 font-bold mb-1">🎯 WHY IT WORKS</p>
+                                <ul class="text-[11px]">
+                                    <li>Sleep cycles = 90 mins</li>
+                                    <li>Waking mid-cycle = groggy</li>
+                                    <li>End of cycle = refreshed</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-xs text-purple-400 font-bold mb-1">💡 PRO TIPS</p>
+                                <ul class="text-[11px]">
+                                    <li>5 cycles (7.5h) is optimal</li>
+                                    <li>Account for fall-asleep time</li>
+                                    <li>Be consistent daily</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <button onclick="calculateSleep()" class="w-full py-3 bg-white/10 hover:bg-dynamic hover:text-black text-white rounded-lg font-bold transition mb-6">
-                        Calculate Optimal Bedtime
+
+                    <h3 class="text-xl font-bold text-white mb-4 text-center"><i class="fa-solid fa-calculator text-dynamic mr-2"></i> Cycle Calculator</h3>
+
+                    <!-- Mode Toggle -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-4" role="group" aria-label="Calculator mode selector">
+                        <button onclick="setCalcMode('bedtime')" class="noise-type-btn active text-[11px] min-w-[90px] min-h-[36px]" id="calc-bedtime" aria-pressed="true">Find Bedtime</button>
+                        <button onclick="setCalcMode('waketime')" class="noise-type-btn text-[11px] min-w-[90px] min-h-[36px]" id="calc-waketime" aria-pressed="false">Find Wake Time</button>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); calculateSleep();" class="bg-black/30 p-4 rounded-xl mb-4">
+                        <div id="calcBedtimeMode">
+                            <label for="wakeTime" class="text-xs text-gray-400 uppercase tracking-widest mb-2 block text-center">I want to wake up at:</label>
+                            <input type="time" id="wakeTime" name="wakeTime" class="bg-transparent border-b border-white/20 text-white text-2xl w-full text-center focus:outline-none focus:border-dynamic pb-2 font-mono" value="07:00" required>
+                        </div>
+                        <div id="calcWaketimeMode" class="hidden">
+                            <label for="bedTime" class="text-xs text-gray-400 uppercase tracking-widest mb-2 block text-center">I'm going to bed at:</label>
+                            <input type="time" id="bedTime" name="bedTime" class="bg-transparent border-b border-white/20 text-white text-2xl w-full text-center focus:outline-none focus:border-dynamic pb-2 font-mono" value="23:00" required>
+                        </div>
+                    </form>
+
+                    <!-- Sleep Latency Input -->
+                    <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl mb-4">
+                        <label for="sleepLatency" class="text-xs text-gray-400">Time to fall asleep:</label>
+                        <select id="sleepLatency" name="sleepLatency" class="bg-transparent text-white text-sm focus:outline-none cursor-pointer" aria-describedby="latencyHelp">
+                            <option value="5">5 min</option>
+                            <option value="10">10 min</option>
+                            <option value="14" selected>14 min (avg)</option>
+                            <option value="20">20 min</option>
+                            <option value="30">30 min</option>
+                        </select>
+                    </div>
+
+                    <button onclick="calculateSleep()" class="w-full py-3 bg-white/10 hover:bg-dynamic hover:text-black text-white rounded-lg font-bold transition mb-4">
+                        Calculate
                     </button>
 
-                    <div id="sleepResults" class="hidden grid grid-cols-3 gap-3 text-center">
-                        <div class="p-3 bg-white/5 rounded-lg border border-white/5"><span class="block text-lg font-bold text-white" id="time1">--</span><span class="text-[10px] text-gray-500 block mt-1">9h (6 Cycles)</span></div>
-                        <div class="p-3 bg-dynamic text-black rounded-lg border border-dynamic shadow-[0_0_10px_var(--primary-glow)] transform scale-105"><span class="block text-lg font-bold" id="time2">--</span><span class="text-[10px] opacity-70 block mt-1 font-bold">7.5h (5 Cycles)</span></div>
-                        <div class="p-3 bg-white/5 rounded-lg border border-white/5"><span class="block text-lg font-bold text-white" id="time3">--</span><span class="text-[10px] text-gray-500 block mt-1">6h (4 Cycles)</span></div>
+                    <div id="sleepResults" class="hidden">
+                        <p class="text-xs text-gray-400 text-center mb-2" id="calcResultLabel">Go to bed at:</p>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time1">--</span><span class="text-[9px] text-gray-500 block">6 Cycles</span></div>
+                            <div class="p-2 bg-dynamic text-black rounded-lg border border-dynamic shadow-[0_0_10px_var(--primary-glow)] transform scale-105"><span class="block text-base font-bold" id="time2">--</span><span class="text-[9px] opacity-70 block font-bold">5 Cycles ★</span></div>
+                            <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time3">--</span><span class="text-[9px] text-gray-500 block">4 Cycles</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2264,11 +2440,20 @@
         function toggleNightMode() { document.body.classList.toggle('night-mode'); }
         function toggleLanguage() { alert("Spanish version coming soon!"); }
 
-        // 4. Audio Logic - Lazy AudioContext initialization (fixes browser autoplay policy)
+        // 4. Audio Logic - Lazy AudioContext initialization
         let audioCtx = null;
+        let analyser = null;
+        let visualizerAnimationId = null;
+        let lastVisualizerTime = 0;
+        let noiseStopPending = false; // Guard flag for race condition
+
         function getAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                // Create analyser for real visualizer (don't connect to destination yet)
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 64;
+                // Analyser will be in the chain: source -> analyser -> destination
             }
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
@@ -2279,38 +2464,86 @@
         let synthRunning = false; let currentMode = 'sleep'; let currentMethod = 'isochronic';
         let carrierOscL, carrierOscR, masterGain, lfoOsc, noiseNode, noiseGain;
         let isNoiseOn = false; let timerInterval; let currentVolume = 0.3;
-        let lastOut = 0; // Moved before usage to fix hoisting issue
+        let currentNoiseType = 'pink';
+        const FADE_TIME = 2; // seconds for fade in/out
 
-        const PRESETS = { sleep: { targetHz: 0.5, carrier: 100 }, relax: { targetHz: 10, carrier: 200 }, calm: { targetHz: 6, carrier: 150 } };
+        // Presets with Gamma (40Hz focus)
+        const PRESETS = {
+            sleep: { targetHz: 0.5, carrier: 100, name: 'Delta' },
+            calm: { targetHz: 6, carrier: 150, name: 'Theta' },
+            relax: { targetHz: 10, carrier: 200, name: 'Alpha' },
+            focus: { targetHz: 40, carrier: 300, name: 'Gamma' }
+        };
 
-        function setSynthMode(mode) { currentMode = mode; document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('active')); document.getElementById('mode-' + mode).classList.add('active'); if(synthRunning) updateSynthParams(); }
-        function setSynthMethod(method) { currentMethod = method; document.querySelectorAll('[id^="method-"]').forEach(btn => btn.classList.remove('active')); document.getElementById('method-' + method).classList.add('active'); if(synthRunning) { stopSynth(); startSynth(); } }
+        const NOISE_DESCRIPTIONS = {
+            pink: 'Pink: Balanced, best for sleep',
+            brown: 'Brown: Deep rumble, calms anxiety',
+            white: 'White: Static, masks all sounds'
+        };
+
+        function setSynthMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('mode-' + mode).classList.add('active');
+            if(synthRunning) updateSynthParams();
+            saveSettings();
+        }
+
+        function setSynthMethod(method) {
+            currentMethod = method;
+            document.querySelectorAll('[id^="method-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('method-' + method).classList.add('active');
+            if(synthRunning) { stopSynth(true); startSynth(); }
+            saveSettings();
+        }
+
+        function setNoiseType(type) {
+            currentNoiseType = type;
+            document.querySelectorAll('[id^="noise-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('noise-' + type).classList.add('active');
+            document.getElementById('noiseDescription').innerText = NOISE_DESCRIPTIONS[type];
+            if(noiseNode && isNoiseOn) {
+                stopNoise();
+                startNoise();
+            }
+            saveSettings();
+        }
+
         function updateVolume(val) {
             currentVolume = val / 100;
             document.getElementById('volDisplay').innerText = val + '%';
             if(masterGain && audioCtx) masterGain.gain.setTargetAtTime(currentVolume, audioCtx.currentTime, 0.1);
+            saveSettings();
         }
+
         function toggleSynth() {
             if(!synthRunning) {
                 startSynth();
-                document.getElementById('mainPlayBtn').innerHTML = 'DEACTIVATE';
+                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-stop mr-3"></i> DEACTIVATE';
                 document.getElementById('mainPlayBtn').classList.replace('bg-white/10', 'bg-red-500/20');
-                document.getElementById('visualizer').classList.add('playing');
                 document.getElementById('visualizer').classList.remove('opacity-30');
-                const mins = parseInt(document.getElementById('synthTimer').value, 10); // Fixed: added radix
+                startRealVisualizer();
+                const mins = parseInt(document.getElementById('synthTimer').value, 10);
                 if(mins > 0) { timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000); }
             } else {
                 stopSynth();
-                document.getElementById('mainPlayBtn').innerHTML = 'ACTIVATE';
+                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION';
                 document.getElementById('mainPlayBtn').classList.replace('bg-red-500/20', 'bg-white/10');
-                document.getElementById('visualizer').classList.remove('playing');
                 document.getElementById('visualizer').classList.add('opacity-30');
+                stopRealVisualizer();
                 if(timerInterval) { clearTimeout(timerInterval); timerInterval = null; }
             }
         }
+
         function toggleNoise() {
             isNoiseOn = !isNoiseOn;
             const t = document.getElementById('noiseToggle');
+            const btn = document.getElementById('noiseBtn');
+            // Update ARIA for accessibility
+            if(btn) {
+                btn.setAttribute('aria-pressed', isNoiseOn);
+                btn.setAttribute('aria-label', isNoiseOn ? 'Disable background noise' : 'Enable background noise');
+            }
             if(isNoiseOn) {
                 t.style.transform = 'translateX(24px)';
                 t.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
@@ -2323,12 +2556,15 @@
         }
 
         function startSynth() {
-            const ctx = getAudioContext(); // Use lazy initialization
+            const ctx = getAudioContext();
             synthRunning = true;
             const config = PRESETS[currentMode];
+
             masterGain = ctx.createGain();
-            masterGain.gain.value = currentVolume;
-            masterGain.connect(ctx.destination);
+            masterGain.gain.value = 0; // Start at 0 for fade in
+            // Correct audio topology: masterGain -> analyser -> destination
+            masterGain.connect(analyser);
+            analyser.connect(ctx.destination);
 
             if(currentMethod === 'isochronic') {
                 carrierOscL = ctx.createOscillator();
@@ -2358,19 +2594,34 @@
                 carrierOscL.start();
                 carrierOscR.start();
             }
+
+            // Fade in
+            masterGain.gain.linearRampToValueAtTime(currentVolume, ctx.currentTime + FADE_TIME);
+
             if(isNoiseOn) startNoise();
         }
 
-        // Fixed: Proper cleanup to prevent memory leaks
-        function stopSynth() {
-            synthRunning = false;
-            try {
-                if(carrierOscL) { carrierOscL.stop(); carrierOscL.disconnect(); carrierOscL = null; }
-                if(carrierOscR) { carrierOscR.stop(); carrierOscR.disconnect(); carrierOscR = null; }
-                if(lfoOsc) { lfoOsc.stop(); lfoOsc.disconnect(); lfoOsc = null; }
-                if(masterGain) { masterGain.disconnect(); masterGain = null; }
-            } catch(e) { console.warn('Error stopping synth:', e); }
-            if(noiseNode && !isNoiseOn) stopNoise();
+        function stopSynth(immediate = false) {
+            if(!synthRunning) return;
+
+            const doStop = () => {
+                synthRunning = false;
+                try {
+                    if(carrierOscL) { carrierOscL.stop(); carrierOscL.disconnect(); carrierOscL = null; }
+                    if(carrierOscR) { carrierOscR.stop(); carrierOscR.disconnect(); carrierOscR = null; }
+                    if(lfoOsc) { lfoOsc.stop(); lfoOsc.disconnect(); lfoOsc = null; }
+                    if(masterGain) { masterGain.disconnect(); masterGain = null; }
+                } catch(e) { console.warn('Error stopping synth:', e); }
+                if(noiseNode && !isNoiseOn) stopNoise();
+            };
+
+            if(immediate || !audioCtx) {
+                doStop();
+            } else {
+                // Fade out
+                masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + FADE_TIME);
+                setTimeout(doStop, FADE_TIME * 1000);
+            }
         }
 
         function updateSynthParams() {
@@ -2386,98 +2637,528 @@
             }
         }
 
-        function startNoise() {
-            if(noiseNode) return; // Prevent double noise
-            const ctx = getAudioContext();
+        // Noise generation with type selection
+        function generateNoiseBuffer(ctx, type) {
             const bS = 2 * ctx.sampleRate;
             const b = ctx.createBuffer(1, bS, ctx.sampleRate);
             const o = b.getChannelData(0);
-            for (let i=0; i<bS; i++) {
+            let lastOut = 0;
+
+            for (let i = 0; i < bS; i++) {
                 const white = Math.random() * 2 - 1;
-                o[i] = (lastOut + (0.02 * white)) / 1.02;
-                lastOut = o[i];
-                o[i] *= 3.5;
+
+                if (type === 'white') {
+                    o[i] = white * 0.5;
+                } else if (type === 'pink') {
+                    // Pink noise filter
+                    o[i] = (lastOut + (0.02 * white)) / 1.02;
+                    lastOut = o[i];
+                    o[i] *= 3.5;
+                } else if (type === 'brown') {
+                    // Brown noise (stronger low-pass)
+                    o[i] = (lastOut + (0.005 * white)) / 1.005;
+                    lastOut = o[i];
+                    o[i] *= 8;
+                }
             }
+            return b;
+        }
+
+        function startNoise() {
+            if(noiseNode || noiseStopPending) return; // Guard against race condition
+            const ctx = getAudioContext();
+
             noiseNode = ctx.createBufferSource();
-            noiseNode.buffer = b;
+            noiseNode.buffer = generateNoiseBuffer(ctx, currentNoiseType);
             noiseNode.loop = true;
+
             noiseGain = ctx.createGain();
-            noiseGain.gain.value = 0.05;
+            noiseGain.gain.value = 0;
             noiseNode.connect(noiseGain);
-            noiseGain.connect(ctx.destination);
+            // Connect noise through masterGain if available, else directly to analyser
+            if(masterGain) {
+                noiseGain.connect(masterGain);
+            } else {
+                noiseGain.connect(analyser);
+                analyser.connect(ctx.destination);
+            }
             noiseNode.start();
+
+            // Fade in noise
+            noiseGain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 1);
         }
 
         function stopNoise() {
-            try {
-                if(noiseNode) { noiseNode.stop(); noiseNode.disconnect(); noiseNode = null; }
-                if(noiseGain) { noiseGain.disconnect(); noiseGain = null; }
-            } catch(e) { console.warn('Error stopping noise:', e); }
-        }
+            if(noiseStopPending) return; // Prevent double cleanup
+            noiseStopPending = true;
 
-        // Breathing & Calc
-        let isBreathing = false; let breathInterval;
-        function toggleBreathing() {
-            const btn = document.getElementById('breathBtn');
-            const text = document.getElementById('breathText');
-            const circle = document.getElementById('breathCircle');
-            if (!isBreathing) {
-                isBreathing = true;
-                btn.innerText = "Stop";
-                runBreathCycle();
-            } else {
-                isBreathing = false;
-                btn.innerText = "Start Session";
-                text.innerText = "Ready";
-                circle.style.transform = "scale(1)";
-                clearTimeout(breathInterval);
+            try {
+                if(noiseGain && audioCtx) {
+                    noiseGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+                    setTimeout(() => {
+                        try {
+                            if(noiseNode) { noiseNode.stop(); noiseNode.disconnect(); noiseNode = null; }
+                            if(noiseGain) { noiseGain.disconnect(); noiseGain = null; }
+                        } catch(e) { console.warn('Error in noise cleanup:', e); }
+                        noiseStopPending = false;
+                    }, 550);
+                } else {
+                    if(noiseNode) { noiseNode.stop(); noiseNode.disconnect(); noiseNode = null; }
+                    if(noiseGain) { noiseGain.disconnect(); noiseGain = null; }
+                    noiseStopPending = false;
+                }
+            } catch(e) {
+                console.warn('Error stopping noise:', e);
+                noiseStopPending = false;
             }
         }
+
+        // Real Audio Visualizer
+        function initVisualizer() {
+            const viz = document.getElementById('visualizer');
+            if(viz) {
+                viz.innerHTML = '';
+                // Add ARIA for accessibility
+                viz.setAttribute('role', 'img');
+                viz.setAttribute('aria-label', 'Real-time audio frequency visualization');
+                for(let i = 0; i < 32; i++) {
+                    const b = document.createElement('div');
+                    b.className = 'real-bar';
+                    b.style.height = '3px';
+                    b.setAttribute('aria-hidden', 'true');
+                    viz.appendChild(b);
+                }
+            }
+        }
+
+        function startRealVisualizer() {
+            if(!analyser) return;
+            const bars = document.querySelectorAll('.real-bar');
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const targetFPS = 30;
+            const frameInterval = 1000 / targetFPS;
+
+            function draw(timestamp) {
+                visualizerAnimationId = requestAnimationFrame(draw);
+
+                // Throttle to ~30 FPS for performance
+                if(timestamp - lastVisualizerTime < frameInterval) return;
+                lastVisualizerTime = timestamp;
+
+                analyser.getByteFrequencyData(dataArray);
+
+                bars.forEach((bar, i) => {
+                    const value = dataArray[i] || 0;
+                    const height = Math.max(3, (value / 255) * 60);
+                    bar.style.height = height + 'px';
+                });
+            }
+            draw(0);
+        }
+
+        function stopRealVisualizer() {
+            if(visualizerAnimationId) {
+                cancelAnimationFrame(visualizerAnimationId);
+                visualizerAnimationId = null;
+            }
+            lastVisualizerTime = 0;
+            document.querySelectorAll('.real-bar').forEach(bar => bar.style.height = '3px');
+        }
+
+        // ========== BREATHING TOOL ==========
+        let isBreathing = false;
+        let breathInterval;
+        let breathCycle = 0;
+        let totalBreathCycles = 8;
+        let currentBreathPattern = '478';
+        let breathSoundEnabled = true;
+        let breathOscillator = null;
+
+        const BREATH_PATTERNS = {
+            '478': { inhale: 4, hold: 7, exhale: 8, name: '4-7-8', desc: '4-7-8: Deep relaxation, best for sleep' },
+            'box': { inhale: 4, hold: 4, exhale: 4, hold2: 4, name: 'Box', desc: 'Box: Balanced, reduces stress' },
+            'sigh': { inhale: 2, inhale2: 1, exhale: 6, name: 'Physio Sigh', desc: 'Sigh: Fast calm, stops panic' }
+        };
+
+        function setBreathPattern(pattern) {
+            currentBreathPattern = pattern;
+            document.querySelectorAll('[id^="breath-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('breath-' + pattern).classList.add('active');
+            document.getElementById('breathPatternDesc').innerText = BREATH_PATTERNS[pattern].desc;
+
+            if(isBreathing) {
+                stopBreathing();
+            }
+            saveSettings();
+        }
+
+        function toggleBreathSound() {
+            breathSoundEnabled = !breathSoundEnabled;
+            const icon = document.getElementById('breathSoundIcon');
+            icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+            saveSettings();
+        }
+
+        function playBreathTone(frequency, duration) {
+            if(!breathSoundEnabled) return;
+            const ctx = getAudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.value = frequency;
+            gain.gain.value = 0;
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+
+            // Soft envelope
+            gain.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.1);
+            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + duration - 0.1);
+
+            // Store reference for cleanup
+            breathOscillator = osc;
+
+            setTimeout(() => {
+                try {
+                    if(osc) {
+                        osc.stop();
+                        osc.disconnect();
+                        gain.disconnect();
+                    }
+                    if(breathOscillator === osc) {
+                        breathOscillator = null;
+                    }
+                } catch(e) {
+                    console.warn('Error cleaning up breath tone:', e);
+                }
+            }, duration * 1000);
+        }
+
+        function updateBreathProgress(current, total) {
+            const progressBar = document.getElementById('breathProgressBar');
+            if(progressBar) {
+                const circumference = 597; // 2 * PI * 95
+                const offset = circumference - (current / total) * circumference;
+                progressBar.style.strokeDashoffset = offset;
+            }
+        }
+
+        function toggleBreathing() {
+            if (!isBreathing) {
+                startBreathing();
+            } else {
+                stopBreathing();
+            }
+        }
+
+        function startBreathing() {
+            isBreathing = true;
+            breathCycle = 0;
+            document.getElementById('breathBtn').innerText = "Stop";
+            runBreathCycle();
+        }
+
+        function stopBreathing() {
+            isBreathing = false;
+            breathCycle = 0;
+            document.getElementById('breathBtn').innerText = "Start";
+            document.getElementById('breathText').innerText = "Ready";
+            document.getElementById('breathCycleCount').innerText = "Cycle 0/8";
+            document.getElementById('breathCircle').style.transform = "scale(1)";
+            updateBreathProgress(0, 1);
+            clearTimeout(breathInterval);
+            if(breathOscillator) {
+                try { breathOscillator.stop(); } catch(e) {}
+            }
+        }
+
         function runBreathCycle() {
             if (!isBreathing) return;
+
+            breathCycle++;
+            if(breathCycle > totalBreathCycles) {
+                stopBreathing();
+                return;
+            }
+
+            document.getElementById('breathCycleCount').innerText = `Cycle ${breathCycle}/${totalBreathCycles}`;
+
+            const pattern = BREATH_PATTERNS[currentBreathPattern];
             const text = document.getElementById('breathText');
             const circle = document.getElementById('breathCircle');
-            text.innerText = "Inhale";
-            circle.style.transition = "transform 4s ease-in-out";
-            circle.style.transform = "scale(1.5)";
-            breathInterval = setTimeout(() => {
-                if (!isBreathing) return;
-                text.innerText = "Hold";
-                breathInterval = setTimeout(() => {
-                    if (!isBreathing) return;
-                    text.innerText = "Exhale";
-                    circle.style.transition = "transform 8s ease-in-out";
-                    circle.style.transform = "scale(1)";
-                    breathInterval = setTimeout(runBreathCycle, 8000);
-                }, 7000);
-            }, 4000);
-        }
-        function calculateSleep() {
-            const val = document.getElementById('wakeTime').value;
-            if(!val) return;
-            let [h, m] = val.split(':').map(Number);
-            function fmt(d) { return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0'); }
-            let d = new Date();
-            d.setHours(h, m, 0);
-            let t1 = new Date(d.getTime() - 9*60*60*1000);
-            let t2 = new Date(d.getTime() - 7.5*60*60*1000);
-            let t3 = new Date(d.getTime() - 6*60*60*1000);
-            document.getElementById('time1').innerText = fmt(t1);
-            document.getElementById('time2').innerText = fmt(t2);
-            document.getElementById('time3').innerText = fmt(t3);
-            document.getElementById('sleepResults').classList.remove('hidden');
-        }
 
-        // Visualizer Bars
-        const viz = document.getElementById('visualizer');
-        if(viz) {
-            for(let i=0; i<20; i++) {
-                const b = document.createElement('div');
-                b.className = 'audio-bar';
-                b.style.animationDelay = Math.random()*0.5+'s';
-                viz.appendChild(b);
+            if(currentBreathPattern === 'sigh') {
+                // Physiological Sigh: double inhale + long exhale
+                runPhysioSigh(pattern, text, circle);
+            } else if(currentBreathPattern === 'box') {
+                // Box breathing: inhale-hold-exhale-hold
+                runBoxBreathing(pattern, text, circle);
+            } else {
+                // 4-7-8 pattern
+                run478Breathing(pattern, text, circle);
             }
         }
+
+        function run478Breathing(pattern, text, circle) {
+            const totalTime = pattern.inhale + pattern.hold + pattern.exhale;
+            let elapsed = 0;
+
+            // Inhale
+            text.innerText = "Inhale";
+            playBreathTone(440, 0.3);
+            circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
+            circle.style.transform = "scale(1.5)";
+
+            const updateProgress = setInterval(() => {
+                elapsed += 0.1;
+                updateBreathProgress(elapsed, totalTime);
+            }, 100);
+
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) { clearInterval(updateProgress); return; }
+                // Hold
+                text.innerText = "Hold";
+                playBreathTone(523, 0.3);
+
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    // Exhale
+                    text.innerText = "Exhale";
+                    playBreathTone(330, 0.3);
+                    circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
+                    circle.style.transform = "scale(1)";
+
+                    breathInterval = setTimeout(() => {
+                        clearInterval(updateProgress);
+                        runBreathCycle();
+                    }, pattern.exhale * 1000);
+                }, pattern.hold * 1000);
+            }, pattern.inhale * 1000);
+        }
+
+        function runBoxBreathing(pattern, text, circle) {
+            const totalTime = pattern.inhale + pattern.hold + pattern.exhale + pattern.hold2;
+            let elapsed = 0;
+
+            const updateProgress = setInterval(() => {
+                elapsed += 0.1;
+                updateBreathProgress(elapsed, totalTime);
+            }, 100);
+
+            text.innerText = "Inhale";
+            playBreathTone(440, 0.3);
+            circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
+            circle.style.transform = "scale(1.4)";
+
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) { clearInterval(updateProgress); return; }
+                text.innerText = "Hold";
+                playBreathTone(523, 0.3);
+
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    text.innerText = "Exhale";
+                    playBreathTone(330, 0.3);
+                    circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
+                    circle.style.transform = "scale(1)";
+
+                    breathInterval = setTimeout(() => {
+                        if (!isBreathing) { clearInterval(updateProgress); return; }
+                        text.innerText = "Hold";
+                        playBreathTone(392, 0.3);
+
+                        breathInterval = setTimeout(() => {
+                            clearInterval(updateProgress);
+                            runBreathCycle();
+                        }, pattern.hold2 * 1000);
+                    }, pattern.exhale * 1000);
+                }, pattern.hold * 1000);
+            }, pattern.inhale * 1000);
+        }
+
+        function runPhysioSigh(pattern, text, circle) {
+            const totalTime = pattern.inhale + pattern.inhale2 + pattern.exhale;
+            let elapsed = 0;
+
+            const updateProgress = setInterval(() => {
+                elapsed += 0.1;
+                updateBreathProgress(elapsed, totalTime);
+            }, 100);
+
+            text.innerText = "Inhale";
+            playBreathTone(440, 0.3);
+            circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
+            circle.style.transform = "scale(1.3)";
+
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) { clearInterval(updateProgress); return; }
+                text.innerText = "Sip";
+                playBreathTone(523, 0.2);
+                circle.style.transition = `transform ${pattern.inhale2}s ease-in-out`;
+                circle.style.transform = "scale(1.5)";
+
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    text.innerText = "Exhale";
+                    playBreathTone(330, 0.3);
+                    circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
+                    circle.style.transform = "scale(1)";
+
+                    breathInterval = setTimeout(() => {
+                        clearInterval(updateProgress);
+                        runBreathCycle();
+                    }, pattern.exhale * 1000);
+                }, pattern.inhale2 * 1000);
+            }, pattern.inhale * 1000);
+        }
+
+        // ========== SLEEP CALCULATOR ==========
+        let calcMode = 'bedtime';
+
+        function setCalcMode(mode) {
+            calcMode = mode;
+            document.querySelectorAll('[id^="calc-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('calc-' + mode).classList.add('active');
+
+            document.getElementById('calcBedtimeMode').classList.toggle('hidden', mode !== 'bedtime');
+            document.getElementById('calcWaketimeMode').classList.toggle('hidden', mode !== 'waketime');
+            document.getElementById('sleepResults').classList.add('hidden');
+            saveSettings();
+        }
+
+        function calculateSleep() {
+            const latencyEl = document.getElementById('sleepLatency');
+            const latency = latencyEl ? parseInt(latencyEl.value, 10) : 14;
+            const resultsEl = document.getElementById('sleepResults');
+            const labelEl = document.getElementById('calcResultLabel');
+
+            function fmt(d) {
+                return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+            }
+
+            function showError(message) {
+                if(labelEl) {
+                    labelEl.innerText = message;
+                    labelEl.classList.add('text-red-400');
+                }
+                if(resultsEl) resultsEl.classList.add('hidden');
+            }
+
+            function clearError() {
+                if(labelEl) labelEl.classList.remove('text-red-400');
+            }
+
+            if(calcMode === 'bedtime') {
+                const inputEl = document.getElementById('wakeTime');
+                const val = inputEl?.value;
+                if(!val) {
+                    showError('Please enter a wake time');
+                    return;
+                }
+                clearError();
+                let [h, m] = val.split(':').map(Number);
+                let d = new Date();
+                d.setHours(h, m, 0);
+
+                // Subtract sleep cycles + latency
+                let t1 = new Date(d.getTime() - (9*60 + latency)*60*1000);
+                let t2 = new Date(d.getTime() - (7.5*60 + latency)*60*1000);
+                let t3 = new Date(d.getTime() - (6*60 + latency)*60*1000);
+
+                document.getElementById('time1').innerText = fmt(t1);
+                document.getElementById('time2').innerText = fmt(t2);
+                document.getElementById('time3').innerText = fmt(t3);
+                if(labelEl) labelEl.innerText = 'Go to bed at:';
+            } else {
+                const inputEl = document.getElementById('bedTime');
+                const val = inputEl?.value;
+                if(!val) {
+                    showError('Please enter a bedtime');
+                    return;
+                }
+                clearError();
+                let [h, m] = val.split(':').map(Number);
+                let d = new Date();
+                d.setHours(h, m, 0);
+
+                // Add latency + sleep cycles
+                let t1 = new Date(d.getTime() + (latency + 9*60)*60*1000);
+                let t2 = new Date(d.getTime() + (latency + 7.5*60)*60*1000);
+                let t3 = new Date(d.getTime() + (latency + 6*60)*60*1000);
+
+                document.getElementById('time1').innerText = fmt(t1);
+                document.getElementById('time2').innerText = fmt(t2);
+                document.getElementById('time3').innerText = fmt(t3);
+                document.getElementById('calcResultLabel').innerText = 'Wake up at:';
+            }
+
+            document.getElementById('sleepResults').classList.remove('hidden');
+            saveSettings();
+        }
+
+        // ========== LOCAL STORAGE ==========
+        function saveSettings() {
+            const settings = {
+                synthMode: currentMode,
+                synthMethod: currentMethod,
+                noiseType: currentNoiseType,
+                volume: currentVolume * 100,
+                breathPattern: currentBreathPattern,
+                breathSound: breathSoundEnabled,
+                calcMode: calcMode,
+                sleepLatency: document.getElementById('sleepLatency')?.value || '14',
+                wakeTime: document.getElementById('wakeTime')?.value || '07:00',
+                bedTime: document.getElementById('bedTime')?.value || '23:00'
+            };
+            localStorage.setItem('sleepLabSettings', JSON.stringify(settings));
+        }
+
+        function loadSettings() {
+            try {
+                const saved = localStorage.getItem('sleepLabSettings');
+                if(saved) {
+                    const settings = JSON.parse(saved);
+
+                    if(settings.synthMode) setSynthMode(settings.synthMode);
+                    if(settings.synthMethod) setSynthMethod(settings.synthMethod);
+                    if(settings.noiseType) setNoiseType(settings.noiseType);
+                    if(settings.volume) {
+                        const volSlider = document.querySelector('input[type="range"]');
+                        if(volSlider) {
+                            volSlider.value = settings.volume;
+                            updateVolume(settings.volume);
+                        }
+                    }
+                    if(settings.breathPattern) setBreathPattern(settings.breathPattern);
+                    if(settings.breathSound !== undefined) {
+                        breathSoundEnabled = settings.breathSound;
+                        const icon = document.getElementById('breathSoundIcon');
+                        if(icon) icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+                    }
+                    if(settings.calcMode) setCalcMode(settings.calcMode);
+                    if(settings.sleepLatency) {
+                        const latencySelect = document.getElementById('sleepLatency');
+                        if(latencySelect) latencySelect.value = settings.sleepLatency;
+                    }
+                    if(settings.wakeTime) {
+                        const wakeInput = document.getElementById('wakeTime');
+                        if(wakeInput) wakeInput.value = settings.wakeTime;
+                    }
+                    if(settings.bedTime) {
+                        const bedInput = document.getElementById('bedTime');
+                        if(bedInput) bedInput.value = settings.bedTime;
+                    }
+                }
+            } catch(e) {
+                console.warn('Error loading settings:', e);
+            }
+        }
+
+        // Initialize visualizer and load settings
+        initVisualizer();
+        loadSettings();
 
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
