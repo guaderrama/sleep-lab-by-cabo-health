@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3262,6 +3262,7 @@
                 'guided.focus.title': 'Deep Focus',
                 'guided.focus.desc': 'Gamma waves for enhanced concentration',
                 'guided.stop': 'End Session',
+                'guided.active': 'Active',
 
                 // Diagnostic Quiz
                 'quiz.badge': 'Quick Diagnosis',
@@ -3537,6 +3538,7 @@
                 'guided.focus.title': 'Enfoque Profundo',
                 'guided.focus.desc': 'Ondas Gamma para concentración mejorada',
                 'guided.stop': 'Terminar Sesión',
+                'guided.active': 'Activa',
 
                 // Diagnostic Quiz
                 'quiz.badge': 'Diagnóstico Rápido',
@@ -3735,7 +3737,7 @@
             currentNoiseType = type;
             document.querySelectorAll('[id^="noise-"]').forEach(btn => btn.classList.remove('active'));
             document.getElementById('noise-' + type).classList.add('active');
-            document.getElementById('noiseDescription').innerText = NOISE_DESCRIPTIONS[type];
+            document.getElementById('noiseDescription').innerText = t('noise.' + type);
             if(noiseNode && isNoiseOn) {
                 stopNoise();
                 startNoise();
@@ -3836,9 +3838,7 @@
             const sessionName = document.getElementById('guidedSessionName');
             if(indicator && sessionName) {
                 indicator.classList.remove('hidden');
-                sessionName.textContent = currentLang === 'es' ?
-                    session.nameEs + ' Activa' :
-                    session.nameEn + ' Active';
+                sessionName.textContent = t('guided.' + sessionType + '.title') + ' ' + t('guided.active');
             }
 
             // Scroll to tools section
@@ -4395,7 +4395,7 @@
                 const inputEl = document.getElementById('wakeTime');
                 const val = inputEl?.value;
                 if(!val) {
-                    showError('Please enter a wake time');
+                    showError(t('calc.error.wake'));
                     return;
                 }
                 clearError();
@@ -4411,12 +4411,12 @@
                 document.getElementById('time1').innerText = fmt(t1);
                 document.getElementById('time2').innerText = fmt(t2);
                 document.getElementById('time3').innerText = fmt(t3);
-                if(labelEl) labelEl.innerText = 'Go to bed at:';
+                if(labelEl) labelEl.innerText = t('calc.goBed');
             } else {
                 const inputEl = document.getElementById('bedTime');
                 const val = inputEl?.value;
                 if(!val) {
-                    showError('Please enter a bedtime');
+                    showError(t('calc.error.bed'));
                     return;
                 }
                 clearError();
@@ -4432,7 +4432,7 @@
                 document.getElementById('time1').innerText = fmt(t1);
                 document.getElementById('time2').innerText = fmt(t2);
                 document.getElementById('time3').innerText = fmt(t3);
-                document.getElementById('calcResultLabel').innerText = 'Wake up at:';
+                document.getElementById('calcResultLabel').innerText = t('calc.wakeUp');
             }
 
             document.getElementById('sleepResults').classList.remove('hidden');
