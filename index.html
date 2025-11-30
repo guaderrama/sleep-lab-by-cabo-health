@@ -3637,9 +3637,9 @@
                 synthStatus.textContent = t('tools.synth.status');
             }
 
-            // Update breath text if ready
+            // Update breath text if ready (only when not actively breathing)
             const breathText = document.getElementById('breathText');
-            if(breathText && breathText.textContent === 'Ready' || breathText?.textContent === 'Listo') {
+            if(breathText && !isBreathing) {
                 breathText.textContent = t('breath.ready');
             }
 
@@ -3810,6 +3810,12 @@
             if(synthRunning) stopSynth(true);
             if(isBreathing) toggleBreathing();
 
+            // Clear any existing timer to prevent unexpected stops
+            if(timerInterval) {
+                clearTimeout(timerInterval);
+                timerInterval = null;
+            }
+
             activeGuidedSession = sessionType;
 
             // Configure synth settings
@@ -3883,7 +3889,7 @@
 
         function toggleNoise() {
             isNoiseOn = !isNoiseOn;
-            const t = document.getElementById('noiseToggle');
+            const toggle = document.getElementById('noiseToggle');
             const btn = document.getElementById('noiseBtn');
             // Update ARIA for accessibility
             if(btn) {
@@ -3891,12 +3897,12 @@
                 btn.setAttribute('aria-label', isNoiseOn ? 'Disable background noise' : 'Enable background noise');
             }
             if(isNoiseOn) {
-                t.style.transform = 'translateX(24px)';
-                t.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
+                toggle.style.transform = 'translateX(24px)';
+                toggle.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
                 if(synthRunning) startNoise();
             } else {
-                t.style.transform = 'translateX(0)';
-                t.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
+                toggle.style.transform = 'translateX(0)';
+                toggle.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
                 stopNoise();
             }
         }
@@ -4114,6 +4120,7 @@
         // ========== BREATHING TOOL ==========
         let isBreathing = false;
         let breathInterval;
+        let breathProgressInterval = null; // Track progress interval to prevent memory leaks
         let breathCycle = 0;
         let totalBreathCycles = 8;
         let currentBreathPattern = '478';
@@ -4215,6 +4222,11 @@
             document.getElementById('breathCircle').style.transform = "scale(1)";
             updateBreathProgress(0, 1);
             clearTimeout(breathInterval);
+            // Clear progress interval to prevent memory leak
+            if(breathProgressInterval) {
+                clearInterval(breathProgressInterval);
+                breathProgressInterval = null;
+            }
             if(breathOscillator) {
                 try { breathOscillator.stop(); } catch(e) {}
             }
@@ -4257,19 +4269,21 @@
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.5)";
 
-            const updateProgress = setInterval(() => {
+            // Clear any existing progress interval before starting new one
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
+            breathProgressInterval = setInterval(() => {
                 elapsed += 0.1;
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
 
             breathInterval = setTimeout(() => {
-                if (!isBreathing) { clearInterval(updateProgress); return; }
+                if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                 // Hold
                 text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
 
                 breathInterval = setTimeout(() => {
-                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                     // Exhale
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
@@ -4277,7 +4291,8 @@
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
-                        clearInterval(updateProgress);
+                        clearInterval(breathProgressInterval);
+                        breathProgressInterval = null;
                         runBreathCycle();
                     }, pattern.exhale * 1000);
                 }, pattern.hold * 1000);
@@ -4288,7 +4303,9 @@
             const totalTime = pattern.inhale + pattern.hold + pattern.exhale + pattern.hold2;
             let elapsed = 0;
 
-            const updateProgress = setInterval(() => {
+            // Clear any existing progress interval before starting new one
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
+            breathProgressInterval = setInterval(() => {
                 elapsed += 0.1;
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
@@ -4299,24 +4316,25 @@
             circle.style.transform = "scale(1.4)";
 
             breathInterval = setTimeout(() => {
-                if (!isBreathing) { clearInterval(updateProgress); return; }
+                if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                 text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
 
                 breathInterval = setTimeout(() => {
-                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
-                        if (!isBreathing) { clearInterval(updateProgress); return; }
+                        if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                         text.innerText = t('breath.hold');
                         playBreathTone(392, 0.3);
 
                         breathInterval = setTimeout(() => {
-                            clearInterval(updateProgress);
+                            clearInterval(breathProgressInterval);
+                            breathProgressInterval = null;
                             runBreathCycle();
                         }, pattern.hold2 * 1000);
                     }, pattern.exhale * 1000);
@@ -4328,7 +4346,9 @@
             const totalTime = pattern.inhale + pattern.inhale2 + pattern.exhale;
             let elapsed = 0;
 
-            const updateProgress = setInterval(() => {
+            // Clear any existing progress interval before starting new one
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
+            breathProgressInterval = setInterval(() => {
                 elapsed += 0.1;
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
@@ -4339,21 +4359,22 @@
             circle.style.transform = "scale(1.3)";
 
             breathInterval = setTimeout(() => {
-                if (!isBreathing) { clearInterval(updateProgress); return; }
+                if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                 text.innerText = t('breath.sip');
                 playBreathTone(523, 0.2);
                 circle.style.transition = `transform ${pattern.inhale2}s ease-in-out`;
                 circle.style.transform = "scale(1.5)";
 
                 breathInterval = setTimeout(() => {
-                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
-                        clearInterval(updateProgress);
+                        clearInterval(breathProgressInterval);
+                        breathProgressInterval = null;
                         runBreathCycle();
                     }, pattern.exhale * 1000);
                 }, pattern.inhale2 * 1000);
