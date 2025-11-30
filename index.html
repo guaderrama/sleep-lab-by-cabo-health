@@ -31,21 +31,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (CDN version - no SRI available) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- GSAP with SRI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16ez83B4vCg/znm/nuGhW+U+rPvxQ4Z/PN+HQJ8jR4g+qVY7VjEXCVd8VZ5+jm1uoMKR/lKqMs8E4P70nZNNPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4viIFHgelIDlG63Wa8vHOJGs1jqH7fRLY1HQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Three.js with SRI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
         :root {
@@ -2904,6 +2904,20 @@
     </footer>
 
     <script>
+        // Global error handler for unhandled errors
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.warn('Global error caught:', { message, source, lineno, colno, error });
+            // Prevent error from breaking the app - graceful degradation
+            return true;
+        };
+
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.warn('Unhandled promise rejection:', event.reason);
+            // Prevent default browser handling
+            event.preventDefault();
+        });
+
         // 0. Accordion Toggle Function (with keyboard support)
         function toggleAccordion(header) {
             const content = header.nextElementSibling;
@@ -2948,9 +2962,12 @@
             for (let i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
             const buttons = document.getElementsByClassName("tab-btn");
             for (let i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active", "bg-white/10", "text-dynamic"); buttons[i].classList.add("text-gray-300"); }
-            document.getElementById(tabName).classList.add("active");
+            document.getElementById(tabName)?.classList.add("active");
             const activeBtn = document.getElementById("btn-" + tabName);
-            activeBtn.classList.add("active", "bg-white/10", "text-dynamic"); activeBtn.classList.remove("text-gray-300");
+            if(activeBtn) {
+                activeBtn.classList.add("active", "bg-white/10", "text-dynamic");
+                activeBtn.classList.remove("text-gray-300");
+            }
         }
 
         // ========== DIAGNOSTIC QUIZ ==========
@@ -3725,7 +3742,7 @@
         function setSynthMode(mode) {
             currentMode = mode;
             document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('mode-' + mode).classList.add('active');
+            document.getElementById('mode-' + mode)?.classList.add('active');
             if(synthRunning) updateSynthParams();
             saveSettings();
         }
@@ -3733,7 +3750,7 @@
         function setSynthMethod(method) {
             currentMethod = method;
             document.querySelectorAll('[id^="method-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('method-' + method).classList.add('active');
+            document.getElementById('method-' + method)?.classList.add('active');
             if(synthRunning) { stopSynth(true); startSynth(); }
             saveSettings();
         }
@@ -3741,8 +3758,9 @@
         function setNoiseType(type) {
             currentNoiseType = type;
             document.querySelectorAll('[id^="noise-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('noise-' + type).classList.add('active');
-            document.getElementById('noiseDescription').innerText = t('noise.' + type);
+            document.getElementById('noise-' + type)?.classList.add('active');
+            const noiseDesc = document.getElementById('noiseDescription');
+            if(noiseDesc) noiseDesc.innerText = t('noise.' + type);
             if(noiseNode && isNoiseOn) {
                 stopNoise();
                 startNoise();
@@ -4136,8 +4154,9 @@
         function setBreathPattern(pattern) {
             currentBreathPattern = pattern;
             document.querySelectorAll('[id^="breath-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('breath-' + pattern).classList.add('active');
-            document.getElementById('breathPatternDesc').innerText = BREATH_PATTERNS[pattern].desc;
+            document.getElementById('breath-' + pattern)?.classList.add('active');
+            const patternDesc = document.getElementById('breathPatternDesc');
+            if(patternDesc) patternDesc.innerText = t('breath.pattern.' + pattern + 'Desc');
 
             if(isBreathing) {
                 stopBreathing();
@@ -4148,7 +4167,7 @@
         function toggleBreathSound() {
             breathSoundEnabled = !breathSoundEnabled;
             const icon = document.getElementById('breathSoundIcon');
-            icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+            if(icon) icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
             saveSettings();
         }
 
@@ -4387,11 +4406,11 @@
         function setCalcMode(mode) {
             calcMode = mode;
             document.querySelectorAll('[id^="calc-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('calc-' + mode).classList.add('active');
+            document.getElementById('calc-' + mode)?.classList.add('active');
 
-            document.getElementById('calcBedtimeMode').classList.toggle('hidden', mode !== 'bedtime');
-            document.getElementById('calcWaketimeMode').classList.toggle('hidden', mode !== 'waketime');
-            document.getElementById('sleepResults').classList.add('hidden');
+            document.getElementById('calcBedtimeMode')?.classList.toggle('hidden', mode !== 'bedtime');
+            document.getElementById('calcWaketimeMode')?.classList.toggle('hidden', mode !== 'waketime');
+            document.getElementById('sleepResults')?.classList.add('hidden');
             saveSettings();
         }
 
@@ -4417,10 +4436,17 @@
                 if(labelEl) labelEl.classList.remove('text-red-400');
             }
 
+            // Validate time format HH:MM
+            function isValidTime(timeStr) {
+                if(!timeStr) return false;
+                const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+                return timeRegex.test(timeStr);
+            }
+
             if(calcMode === 'bedtime') {
                 const inputEl = document.getElementById('wakeTime');
                 const val = inputEl?.value;
-                if(!val) {
+                if(!val || !isValidTime(val)) {
                     showError(t('calc.error.wake'));
                     return;
                 }
@@ -4441,7 +4467,7 @@
             } else {
                 const inputEl = document.getElementById('bedTime');
                 const val = inputEl?.value;
-                if(!val) {
+                if(!val || !isValidTime(val)) {
                     showError(t('calc.error.bed'));
                     return;
                 }
