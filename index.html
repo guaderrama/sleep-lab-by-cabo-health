@@ -31,21 +31,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Tailwind CSS (CDN version - no SRI available) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
-    <!-- GSAP with SRI -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16ez83B4vCg/znm/nuGhW+U+rPvxQ4Z/PN+HQJ8jR4g+qVY7VjEXCVd8VZ5+jm1uoMKR/lKqMs8E4P70nZNNPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4viIFHgelIDlG63Wa8vHOJGs1jqH7fRLY1HQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <!-- Three.js with SRI -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         :root {
@@ -82,7 +82,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; opacity: 0.5;
             /* Fallback gradient if WebGL fails */
-            background: radial-gradient(circle at center, #1a1a2e 0%, #050510 100%);
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
             transition: opacity 0.5s ease;
         }
 
@@ -349,9 +349,9 @@
                         <a href="#tools" class="text-cyan-400 hover:text-dynamic text-sm font-bold transition" data-i18n="nav.tools"><i class="fa-solid fa-wrench mr-1"></i>Tools</a>
                         <a href="#level-1" class="text-green-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level1"><i class="fa-solid fa-seedling mr-1"></i>Level 1</a>
                         <a href="#level-2" class="text-blue-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level2"><i class="fa-solid fa-flask mr-1"></i>Level 2</a>
-                        <a href="#supplements" class="text-purple-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level3"><i class="fa-solid fa-flask-vial mr-1"></i>Supplements</a>
-                        <a href="#frontier" class="text-red-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level4"><i class="fa-solid fa-atom mr-1"></i>Advanced</a>
-                        <a href="#maestros" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.resources"><i class="fa-solid fa-book mr-1"></i>Experts</a>
+                        <a href="#level-3" class="text-purple-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level3"><i class="fa-solid fa-microchip mr-1"></i>Level 3</a>
+                        <a href="#level-4" class="text-red-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level4"><i class="fa-solid fa-atom mr-1"></i>Level 4</a>
+                        <a href="#resources" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.resources"><i class="fa-solid fa-book mr-1"></i>Resources</a>
                     </div>
                 </div>
 
@@ -370,9 +370,9 @@
                 <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-cyan-400 font-bold" data-i18n="nav.tools"><i class="fa-solid fa-wrench mr-2"></i>Tools</a>
                 <a href="#level-1" onclick="toggleMobileMenu()" class="text-lg text-green-400" data-i18n="nav.level1"><i class="fa-solid fa-seedling mr-2"></i>Level 1 - Free</a>
                 <a href="#level-2" onclick="toggleMobileMenu()" class="text-lg text-blue-400" data-i18n="nav.level2"><i class="fa-solid fa-flask mr-2"></i>Level 2</a>
-                <a href="#supplements" onclick="toggleMobileMenu()" class="text-lg text-purple-400" data-i18n="nav.level3"><i class="fa-solid fa-flask-vial mr-2"></i>Supplements</a>
-                <a href="#frontier" onclick="toggleMobileMenu()" class="text-lg text-red-400" data-i18n="nav.level4"><i class="fa-solid fa-atom mr-2"></i>Advanced</a>
-                <a href="#maestros" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.resources"><i class="fa-solid fa-book mr-2"></i>Experts</a>
+                <a href="#level-3" onclick="toggleMobileMenu()" class="text-lg text-purple-400" data-i18n="nav.level3"><i class="fa-solid fa-microchip mr-2"></i>Level 3</a>
+                <a href="#level-4" onclick="toggleMobileMenu()" class="text-lg text-red-400" data-i18n="nav.level4"><i class="fa-solid fa-atom mr-2"></i>Level 4</a>
+                <a href="#resources" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.resources"><i class="fa-solid fa-book mr-2"></i>Resources</a>
             </div>
         </div>
     </nav>
@@ -663,16 +663,6 @@
             </div>
             <p class="text-gray-400 mb-10 max-w-3xl" data-i18n="level2.desc">Once you've mastered Level 1, these affordable additions can significantly enhance your sleep quality.</p>
 
-            <!-- Level 2 content references the supplements section -->
-            <div class="text-center">
-                <a href="#supplements" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-500/20 border border-blue-500/50 text-blue-300 rounded-full font-bold hover:bg-blue-500/30 transition">
-                    <i class="fa-solid fa-arrow-down"></i>
-                    <span data-i18n="level2.cta">View Supplement Guide</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- WHY WE SLEEP - Introduction (kept for educational content) -->
     <section id="why-sleep" class="py-24 relative overflow-hidden">
         <div class="max-w-6xl mx-auto px-4">
@@ -763,7 +753,7 @@
     </section>
 
     <!-- 0. User Manual -->
-    <section id="how-to" class="py-24 relative">
+    <section id="how-to" class="py-24 bg-black/30 border-y border-white/5">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center text-white"><span class="text-dynamic">00.</span> How to use this Guide</h2>
             
@@ -939,7 +929,7 @@
     </section>
 
     <!-- ADVANCED PROTOCOLS - Collapsible Section -->
-    <section id="advanced-protocols" class="py-24 bg-gradient-to-b from-purple-900/10 to-transparent">
+    <section id="advanced-protocols" class="py-24 bg-gradient-to-b from-purple-900/10 to-black/50">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-12">
                 <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest">Evidence-Based</span>
@@ -1441,12 +1431,12 @@
                     </button>
                 </div>
 
-                <!-- Session Active Indicator (Secondary - for synth section) -->
-                <div id="guidedSessionIndicator2" class="hidden mt-4 bg-purple-500/20 border border-purple-500/50 rounded-xl p-4">
+                <!-- Session Active Indicator -->
+                <div id="guidedSessionIndicator" class="hidden mt-4 bg-purple-500/20 border border-purple-500/50 rounded-xl p-4">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                            <span class="text-sm text-purple-300" id="guidedSessionName2">Bedtime Session Active</span>
+                            <span class="text-sm text-purple-300" id="guidedSessionName">Bedtime Session Active</span>
                         </div>
                         <button onclick="stopGuidedSession()" class="text-xs text-gray-400 hover:text-white transition" data-i18n="guided.stop">End Session</button>
                     </div>
@@ -1542,8 +1532,8 @@
                     </div>
 
                     <div class="w-full lg:w-auto flex flex-col items-end">
-                        <div id="synthStatus" class="text-xs font-mono text-dynamic mb-3 tracking-widest" role="status" aria-live="polite" aria-atomic="true">SYSTEM STANDBY</div>
-                        <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center" aria-label="Activate audio session">
+                        <div id="synthStatus" class="text-xs font-mono text-dynamic mb-3 tracking-widest">SYSTEM STANDBY</div>
+                        <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center">
                             <i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION
                         </button>
                     </div>
@@ -1708,8 +1698,8 @@
                                 <circle class="breath-progress-bar" id="breathProgressBar" cx="100" cy="100" r="95" stroke-dasharray="597" stroke-dashoffset="597"></circle>
                             </svg>
                             <div class="flex flex-col items-center">
-                                <span id="breathText" class="breath-text" role="status" aria-live="polite" aria-atomic="true">Ready</span>
-                                <span id="breathCycleCount" class="breath-cycle-counter text-gray-400" aria-live="off">Cycle 0/8</span>
+                                <span id="breathText" class="breath-text">Ready</span>
+                                <span id="breathCycleCount" class="breath-cycle-counter text-gray-400">Cycle 0/8</span>
                             </div>
                         </div>
 
@@ -1784,7 +1774,7 @@
                         Calculate
                     </button>
 
-                    <div id="sleepResults" class="hidden" role="region" aria-live="polite" aria-label="Sleep calculation results">
+                    <div id="sleepResults" class="hidden">
                         <p class="text-xs text-gray-400 text-center mb-2" id="calcResultLabel">Go to bed at:</p>
                         <div class="grid grid-cols-3 gap-2 text-center">
                             <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time1">--</span><span class="text-[9px] text-gray-500 block">6 Cycles</span></div>
@@ -1798,7 +1788,7 @@
     </section>
 
     <!-- 2. DIAGNOSIS -->
-    <section id="diagnosis" class="py-24 relative">
+    <section id="diagnosis" class="py-24 bg-black/30 border-y border-white/5">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">02.</span> Diagnosis Center</h2>
             <p class="text-center text-gray-400 mb-12" data-i18n="diagnosis.subtitle">Select your primary symptom to reveal the specific combat protocol.</p>
@@ -1905,9 +1895,9 @@
                     </div>
 
                     <!-- Quiz Result -->
-                    <div id="quizResult" class="quiz-step hidden text-center" role="alert" aria-live="assertive">
+                    <div id="quizResult" class="quiz-step hidden text-center">
                         <div class="bg-green-500/20 border border-green-500/50 rounded-xl p-6 mb-4">
-                            <i class="fa-solid fa-circle-check text-green-400 text-3xl mb-3" aria-hidden="true"></i>
+                            <i class="fa-solid fa-circle-check text-green-400 text-3xl mb-3"></i>
                             <h4 class="text-lg font-bold text-white mb-2" data-i18n="quiz.result.title">Your Recommended Protocol:</h4>
                             <p class="text-green-300 text-xl font-bold" id="quizResultProtocol">Monkey Mind</p>
                             <p class="text-gray-400 text-sm mt-2" id="quizResultDesc">Cognitive hyperarousal - your brain needs help shutting down</p>
@@ -2163,7 +2153,7 @@
     </section>
 
     <!-- 4. SUPPLEMENTS (Expanded with FLIP Cards) -->
-    <section id="supplements" class="py-24 bg-gradient-to-b from-blue-900/5 to-transparent">
+    <section id="supplements" class="py-24 bg-gradient-to-b from-black/50 to-blue-900/10">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">04.</span> Biochemical Arsenal</h2>
             <p class="text-center text-gray-400 mb-4 max-w-3xl mx-auto">Your strategic toolkit for optimizing sleep architecture. Each compound targets specific pathways—from calming the nervous system and lowering cortisol, to regulating body temperature and enhancing melatonin production. Build your personalized stack based on your unique sleep challenges.</p>
@@ -2399,7 +2389,7 @@
     </section>
 
     <!-- 6. FRONTIER - EXPANDED -->
-    <section id="frontier" class="py-24 relative">
+    <section id="frontier" class="py-24 bg-black/20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-12">
                 <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest">Advanced Level</span>
@@ -2800,7 +2790,7 @@
     </section>
 
     <!-- 8. INVESTMENT -->
-    <section id="investment" class="py-24 relative">
+    <section id="investment" class="py-24 bg-black/40">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><span class="text-green-400">08.</span> Investment ROI</h2>
             <div class="grid md:grid-cols-3 gap-8">
@@ -2848,7 +2838,7 @@
     </section>
 
     <!-- APPENDIX: TECH LAB -->
-    <section id="tech-lab" class="py-24 bg-gradient-to-b from-cyan-900/10 to-transparent">
+    <section id="tech-lab" class="py-24 bg-gradient-to-b from-black/80 to-black/40">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">10.</span> Tech Lab</h2>
             <p class="text-center text-gray-400 mb-12">Passive Monitoring vs Active Intervention.</p>
@@ -2897,7 +2887,7 @@
     </section>
 
     <!-- APPENDIX: CHRONOTYPES -->
-    <section id="chronotypes" class="py-24 relative">
+    <section id="chronotypes" class="py-24 bg-black/20">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-white"><span class="text-orange-400">12.</span> Chronotypes</h2>
             <div class="grid md:grid-cols-4 gap-4">
@@ -2909,25 +2899,11 @@
         </div>
     </section>
 
-    <footer class="py-10 text-center text-gray-500 text-sm border-t border-white/10 bg-[#050510]">
+    <footer class="py-10 text-center text-gray-500 text-sm border-t border-white/10 bg-black">
         <p>SLEEP_LAB © 2025 by Cabo Health | Based on Science. Optimized for Humans.</p>
     </footer>
 
     <script>
-        // Global error handler for unhandled errors
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.warn('Global error caught:', { message, source, lineno, colno, error });
-            // Prevent error from breaking the app - graceful degradation
-            return true;
-        };
-
-        // Handle unhandled promise rejections
-        window.addEventListener('unhandledrejection', function(event) {
-            console.warn('Unhandled promise rejection:', event.reason);
-            // Prevent default browser handling
-            event.preventDefault();
-        });
-
         // 0. Accordion Toggle Function (with keyboard support)
         function toggleAccordion(header) {
             const content = header.nextElementSibling;
@@ -2972,12 +2948,9 @@
             for (let i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
             const buttons = document.getElementsByClassName("tab-btn");
             for (let i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active", "bg-white/10", "text-dynamic"); buttons[i].classList.add("text-gray-300"); }
-            document.getElementById(tabName)?.classList.add("active");
+            document.getElementById(tabName).classList.add("active");
             const activeBtn = document.getElementById("btn-" + tabName);
-            if(activeBtn) {
-                activeBtn.classList.add("active", "bg-white/10", "text-dynamic");
-                activeBtn.classList.remove("text-gray-300");
-            }
+            activeBtn.classList.add("active", "bg-white/10", "text-dynamic"); activeBtn.classList.remove("text-gray-300");
         }
 
         // ========== DIAGNOSTIC QUIZ ==========
@@ -3664,9 +3637,9 @@
                 synthStatus.textContent = t('tools.synth.status');
             }
 
-            // Update breath text if ready (only when not actively breathing)
+            // Update breath text if ready
             const breathText = document.getElementById('breathText');
-            if(breathText && !isBreathing) {
+            if(breathText && breathText.textContent === 'Ready' || breathText?.textContent === 'Listo') {
                 breathText.textContent = t('breath.ready');
             }
 
@@ -3714,41 +3687,17 @@
         let visualizerAnimationId = null;
         let lastVisualizerTime = 0;
         let noiseStopPending = false; // Guard flag for race condition
-        let audioCtxInitializing = false; // Guard flag for initialization race condition
-        let audioCtxResumePromise = null; // Track pending resume operation
 
-        /**
-         * Gets or creates the AudioContext with proper state management.
-         * Handles suspended state and prevents race conditions during initialization.
-         * @returns {AudioContext} The audio context instance
-         */
         function getAudioContext() {
-            if (!audioCtx && !audioCtxInitializing) {
-                audioCtxInitializing = true;
-                try {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    // Create analyser for real visualizer (don't connect to destination yet)
-                    analyser = audioCtx.createAnalyser();
-                    analyser.fftSize = 64;
-                    // Analyser will be in the chain: source -> analyser -> destination
-                } catch(e) {
-                    console.error('Failed to create AudioContext:', e);
-                    audioCtxInitializing = false;
-                    return null;
-                }
-                audioCtxInitializing = false;
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                // Create analyser for real visualizer (don't connect to destination yet)
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 64;
+                // Analyser will be in the chain: source -> analyser -> destination
             }
-
-            // Handle suspended state with proper promise tracking
-            if (audioCtx && audioCtx.state === 'suspended') {
-                if (!audioCtxResumePromise) {
-                    audioCtxResumePromise = audioCtx.resume()
-                        .then(() => { audioCtxResumePromise = null; })
-                        .catch(e => {
-                            console.warn('AudioContext resume failed:', e);
-                            audioCtxResumePromise = null;
-                        });
-                }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
             return audioCtx;
         }
@@ -3776,7 +3725,7 @@
         function setSynthMode(mode) {
             currentMode = mode;
             document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('mode-' + mode)?.classList.add('active');
+            document.getElementById('mode-' + mode).classList.add('active');
             if(synthRunning) updateSynthParams();
             saveSettings();
         }
@@ -3784,7 +3733,7 @@
         function setSynthMethod(method) {
             currentMethod = method;
             document.querySelectorAll('[id^="method-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('method-' + method)?.classList.add('active');
+            document.getElementById('method-' + method).classList.add('active');
             if(synthRunning) { stopSynth(true); startSynth(); }
             saveSettings();
         }
@@ -3792,9 +3741,8 @@
         function setNoiseType(type) {
             currentNoiseType = type;
             document.querySelectorAll('[id^="noise-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('noise-' + type)?.classList.add('active');
-            const noiseDesc = document.getElementById('noiseDescription');
-            if(noiseDesc) noiseDesc.innerText = t('noise.' + type);
+            document.getElementById('noise-' + type).classList.add('active');
+            document.getElementById('noiseDescription').innerText = t('noise.' + type);
             if(noiseNode && isNoiseOn) {
                 stopNoise();
                 startNoise();
@@ -3862,12 +3810,6 @@
             if(synthRunning) stopSynth(true);
             if(isBreathing) toggleBreathing();
 
-            // Clear any existing timer to prevent unexpected stops
-            if(timerInterval) {
-                clearTimeout(timerInterval);
-                timerInterval = null;
-            }
-
             activeGuidedSession = sessionType;
 
             // Configure synth settings
@@ -3896,16 +3838,13 @@
                 }, 1000);
             }
 
-            // Show both indicators (primary and secondary)
-            const indicators = [
-                { el: document.getElementById('guidedSessionIndicator'), name: document.getElementById('guidedSessionName') },
-                { el: document.getElementById('guidedSessionIndicator2'), name: document.getElementById('guidedSessionName2') }
-            ];
-            const sessionLabel = t('guided.' + sessionType + '.title') + ' ' + t('guided.active');
-            indicators.forEach(({ el, name }) => {
-                if(el) el.classList.remove('hidden');
-                if(name) name.textContent = sessionLabel;
-            });
+            // Show indicator
+            const indicator = document.getElementById('guidedSessionIndicator');
+            const sessionName = document.getElementById('guidedSessionName');
+            if(indicator && sessionName) {
+                indicator.classList.remove('hidden');
+                sessionName.textContent = t('guided.' + sessionType + '.title') + ' ' + t('guided.active');
+            }
 
             // Scroll to tools section
             document.getElementById('tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3916,11 +3855,11 @@
             if(isBreathing) toggleBreathing();
             activeGuidedSession = null;
 
-            // Hide both indicators
-            ['guidedSessionIndicator', 'guidedSessionIndicator2'].forEach(id => {
-                const indicator = document.getElementById(id);
-                if(indicator) indicator.classList.add('hidden');
-            });
+            // Hide indicator
+            const indicator = document.getElementById('guidedSessionIndicator');
+            if(indicator) {
+                indicator.classList.add('hidden');
+            }
         }
 
         function toggleSynth() {
@@ -3944,7 +3883,7 @@
 
         function toggleNoise() {
             isNoiseOn = !isNoiseOn;
-            const toggle = document.getElementById('noiseToggle');
+            const t = document.getElementById('noiseToggle');
             const btn = document.getElementById('noiseBtn');
             // Update ARIA for accessibility
             if(btn) {
@@ -3952,12 +3891,12 @@
                 btn.setAttribute('aria-label', isNoiseOn ? 'Disable background noise' : 'Enable background noise');
             }
             if(isNoiseOn) {
-                toggle.style.transform = 'translateX(24px)';
-                toggle.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
+                t.style.transform = 'translateX(24px)';
+                t.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
                 if(synthRunning) startNoise();
             } else {
-                toggle.style.transform = 'translateX(0)';
-                toggle.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
+                t.style.transform = 'translateX(0)';
+                t.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
                 stopNoise();
             }
         }
@@ -4175,21 +4114,11 @@
         // ========== BREATHING TOOL ==========
         let isBreathing = false;
         let breathInterval;
-        let breathProgressInterval = null; // Track progress interval to prevent memory leaks
         let breathCycle = 0;
         let totalBreathCycles = 8;
         let currentBreathPattern = '478';
         let breathSoundEnabled = true;
         let breathOscillator = null;
-
-        // Audio frequency constants for breath tones (Hz)
-        const BREATH_TONE_FREQUENCIES = {
-            INHALE: 440,    // A4 - natural breathing in tone
-            HOLD: 523,      // C5 - higher pitch for holding
-            EXHALE: 330,    // E4 - lower, calming exhale tone
-            SIP: 523,       // C5 - same as hold for secondary inhale
-            HOLD2: 392      // G4 - slightly different for box breathing hold2
-        };
 
         const BREATH_PATTERNS = {
             '478': { inhale: 4, hold: 7, exhale: 8, name: '4-7-8', desc: '4-7-8: Deep relaxation, best for sleep' },
@@ -4197,82 +4126,11 @@
             'sigh': { inhale: 2, inhale2: 1, exhale: 6, name: 'Physio Sigh', desc: 'Sigh: Fast calm, stops panic' }
         };
 
-        /**
-         * Safely clears the breath progress interval to prevent memory leaks.
-         * Should be called whenever stopping or transitioning breathing phases.
-         */
-        function clearBreathProgressInterval() {
-            if (breathProgressInterval) {
-                clearInterval(breathProgressInterval);
-                breathProgressInterval = null;
-            }
-        }
-
-        /**
-         * Starts the progress tracking interval for breathing visualization.
-         * Automatically clears any existing interval first.
-         * @param {number} totalTime - Total duration of the breathing cycle in seconds
-         */
-        function startBreathProgressTracking(totalTime) {
-            clearBreathProgressInterval();
-            let elapsed = 0;
-            breathProgressInterval = setInterval(() => {
-                elapsed += 0.1;
-                updateBreathProgress(elapsed, totalTime);
-            }, 100);
-        }
-
-        /**
-         * Executes a sequence of breathing phases with proper cleanup.
-         * Prevents memory leaks by using a single timeout chain.
-         * @param {Array} phases - Array of phase objects with {label, duration, tone, scale}
-         * @param {HTMLElement} text - Text element to update
-         * @param {HTMLElement} circle - Circle element to animate
-         * @param {Function} onComplete - Callback when all phases complete
-         */
-        function executeBreathPhases(phases, text, circle, onComplete) {
-            let phaseIndex = 0;
-
-            function runNextPhase() {
-                // Check if breathing was stopped
-                if (!isBreathing) {
-                    clearBreathProgressInterval();
-                    return;
-                }
-
-                // Check if all phases completed
-                if (phaseIndex >= phases.length) {
-                    clearBreathProgressInterval();
-                    onComplete();
-                    return;
-                }
-
-                const phase = phases[phaseIndex];
-                phaseIndex++;
-
-                // Update UI
-                text.innerText = t(phase.label);
-                if (phase.tone) {
-                    playBreathTone(phase.tone.freq, phase.tone.duration || 0.3);
-                }
-                if (phase.scale !== undefined) {
-                    circle.style.transition = `transform ${phase.duration}s ease-in-out`;
-                    circle.style.transform = `scale(${phase.scale})`;
-                }
-
-                // Schedule next phase
-                breathInterval = setTimeout(runNextPhase, phase.duration * 1000);
-            }
-
-            runNextPhase();
-        }
-
         function setBreathPattern(pattern) {
             currentBreathPattern = pattern;
             document.querySelectorAll('[id^="breath-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('breath-' + pattern)?.classList.add('active');
-            const patternDesc = document.getElementById('breathPatternDesc');
-            if(patternDesc) patternDesc.innerText = t('breath.pattern.' + pattern + 'Desc');
+            document.getElementById('breath-' + pattern).classList.add('active');
+            document.getElementById('breathPatternDesc').innerText = BREATH_PATTERNS[pattern].desc;
 
             if(isBreathing) {
                 stopBreathing();
@@ -4283,7 +4141,7 @@
         function toggleBreathSound() {
             breathSoundEnabled = !breathSoundEnabled;
             const icon = document.getElementById('breathSoundIcon');
-            if(icon) icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+            icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
             saveSettings();
         }
 
@@ -4348,10 +4206,6 @@
             runBreathCycle();
         }
 
-        /**
-         * Stops the breathing exercise and resets all UI state.
-         * Properly cleans up intervals and audio to prevent memory leaks.
-         */
         function stopBreathing() {
             isBreathing = false;
             breathCycle = 0;
@@ -4361,13 +4215,8 @@
             document.getElementById('breathCircle').style.transform = "scale(1)";
             updateBreathProgress(0, 1);
             clearTimeout(breathInterval);
-            breathInterval = null;
-            // Use helper function to clear progress interval safely
-            clearBreathProgressInterval();
-            // Clean up any playing breath oscillator
             if(breathOscillator) {
                 try { breathOscillator.stop(); } catch(e) {}
-                breathOscillator = null;
             }
         }
 
@@ -4398,65 +4247,117 @@
             }
         }
 
-        /**
-         * Runs the 4-7-8 breathing pattern (deep relaxation, best for sleep).
-         * Uses the generic phase executor for consistent behavior.
-         * @param {Object} pattern - Pattern configuration with inhale/hold/exhale times
-         * @param {HTMLElement} text - Text element to update
-         * @param {HTMLElement} circle - Circle element to animate
-         */
         function run478Breathing(pattern, text, circle) {
             const totalTime = pattern.inhale + pattern.hold + pattern.exhale;
-            startBreathProgressTracking(totalTime);
+            let elapsed = 0;
 
-            const phases = [
-                { label: 'breath.inhale', duration: pattern.inhale, tone: { freq: BREATH_TONE_FREQUENCIES.INHALE }, scale: 1.5 },
-                { label: 'breath.hold', duration: pattern.hold, tone: { freq: BREATH_TONE_FREQUENCIES.HOLD }, scale: 1.5 },
-                { label: 'breath.exhale', duration: pattern.exhale, tone: { freq: BREATH_TONE_FREQUENCIES.EXHALE }, scale: 1 }
-            ];
+            // Inhale
+            text.innerText = t('breath.inhale');
+            playBreathTone(440, 0.3);
+            circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
+            circle.style.transform = "scale(1.5)";
 
-            executeBreathPhases(phases, text, circle, runBreathCycle);
+            const updateProgress = setInterval(() => {
+                elapsed += 0.1;
+                updateBreathProgress(elapsed, totalTime);
+            }, 100);
+
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) { clearInterval(updateProgress); return; }
+                // Hold
+                text.innerText = t('breath.hold');
+                playBreathTone(523, 0.3);
+
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    // Exhale
+                    text.innerText = t('breath.exhale');
+                    playBreathTone(330, 0.3);
+                    circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
+                    circle.style.transform = "scale(1)";
+
+                    breathInterval = setTimeout(() => {
+                        clearInterval(updateProgress);
+                        runBreathCycle();
+                    }, pattern.exhale * 1000);
+                }, pattern.hold * 1000);
+            }, pattern.inhale * 1000);
         }
 
-        /**
-         * Runs box breathing pattern (balanced stress reduction).
-         * Uses the generic phase executor for consistent behavior.
-         * @param {Object} pattern - Pattern configuration with inhale/hold/exhale/hold2 times
-         * @param {HTMLElement} text - Text element to update
-         * @param {HTMLElement} circle - Circle element to animate
-         */
         function runBoxBreathing(pattern, text, circle) {
             const totalTime = pattern.inhale + pattern.hold + pattern.exhale + pattern.hold2;
-            startBreathProgressTracking(totalTime);
+            let elapsed = 0;
 
-            const phases = [
-                { label: 'breath.inhale', duration: pattern.inhale, tone: { freq: BREATH_TONE_FREQUENCIES.INHALE }, scale: 1.4 },
-                { label: 'breath.hold', duration: pattern.hold, tone: { freq: BREATH_TONE_FREQUENCIES.HOLD }, scale: 1.4 },
-                { label: 'breath.exhale', duration: pattern.exhale, tone: { freq: BREATH_TONE_FREQUENCIES.EXHALE }, scale: 1 },
-                { label: 'breath.hold', duration: pattern.hold2, tone: { freq: BREATH_TONE_FREQUENCIES.HOLD2 }, scale: 1 }
-            ];
+            const updateProgress = setInterval(() => {
+                elapsed += 0.1;
+                updateBreathProgress(elapsed, totalTime);
+            }, 100);
 
-            executeBreathPhases(phases, text, circle, runBreathCycle);
+            text.innerText = t('breath.inhale');
+            playBreathTone(440, 0.3);
+            circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
+            circle.style.transform = "scale(1.4)";
+
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) { clearInterval(updateProgress); return; }
+                text.innerText = t('breath.hold');
+                playBreathTone(523, 0.3);
+
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    text.innerText = t('breath.exhale');
+                    playBreathTone(330, 0.3);
+                    circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
+                    circle.style.transform = "scale(1)";
+
+                    breathInterval = setTimeout(() => {
+                        if (!isBreathing) { clearInterval(updateProgress); return; }
+                        text.innerText = t('breath.hold');
+                        playBreathTone(392, 0.3);
+
+                        breathInterval = setTimeout(() => {
+                            clearInterval(updateProgress);
+                            runBreathCycle();
+                        }, pattern.hold2 * 1000);
+                    }, pattern.exhale * 1000);
+                }, pattern.hold * 1000);
+            }, pattern.inhale * 1000);
         }
 
-        /**
-         * Runs physiological sigh pattern (fast panic relief).
-         * Double inhale followed by long exhale - mimics natural calming response.
-         * @param {Object} pattern - Pattern configuration with inhale/inhale2/exhale times
-         * @param {HTMLElement} text - Text element to update
-         * @param {HTMLElement} circle - Circle element to animate
-         */
         function runPhysioSigh(pattern, text, circle) {
             const totalTime = pattern.inhale + pattern.inhale2 + pattern.exhale;
-            startBreathProgressTracking(totalTime);
+            let elapsed = 0;
 
-            const phases = [
-                { label: 'breath.inhale', duration: pattern.inhale, tone: { freq: BREATH_TONE_FREQUENCIES.INHALE }, scale: 1.3 },
-                { label: 'breath.sip', duration: pattern.inhale2, tone: { freq: BREATH_TONE_FREQUENCIES.SIP, duration: 0.2 }, scale: 1.5 },
-                { label: 'breath.exhale', duration: pattern.exhale, tone: { freq: BREATH_TONE_FREQUENCIES.EXHALE }, scale: 1 }
-            ];
+            const updateProgress = setInterval(() => {
+                elapsed += 0.1;
+                updateBreathProgress(elapsed, totalTime);
+            }, 100);
 
-            executeBreathPhases(phases, text, circle, runBreathCycle);
+            text.innerText = t('breath.inhale');
+            playBreathTone(440, 0.3);
+            circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
+            circle.style.transform = "scale(1.3)";
+
+            breathInterval = setTimeout(() => {
+                if (!isBreathing) { clearInterval(updateProgress); return; }
+                text.innerText = t('breath.sip');
+                playBreathTone(523, 0.2);
+                circle.style.transition = `transform ${pattern.inhale2}s ease-in-out`;
+                circle.style.transform = "scale(1.5)";
+
+                breathInterval = setTimeout(() => {
+                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    text.innerText = t('breath.exhale');
+                    playBreathTone(330, 0.3);
+                    circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
+                    circle.style.transform = "scale(1)";
+
+                    breathInterval = setTimeout(() => {
+                        clearInterval(updateProgress);
+                        runBreathCycle();
+                    }, pattern.exhale * 1000);
+                }, pattern.inhale2 * 1000);
+            }, pattern.inhale * 1000);
         }
 
         // ========== SLEEP CALCULATOR ==========
@@ -4465,11 +4366,11 @@
         function setCalcMode(mode) {
             calcMode = mode;
             document.querySelectorAll('[id^="calc-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('calc-' + mode)?.classList.add('active');
+            document.getElementById('calc-' + mode).classList.add('active');
 
-            document.getElementById('calcBedtimeMode')?.classList.toggle('hidden', mode !== 'bedtime');
-            document.getElementById('calcWaketimeMode')?.classList.toggle('hidden', mode !== 'waketime');
-            document.getElementById('sleepResults')?.classList.add('hidden');
+            document.getElementById('calcBedtimeMode').classList.toggle('hidden', mode !== 'bedtime');
+            document.getElementById('calcWaketimeMode').classList.toggle('hidden', mode !== 'waketime');
+            document.getElementById('sleepResults').classList.add('hidden');
             saveSettings();
         }
 
@@ -4495,17 +4396,10 @@
                 if(labelEl) labelEl.classList.remove('text-red-400');
             }
 
-            // Validate time format HH:MM
-            function isValidTime(timeStr) {
-                if(!timeStr) return false;
-                const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-                return timeRegex.test(timeStr);
-            }
-
             if(calcMode === 'bedtime') {
                 const inputEl = document.getElementById('wakeTime');
                 const val = inputEl?.value;
-                if(!val || !isValidTime(val)) {
+                if(!val) {
                     showError(t('calc.error.wake'));
                     return;
                 }
@@ -4526,7 +4420,7 @@
             } else {
                 const inputEl = document.getElementById('bedTime');
                 const val = inputEl?.value;
-                if(!val || !isValidTime(val)) {
+                if(!val) {
                     showError(t('calc.error.bed'));
                     return;
                 }
@@ -4551,52 +4445,6 @@
         }
 
         // ========== LOCAL STORAGE ==========
-        // Valid values for settings validation
-        const VALID_SETTINGS = {
-            languages: ['en', 'es'],
-            synthModes: ['sleep', 'calm', 'relax', 'focus'],
-            synthMethods: ['isochronic', 'binaural'],
-            noiseTypes: ['pink', 'brown', 'white'],
-            breathPatterns: ['478', 'box', 'sigh'],
-            calcModes: ['bedtime', 'waketime']
-        };
-
-        /**
-         * Validates a setting value against allowed values.
-         * @param {*} value - The value to validate
-         * @param {Array} validValues - Array of valid values
-         * @returns {boolean} True if valid
-         */
-        function isValidSetting(value, validValues) {
-            return value && validValues.includes(value);
-        }
-
-        /**
-         * Validates a time string in HH:MM format.
-         * @param {string} timeStr - Time string to validate
-         * @returns {boolean} True if valid time format
-         */
-        function isValidTimeFormat(timeStr) {
-            if (!timeStr || typeof timeStr !== 'string') return false;
-            const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-            return timeRegex.test(timeStr);
-        }
-
-        /**
-         * Validates a numeric value within a range.
-         * @param {*} value - Value to validate
-         * @param {number} min - Minimum allowed value
-         * @param {number} max - Maximum allowed value
-         * @returns {boolean} True if valid number in range
-         */
-        function isValidNumber(value, min, max) {
-            const num = Number(value);
-            return !isNaN(num) && num >= min && num <= max;
-        }
-
-        /**
-         * Saves user settings to localStorage with current state.
-         */
         function saveSettings() {
             const settings = {
                 language: currentLang,
@@ -4611,90 +4459,46 @@
                 wakeTime: document.getElementById('wakeTime')?.value || '07:00',
                 bedTime: document.getElementById('bedTime')?.value || '23:00'
             };
-            try {
-                localStorage.setItem('sleepLabSettings', JSON.stringify(settings));
-            } catch(e) {
-                console.warn('Failed to save settings:', e);
-            }
+            localStorage.setItem('sleepLabSettings', JSON.stringify(settings));
         }
 
-        /**
-         * Loads and validates user settings from localStorage.
-         * Invalid values are ignored to prevent crashes or unexpected behavior.
-         */
         function loadSettings() {
             try {
                 const saved = localStorage.getItem('sleepLabSettings');
                 if(saved) {
                     const settings = JSON.parse(saved);
 
-                    // Validate that settings is an object
-                    if (typeof settings !== 'object' || settings === null) {
-                        console.warn('Invalid settings format, using defaults');
-                        applyTranslations();
-                        return;
-                    }
-
-                    // Load language first (with validation)
-                    if (isValidSetting(settings.language, VALID_SETTINGS.languages)) {
+                    // Load language first
+                    if(settings.language) {
                         currentLang = settings.language;
                     }
 
-                    // Validate and apply synth mode
-                    if (isValidSetting(settings.synthMode, VALID_SETTINGS.synthModes)) {
-                        setSynthMode(settings.synthMode);
-                    }
-
-                    // Validate and apply synth method
-                    if (isValidSetting(settings.synthMethod, VALID_SETTINGS.synthMethods)) {
-                        setSynthMethod(settings.synthMethod);
-                    }
-
-                    // Validate and apply noise type
-                    if (isValidSetting(settings.noiseType, VALID_SETTINGS.noiseTypes)) {
-                        setNoiseType(settings.noiseType);
-                    }
-
-                    // Validate and apply volume (0-100)
-                    if (isValidNumber(settings.volume, 0, 100)) {
+                    if(settings.synthMode) setSynthMode(settings.synthMode);
+                    if(settings.synthMethod) setSynthMethod(settings.synthMethod);
+                    if(settings.noiseType) setNoiseType(settings.noiseType);
+                    if(settings.volume) {
                         const volSlider = document.querySelector('input[type="range"]');
                         if(volSlider) {
                             volSlider.value = settings.volume;
                             updateVolume(settings.volume);
                         }
                     }
-
-                    // Validate and apply breath pattern
-                    if (isValidSetting(settings.breathPattern, VALID_SETTINGS.breathPatterns)) {
-                        setBreathPattern(settings.breathPattern);
-                    }
-
-                    // Validate breath sound (boolean)
-                    if (typeof settings.breathSound === 'boolean') {
+                    if(settings.breathPattern) setBreathPattern(settings.breathPattern);
+                    if(settings.breathSound !== undefined) {
                         breathSoundEnabled = settings.breathSound;
                         const icon = document.getElementById('breathSoundIcon');
                         if(icon) icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
                     }
-
-                    // Validate and apply calc mode
-                    if (isValidSetting(settings.calcMode, VALID_SETTINGS.calcModes)) {
-                        setCalcMode(settings.calcMode);
-                    }
-
-                    // Validate sleep latency (5-60 minutes reasonable range)
-                    if (isValidNumber(settings.sleepLatency, 1, 120)) {
+                    if(settings.calcMode) setCalcMode(settings.calcMode);
+                    if(settings.sleepLatency) {
                         const latencySelect = document.getElementById('sleepLatency');
                         if(latencySelect) latencySelect.value = settings.sleepLatency;
                     }
-
-                    // Validate wake time format
-                    if (isValidTimeFormat(settings.wakeTime)) {
+                    if(settings.wakeTime) {
                         const wakeInput = document.getElementById('wakeTime');
                         if(wakeInput) wakeInput.value = settings.wakeTime;
                     }
-
-                    // Validate bed time format
-                    if (isValidTimeFormat(settings.bedTime)) {
+                    if(settings.bedTime) {
                         const bedInput = document.getElementById('bedTime');
                         if(bedInput) bedInput.value = settings.bedTime;
                     }
@@ -4704,8 +4508,6 @@
                 applyTranslations();
             } catch(e) {
                 console.warn('Error loading settings:', e);
-                // Still apply translations even if settings load fails
-                applyTranslations();
             }
         }
 
@@ -4767,7 +4569,7 @@
             console.warn('WebGL not supported, using CSS fallback:', e);
             const container = document.getElementById('canvas-container');
             if(container) {
-                container.style.background = 'radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 50%, #050510 100%)';
+                container.style.background = 'radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 50%, #000000 100%)';
             }
         }
 
