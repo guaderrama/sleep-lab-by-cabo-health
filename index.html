@@ -2916,9 +2916,56 @@
             event.preventDefault();
         });
 
+        // ========== PHASE 2: DEFENSIVE UTILITIES ==========
+        /**
+         * Safely get an element by ID, returns null if not found
+         * @param {string} id - Element ID
+         * @returns {HTMLElement|null}
+         */
+        function safeGetElement(id) {
+            if (!id || typeof id !== 'string') return null;
+            return document.getElementById(id);
+        }
+
+        /**
+         * Safely iterate over a NodeList or array
+         * @param {NodeList|Array} items - Items to iterate
+         * @param {Function} callback - Callback function
+         */
+        function safeForEach(items, callback) {
+            if (!items || typeof callback !== 'function') return;
+            try {
+                Array.prototype.forEach.call(items, callback);
+            } catch (e) {
+                console.warn('safeForEach error:', e);
+            }
+        }
+
+        /**
+         * Safely add/remove class with null check
+         * @param {HTMLElement} el - Element
+         * @param {string} className - Class name
+         * @param {boolean} add - Add (true) or remove (false)
+         */
+        function safeToggleClass(el, className, add) {
+            if (!el || !el.classList || !className) return;
+            try {
+                if (add) {
+                    el.classList.add(className);
+                } else {
+                    el.classList.remove(className);
+                }
+            } catch (e) {
+                console.warn('safeToggleClass error:', e);
+            }
+        }
+
         // 0. Accordion Toggle Function (with keyboard support)
         function toggleAccordion(header) {
+            if (!header) return;
             const content = header.nextElementSibling;
+            if (!content) return;
+
             const isActive = header.classList.contains('active');
 
             // Update ARIA attribute
@@ -2989,16 +3036,22 @@
         };
 
         function answerQuiz(step, answer) {
+            if (!answer || typeof answer !== 'string') return;
+
             // Hide current step
-            document.querySelectorAll('.quiz-step').forEach(s => s.classList.add('hidden'));
+            safeForEach(document.querySelectorAll('.quiz-step'), s => s.classList.add('hidden'));
 
             if(step === 1) {
                 quizBranch = answer;
                 quizStep = 2;
                 // Show appropriate step 2
-                document.getElementById('quizStep2-' + answer).classList.remove('hidden');
+                const step2El = safeGetElement('quizStep2-' + answer);
+                if (step2El) step2El.classList.remove('hidden');
                 // Update progress
-                document.querySelectorAll('.quiz-dot')[1].classList.replace('bg-gray-600', 'bg-purple-500');
+                const dots = document.querySelectorAll('.quiz-dot');
+                if (dots && dots[1]) {
+                    dots[1].classList.replace('bg-gray-600', 'bg-purple-500');
+                }
             } else if(step === 2) {
                 quizStep = 3;
                 // Get result
@@ -3006,49 +3059,70 @@
                 quizResultTab = result.tab;
 
                 // Update result display
-                document.getElementById('quizResultProtocol').textContent = currentLang === 'es' ? result.nameEs : result.nameEn;
-                document.getElementById('quizResultDesc').textContent = currentLang === 'es' ? result.descEs : result.descEn;
+                const protocolEl = safeGetElement('quizResultProtocol');
+                const descEl = safeGetElement('quizResultDesc');
+                if (protocolEl) protocolEl.textContent = currentLang === 'es' ? result.nameEs : result.nameEn;
+                if (descEl) descEl.textContent = currentLang === 'es' ? result.descEs : result.descEn;
 
                 // Show result
-                document.getElementById('quizResult').classList.remove('hidden');
+                const resultEl = safeGetElement('quizResult');
+                if (resultEl) resultEl.classList.remove('hidden');
 
                 // Update progress
-                document.querySelectorAll('.quiz-dot')[2].classList.replace('bg-gray-600', 'bg-green-500');
+                const dots = document.querySelectorAll('.quiz-dot');
+                if (dots && dots[2]) {
+                    dots[2].classList.replace('bg-gray-600', 'bg-green-500');
+                }
             }
         }
 
         function jumpToProtocol() {
             openTab(quizResultTab);
-            // Scroll to the tabs
-            document.querySelector('.tab-btn.active').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Scroll to the tabs with null check
+            const activeBtn = document.querySelector('.tab-btn.active');
+            if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+                activeBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function resetQuiz() {
             quizStep = 1;
             quizBranch = '';
             // Hide all steps
-            document.querySelectorAll('.quiz-step').forEach(s => s.classList.add('hidden'));
+            safeForEach(document.querySelectorAll('.quiz-step'), s => s.classList.add('hidden'));
             // Show step 1
-            document.getElementById('quizStep1').classList.remove('hidden');
-            // Reset progress dots
+            const step1 = safeGetElement('quizStep1');
+            if (step1) step1.classList.remove('hidden');
+            // Reset progress dots with bounds checking
             const dots = document.querySelectorAll('.quiz-dot');
-            dots[0].className = 'quiz-dot w-3 h-3 rounded-full bg-purple-500';
-            dots[1].className = 'quiz-dot w-3 h-3 rounded-full bg-gray-600';
-            dots[2].className = 'quiz-dot w-3 h-3 rounded-full bg-gray-600';
+            if (dots && dots.length >= 3) {
+                dots[0].className = 'quiz-dot w-3 h-3 rounded-full bg-purple-500';
+                dots[1].className = 'quiz-dot w-3 h-3 rounded-full bg-gray-600';
+                dots[2].className = 'quiz-dot w-3 h-3 rounded-full bg-gray-600';
+            }
         }
 
         // 2. Mobile Menu
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('open');
+            const menu = safeGetElement('mobile-menu');
+            if (menu) {
+                menu.classList.toggle('open');
+            }
         }
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
-            const menu = document.getElementById('mobile-menu');
-            const menuBtn = e.target.closest('button[onclick="toggleMobileMenu()"]');
-            if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !menuBtn) {
-                menu.classList.remove('open');
+            if (!e || !e.target) return;
+            const menu = safeGetElement('mobile-menu');
+            if (!menu) return;
+
+            try {
+                const menuBtn = e.target.closest('button[onclick="toggleMobileMenu()"]');
+                if (menu.classList.contains('open') && !menu.contains(e.target) && !menuBtn) {
+                    menu.classList.remove('open');
+                }
+            } catch (err) {
+                console.warn('Mobile menu click handler error:', err);
             }
         });
 
@@ -3843,6 +3917,7 @@
         };
 
         function startGuidedSession(sessionType) {
+            if (!sessionType || typeof sessionType !== 'string') return;
             const session = GUIDED_SESSIONS[sessionType];
             if(!session) return;
 
@@ -3855,7 +3930,8 @@
             // Configure synth settings
             setSynthMode(session.mode);
             setSynthMethod(session.method);
-            document.getElementById('synthTimer').value = session.timer;
+            const timerEl = safeGetElement('synthTimer');
+            if (timerEl) timerEl.value = session.timer;
 
             // Configure noise
             if(session.noise && !isNoiseOn) {
@@ -3879,15 +3955,18 @@
             }
 
             // Show indicator
-            const indicator = document.getElementById('guidedSessionIndicator');
-            const sessionName = document.getElementById('guidedSessionName');
+            const indicator = safeGetElement('guidedSessionIndicator');
+            const sessionName = safeGetElement('guidedSessionName');
             if(indicator && sessionName) {
                 indicator.classList.remove('hidden');
                 sessionName.textContent = t('guided.' + sessionType + '.title') + ' ' + t('guided.active');
             }
 
-            // Scroll to tools section
-            document.getElementById('tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll to tools section with null check
+            const toolsSection = safeGetElement('tools');
+            if (toolsSection && typeof toolsSection.scrollIntoView === 'function') {
+                toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         function stopGuidedSession() {
@@ -3896,26 +3975,36 @@
             activeGuidedSession = null;
 
             // Hide indicator
-            const indicator = document.getElementById('guidedSessionIndicator');
+            const indicator = safeGetElement('guidedSessionIndicator');
             if(indicator) {
                 indicator.classList.add('hidden');
             }
         }
 
         function toggleSynth() {
+            const mainPlayBtn = safeGetElement('mainPlayBtn');
+            const visualizer = safeGetElement('visualizer');
+            const synthTimer = safeGetElement('synthTimer');
+
             if(!synthRunning) {
                 startSynth();
-                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-stop mr-3"></i> DEACTIVATE';
-                document.getElementById('mainPlayBtn').classList.replace('bg-white/10', 'bg-red-500/20');
-                document.getElementById('visualizer').classList.remove('opacity-30');
+                if (mainPlayBtn) {
+                    mainPlayBtn.innerHTML = '<i class="fa-solid fa-stop mr-3"></i> DEACTIVATE';
+                    mainPlayBtn.classList.replace('bg-white/10', 'bg-red-500/20');
+                }
+                if (visualizer) visualizer.classList.remove('opacity-30');
                 startRealVisualizer();
-                const mins = parseInt(document.getElementById('synthTimer').value, 10);
-                if(mins > 0) { timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000); }
+                const mins = synthTimer ? parseInt(synthTimer.value, 10) : 0;
+                if(mins > 0 && !isNaN(mins)) {
+                    timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000);
+                }
             } else {
                 stopSynth();
-                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION';
-                document.getElementById('mainPlayBtn').classList.replace('bg-red-500/20', 'bg-white/10');
-                document.getElementById('visualizer').classList.add('opacity-30');
+                if (mainPlayBtn) {
+                    mainPlayBtn.innerHTML = '<i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION';
+                    mainPlayBtn.classList.replace('bg-red-500/20', 'bg-white/10');
+                }
+                if (visualizer) visualizer.classList.add('opacity-30');
                 stopRealVisualizer();
                 if(timerInterval) { clearTimeout(timerInterval); timerInterval = null; }
             }
@@ -3923,20 +4012,28 @@
 
         function toggleNoise() {
             isNoiseOn = !isNoiseOn;
-            const t = document.getElementById('noiseToggle');
-            const btn = document.getElementById('noiseBtn');
+            const toggle = safeGetElement('noiseToggle');
+            const btn = safeGetElement('noiseBtn');
+
             // Update ARIA for accessibility
             if(btn) {
                 btn.setAttribute('aria-pressed', isNoiseOn);
                 btn.setAttribute('aria-label', isNoiseOn ? 'Disable background noise' : 'Enable background noise');
             }
+
+            if (!toggle) return;
+
             if(isNoiseOn) {
-                t.style.transform = 'translateX(24px)';
-                t.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
+                toggle.style.transform = 'translateX(24px)';
+                if (toggle.parentElement) {
+                    toggle.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
+                }
                 if(synthRunning) startNoise();
             } else {
-                t.style.transform = 'translateX(0)';
-                t.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
+                toggle.style.transform = 'translateX(0)';
+                if (toggle.parentElement) {
+                    toggle.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
+                }
                 stopNoise();
             }
         }
@@ -4246,17 +4343,25 @@
         function startBreathing() {
             isBreathing = true;
             breathCycle = 0;
-            document.getElementById('breathBtn').innerText = t('breath.stop');
+            const breathBtn = safeGetElement('breathBtn');
+            if (breathBtn) breathBtn.innerText = t('breath.stop');
             runBreathCycle();
         }
 
         function stopBreathing() {
             isBreathing = false;
             breathCycle = 0;
-            document.getElementById('breathBtn').innerText = t('breath.start');
-            document.getElementById('breathText').innerText = t('breath.ready');
-            document.getElementById('breathCycleCount').innerText = `${t('breath.cycle')} 0/${totalBreathCycles}`;
-            document.getElementById('breathCircle').style.transform = "scale(1)";
+
+            const breathBtn = safeGetElement('breathBtn');
+            const breathText = safeGetElement('breathText');
+            const breathCycleCount = safeGetElement('breathCycleCount');
+            const breathCircle = safeGetElement('breathCircle');
+
+            if (breathBtn) breathBtn.innerText = t('breath.start');
+            if (breathText) breathText.innerText = t('breath.ready');
+            if (breathCycleCount) breathCycleCount.innerText = `${t('breath.cycle')} 0/${totalBreathCycles}`;
+            if (breathCircle) breathCircle.style.transform = "scale(1)";
+
             updateBreathProgress(0, 1);
             clearTimeout(breathInterval);
             if(breathOscillator) {
@@ -4273,11 +4378,23 @@
                 return;
             }
 
-            document.getElementById('breathCycleCount').innerText = `${t('breath.cycle')} ${breathCycle}/${totalBreathCycles}`;
+            const breathCycleCount = safeGetElement('breathCycleCount');
+            if (breathCycleCount) {
+                breathCycleCount.innerText = `${t('breath.cycle')} ${breathCycle}/${totalBreathCycles}`;
+            }
 
             const pattern = BREATH_PATTERNS[currentBreathPattern];
-            const text = document.getElementById('breathText');
-            const circle = document.getElementById('breathCircle');
+            if (!pattern) return;
+
+            const text = safeGetElement('breathText');
+            const circle = safeGetElement('breathCircle');
+
+            // Guard: if essential elements are missing, stop
+            if (!text || !circle) {
+                console.warn('Breathing elements not found, stopping');
+                stopBreathing();
+                return;
+            }
 
             if(currentBreathPattern === 'sigh') {
                 // Physiological Sigh: double inhale + long exhale
@@ -4626,59 +4743,94 @@
         initVisualizer();
         loadSettings();
 
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('.fade-up').forEach(e => gsap.fromTo(e, {opacity:0, y:50}, {opacity:1, y:0, duration:0.8, scrollTrigger:{trigger:e, start:"top 85%"}}));
-        gsap.utils.toArray('.bar-anim').forEach(e => gsap.fromTo(e, {scaleY:0, transformOrigin:"bottom"}, {scaleY:1, duration:1, scrollTrigger:{trigger:e, start:"top 80%"}}));
+        // GSAP Animations with safety checks
+        try {
+            if (typeof gsap !== 'undefined' && gsap.registerPlugin && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                const fadeUpElements = gsap.utils.toArray('.fade-up');
+                if (fadeUpElements && fadeUpElements.length > 0) {
+                    fadeUpElements.forEach(e => {
+                        if (e) {
+                            gsap.fromTo(e, {opacity:0, y:50}, {opacity:1, y:0, duration:0.8, scrollTrigger:{trigger:e, start:"top 85%"}});
+                        }
+                    });
+                }
+
+                const barAnimElements = gsap.utils.toArray('.bar-anim');
+                if (barAnimElements && barAnimElements.length > 0) {
+                    barAnimElements.forEach(e => {
+                        if (e) {
+                            gsap.fromTo(e, {scaleY:0, transformOrigin:"bottom"}, {scaleY:1, duration:1, scrollTrigger:{trigger:e, start:"top 80%"}});
+                        }
+                    });
+                }
+            }
+        } catch (gsapError) {
+            console.warn('GSAP animation initialization failed:', gsapError);
+        }
 
         // Three.js with error handling
         let scene, camera, renderer, mesh, sphere, mat;
+        let threeAnimationId = null;
+
         try {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            if (typeof THREE !== 'undefined') {
+                const container = safeGetElement('canvas-container');
+                if (!container) throw new Error('Canvas container not found');
 
-            const geo = new THREE.BufferGeometry();
-            const count = 800;
-            const pos = new Float32Array(count*3);
-            for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5)*20;
-            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-            mat = new THREE.PointsMaterial({ size: 0.03, color: 0x00f3ff, transparent: true, opacity: 0.6 });
-            mesh = new THREE.Points(geo, mat);
-            scene.add(mesh);
-            sphere = new THREE.Mesh(
-                new THREE.IcosahedronGeometry(4, 1),
-                new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.05 })
-            );
-            scene.add(sphere);
-            camera.position.z = 5;
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = Date.now()*0.0005;
-                mesh.rotation.y = t*0.05;
-                sphere.rotation.y = t*0.05;
-                if(document.body.classList.contains('night-mode')) {
-                    mat.color.setHex(0xff3c00);
-                    sphere.material.color.setHex(0xff3c00);
-                } else {
-                    mat.color.setHex(0x00f3ff);
-                    sphere.material.color.setHex(0x00f3ff);
-                }
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth/window.innerHeight;
-                camera.updateProjectionMatrix();
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                container.appendChild(renderer.domElement);
                 renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+
+                const geo = new THREE.BufferGeometry();
+                const count = 800;
+                const pos = new Float32Array(count*3);
+                for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5)*20;
+                geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                mat = new THREE.PointsMaterial({ size: 0.03, color: 0x00f3ff, transparent: true, opacity: 0.6 });
+                mesh = new THREE.Points(geo, mat);
+                scene.add(mesh);
+                sphere = new THREE.Mesh(
+                    new THREE.IcosahedronGeometry(4, 1),
+                    new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.05 })
+                );
+                scene.add(sphere);
+                camera.position.z = 5;
+
+                function animate() {
+                    threeAnimationId = requestAnimationFrame(animate);
+                    if (!mesh || !sphere || !renderer || !scene || !camera) return;
+
+                    const t = Date.now()*0.0005;
+                    mesh.rotation.y = t*0.05;
+                    sphere.rotation.y = t*0.05;
+                    if(document.body && document.body.classList.contains('night-mode')) {
+                        mat.color.setHex(0xff3c00);
+                        sphere.material.color.setHex(0xff3c00);
+                    } else {
+                        mat.color.setHex(0x00f3ff);
+                        sphere.material.color.setHex(0x00f3ff);
+                    }
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                window.addEventListener('resize', () => {
+                    if (camera && renderer) {
+                        camera.aspect = window.innerWidth/window.innerHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(window.innerWidth, window.innerHeight);
+                    }
+                });
+            } else {
+                throw new Error('THREE.js not loaded');
+            }
         } catch (e) {
             console.warn('WebGL not supported, using CSS fallback:', e);
-            const container = document.getElementById('canvas-container');
+            const container = safeGetElement('canvas-container');
             if(container) {
                 container.style.background = 'radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 50%, #000000 100%)';
             }
@@ -4686,11 +4838,23 @@
 
         // Cleanup on page unload to prevent memory leaks
         window.addEventListener('beforeunload', () => {
-            if(timerInterval) clearTimeout(timerInterval);
-            if(breathInterval) clearTimeout(breathInterval);
-            if(synthRunning) stopSynth();
-            if(noiseNode) stopNoise();
+            try {
+                if(timerInterval) clearTimeout(timerInterval);
+                if(breathInterval) clearTimeout(breathInterval);
+                if(visualizerAnimationId) cancelAnimationFrame(visualizerAnimationId);
+                if(threeAnimationId) cancelAnimationFrame(threeAnimationId);
+                if(synthRunning) stopSynth(true);
+                if(noiseNode) stopNoise();
+                if(breathOscillator) {
+                    try { breathOscillator.stop(); } catch(e) {}
+                }
+            } catch (cleanupError) {
+                console.warn('Cleanup error:', cleanupError);
+            }
         });
+
+        // Log successful initialization
+        console.log('Sleep Lab initialized successfully (Phase 2 safety improvements active)');
     </script>
 </body>
 </html>
