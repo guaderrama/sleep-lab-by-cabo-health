@@ -2963,6 +2963,18 @@
     </footer>
 
     <script>
+        // Global error handler - prevents app crashes from unhandled errors
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.warn('Global error caught:', { message, source, lineno, colno, error });
+            return true; // Prevent error from breaking the app
+        };
+
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.warn('Unhandled promise rejection:', event.reason);
+            event.preventDefault();
+        });
+
         // 0. Accordion Toggle Function (with keyboard support)
         function toggleAccordion(header) {
             const content = header.nextElementSibling;
@@ -3007,9 +3019,12 @@
             for (let i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
             const buttons = document.getElementsByClassName("tab-btn");
             for (let i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active", "bg-white/10", "text-dynamic"); buttons[i].classList.add("text-gray-300"); }
-            document.getElementById(tabName).classList.add("active");
+            document.getElementById(tabName)?.classList.add("active");
             const activeBtn = document.getElementById("btn-" + tabName);
-            activeBtn.classList.add("active", "bg-white/10", "text-dynamic"); activeBtn.classList.remove("text-gray-300");
+            if(activeBtn) {
+                activeBtn.classList.add("active", "bg-white/10", "text-dynamic");
+                activeBtn.classList.remove("text-gray-300");
+            }
         }
 
         // ========== DIAGNOSTIC QUIZ ==========
@@ -3746,17 +3761,41 @@
         let visualizerAnimationId = null;
         let lastVisualizerTime = 0;
         let noiseStopPending = false; // Guard flag for race condition
+        let audioCtxInitializing = false; // Guard flag for initialization race condition
+        let audioCtxResumePromise = null; // Track pending resume operation
 
+        /**
+         * Gets or creates the AudioContext with proper state management.
+         * Handles suspended state and prevents race conditions during initialization.
+         * @returns {AudioContext|null} The audio context instance or null if creation failed
+         */
         function getAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                // Create analyser for real visualizer (don't connect to destination yet)
-                analyser = audioCtx.createAnalyser();
-                analyser.fftSize = 64;
-                // Analyser will be in the chain: source -> analyser -> destination
+            if (!audioCtx && !audioCtxInitializing) {
+                audioCtxInitializing = true;
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    // Create analyser for real visualizer (don't connect to destination yet)
+                    analyser = audioCtx.createAnalyser();
+                    analyser.fftSize = 64;
+                    // Analyser will be in the chain: source -> analyser -> destination
+                } catch(e) {
+                    console.error('Failed to create AudioContext:', e);
+                    audioCtxInitializing = false;
+                    return null;
+                }
+                audioCtxInitializing = false;
             }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
+
+            // Handle suspended state with proper promise tracking
+            if (audioCtx && audioCtx.state === 'suspended') {
+                if (!audioCtxResumePromise) {
+                    audioCtxResumePromise = audioCtx.resume()
+                        .then(() => { audioCtxResumePromise = null; })
+                        .catch(e => {
+                            console.warn('AudioContext resume failed:', e);
+                            audioCtxResumePromise = null;
+                        });
+                }
             }
             return audioCtx;
         }
@@ -3784,7 +3823,7 @@
         function setSynthMode(mode) {
             currentMode = mode;
             document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('mode-' + mode).classList.add('active');
+            document.getElementById('mode-' + mode)?.classList.add('active');
             if(synthRunning) updateSynthParams();
             saveSettings();
         }
@@ -3792,7 +3831,7 @@
         function setSynthMethod(method) {
             currentMethod = method;
             document.querySelectorAll('[id^="method-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('method-' + method).classList.add('active');
+            document.getElementById('method-' + method)?.classList.add('active');
             if(synthRunning) { stopSynth(true); startSynth(); }
             saveSettings();
         }
@@ -3800,8 +3839,9 @@
         function setNoiseType(type) {
             currentNoiseType = type;
             document.querySelectorAll('[id^="noise-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('noise-' + type).classList.add('active');
-            document.getElementById('noiseDescription').innerText = t('noise.' + type);
+            document.getElementById('noise-' + type)?.classList.add('active');
+            const noiseDesc = document.getElementById('noiseDescription');
+            if(noiseDesc) noiseDesc.innerText = t('noise.' + type);
             if(noiseNode && isNoiseOn) {
                 stopNoise();
                 startNoise();
@@ -3962,6 +4002,7 @@
 
         function startSynth() {
             const ctx = getAudioContext();
+            if(!ctx) return; // Guard against AudioContext creation failure
             synthRunning = true;
             const config = PRESETS[currentMode];
 
@@ -4072,6 +4113,7 @@
         function startNoise() {
             if(noiseNode || noiseStopPending) return; // Guard against race condition
             const ctx = getAudioContext();
+            if(!ctx) return; // Guard against AudioContext creation failure
 
             noiseNode = ctx.createBufferSource();
             noiseNode.buffer = generateNoiseBuffer(ctx, currentNoiseType);
@@ -4188,8 +4230,9 @@
         function setBreathPattern(pattern) {
             currentBreathPattern = pattern;
             document.querySelectorAll('[id^="breath-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('breath-' + pattern).classList.add('active');
-            document.getElementById('breathPatternDesc').innerText = BREATH_PATTERNS[pattern].desc;
+            document.getElementById('breath-' + pattern)?.classList.add('active');
+            const patternDesc = document.getElementById('breathPatternDesc');
+            if(patternDesc) patternDesc.innerText = BREATH_PATTERNS[pattern].desc;
 
             if(isBreathing) {
                 stopBreathing();
@@ -4200,13 +4243,14 @@
         function toggleBreathSound() {
             breathSoundEnabled = !breathSoundEnabled;
             const icon = document.getElementById('breathSoundIcon');
-            icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+            if(icon) icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
             saveSettings();
         }
 
         function playBreathTone(frequency, duration) {
             if(!breathSoundEnabled) return;
             const ctx = getAudioContext();
+            if(!ctx) return; // Guard against AudioContext creation failure
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
 
@@ -4425,11 +4469,11 @@
         function setCalcMode(mode) {
             calcMode = mode;
             document.querySelectorAll('[id^="calc-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('calc-' + mode).classList.add('active');
+            document.getElementById('calc-' + mode)?.classList.add('active');
 
-            document.getElementById('calcBedtimeMode').classList.toggle('hidden', mode !== 'bedtime');
-            document.getElementById('calcWaketimeMode').classList.toggle('hidden', mode !== 'waketime');
-            document.getElementById('sleepResults').classList.add('hidden');
+            document.getElementById('calcBedtimeMode')?.classList.toggle('hidden', mode !== 'bedtime');
+            document.getElementById('calcWaketimeMode')?.classList.toggle('hidden', mode !== 'waketime');
+            document.getElementById('sleepResults')?.classList.add('hidden');
             saveSettings();
         }
 
@@ -4504,6 +4548,31 @@
         }
 
         // ========== LOCAL STORAGE ==========
+        // Valid values for settings validation
+        const VALID_SETTINGS = {
+            languages: ['en', 'es'],
+            synthModes: ['sleep', 'calm', 'relax', 'focus'],
+            synthMethods: ['isochronic', 'binaural'],
+            noiseTypes: ['pink', 'brown', 'white'],
+            breathPatterns: ['478', 'box', 'sigh'],
+            calcModes: ['bedtime', 'waketime']
+        };
+
+        function isValidSetting(value, validValues) {
+            return value && validValues.includes(value);
+        }
+
+        function isValidTimeFormat(timeStr) {
+            if (!timeStr || typeof timeStr !== 'string') return false;
+            const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+            return timeRegex.test(timeStr);
+        }
+
+        function isValidNumber(value, min, max) {
+            const num = Number(value);
+            return !isNaN(num) && num >= min && num <= max;
+        }
+
         function saveSettings() {
             const settings = {
                 language: currentLang,
@@ -4518,7 +4587,11 @@
                 wakeTime: document.getElementById('wakeTime')?.value || '07:00',
                 bedTime: document.getElementById('bedTime')?.value || '23:00'
             };
-            localStorage.setItem('sleepLabSettings', JSON.stringify(settings));
+            try {
+                localStorage.setItem('sleepLabSettings', JSON.stringify(settings));
+            } catch(e) {
+                console.warn('Failed to save settings:', e);
+            }
         }
 
         function loadSettings() {
@@ -4527,37 +4600,73 @@
                 if(saved) {
                     const settings = JSON.parse(saved);
 
-                    // Load language first
-                    if(settings.language) {
+                    // Validate that settings is an object
+                    if (typeof settings !== 'object' || settings === null) {
+                        console.warn('Invalid settings format, using defaults');
+                        applyTranslations();
+                        return;
+                    }
+
+                    // Load language first (with validation)
+                    if (isValidSetting(settings.language, VALID_SETTINGS.languages)) {
                         currentLang = settings.language;
                     }
 
-                    if(settings.synthMode) setSynthMode(settings.synthMode);
-                    if(settings.synthMethod) setSynthMethod(settings.synthMethod);
-                    if(settings.noiseType) setNoiseType(settings.noiseType);
-                    if(settings.volume) {
+                    // Validate and apply synth mode
+                    if (isValidSetting(settings.synthMode, VALID_SETTINGS.synthModes)) {
+                        setSynthMode(settings.synthMode);
+                    }
+
+                    // Validate and apply synth method
+                    if (isValidSetting(settings.synthMethod, VALID_SETTINGS.synthMethods)) {
+                        setSynthMethod(settings.synthMethod);
+                    }
+
+                    // Validate and apply noise type
+                    if (isValidSetting(settings.noiseType, VALID_SETTINGS.noiseTypes)) {
+                        setNoiseType(settings.noiseType);
+                    }
+
+                    // Validate and apply volume (0-100)
+                    if (isValidNumber(settings.volume, 0, 100)) {
                         const volSlider = document.querySelector('input[type="range"]');
                         if(volSlider) {
                             volSlider.value = settings.volume;
                             updateVolume(settings.volume);
                         }
                     }
-                    if(settings.breathPattern) setBreathPattern(settings.breathPattern);
-                    if(settings.breathSound !== undefined) {
+
+                    // Validate and apply breath pattern
+                    if (isValidSetting(settings.breathPattern, VALID_SETTINGS.breathPatterns)) {
+                        setBreathPattern(settings.breathPattern);
+                    }
+
+                    // Validate breath sound (boolean)
+                    if (typeof settings.breathSound === 'boolean') {
                         breathSoundEnabled = settings.breathSound;
                         const icon = document.getElementById('breathSoundIcon');
                         if(icon) icon.className = breathSoundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
                     }
-                    if(settings.calcMode) setCalcMode(settings.calcMode);
-                    if(settings.sleepLatency) {
+
+                    // Validate and apply calc mode
+                    if (isValidSetting(settings.calcMode, VALID_SETTINGS.calcModes)) {
+                        setCalcMode(settings.calcMode);
+                    }
+
+                    // Validate sleep latency (1-120 minutes reasonable range)
+                    if (isValidNumber(settings.sleepLatency, 1, 120)) {
                         const latencySelect = document.getElementById('sleepLatency');
                         if(latencySelect) latencySelect.value = settings.sleepLatency;
                     }
-                    if(settings.wakeTime) {
+
+                    // Validate wake time format
+                    if (isValidTimeFormat(settings.wakeTime)) {
                         const wakeInput = document.getElementById('wakeTime');
                         if(wakeInput) wakeInput.value = settings.wakeTime;
                     }
-                    if(settings.bedTime) {
+
+                    // Validate bed time format
+                    if (isValidTimeFormat(settings.bedTime)) {
                         const bedInput = document.getElementById('bedTime');
                         if(bedInput) bedInput.value = settings.bedTime;
                     }
@@ -4567,6 +4676,8 @@
                 applyTranslations();
             } catch(e) {
                 console.warn('Error loading settings:', e);
+                // Still apply translations even if settings load fails
+                applyTranslations();
             }
         }
 
