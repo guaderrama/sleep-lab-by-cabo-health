@@ -25,6 +25,14 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00f3ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SLEEP_LAB">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -4749,6 +4757,94 @@
             if(breathInterval) clearTimeout(breathInterval);
             if(synthRunning) stopSynth();
             if(noiseNode) stopNoise();
+        });
+
+        // ========== PWA SERVICE WORKER REGISTRATION ==========
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('[PWA] Service Worker registered:', registration.scope);
+
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New version available
+                                    console.log('[PWA] New version available');
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.warn('[PWA] Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+
+            // Show custom install button/banner after 30 seconds on page
+            setTimeout(() => {
+                if (deferredPrompt) {
+                    showInstallBanner();
+                }
+            }, 30000);
+        });
+
+        function showInstallBanner() {
+            // Create install banner if it doesn't exist
+            if (document.getElementById('pwa-install-banner')) return;
+
+            const banner = document.createElement('div');
+            banner.id = 'pwa-install-banner';
+            banner.innerHTML = `
+                <div style="position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+                            background: rgba(0,0,0,0.95); border: 1px solid var(--primary-glow);
+                            border-radius: 16px; padding: 16px 24px; z-index: 9999;
+                            display: flex; align-items: center; gap: 16px; max-width: 400px;
+                            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.2);">
+                    <div style="flex: 1;">
+                        <div style="font-weight: bold; color: white; margin-bottom: 4px;">Install SLEEP_LAB</div>
+                        <div style="font-size: 12px; color: #888;">Access offline + faster loading</div>
+                    </div>
+                    <button onclick="installPWA()" style="background: var(--primary-glow); color: black;
+                            border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;
+                            cursor: pointer;">Install</button>
+                    <button onclick="dismissInstallBanner()" style="background: transparent; color: #666;
+                            border: none; padding: 8px; cursor: pointer; font-size: 18px;">✕</button>
+                </div>
+            `;
+            document.body.appendChild(banner);
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('[PWA] User accepted install');
+                    }
+                    deferredPrompt = null;
+                    dismissInstallBanner();
+                });
+            }
+        }
+
+        function dismissInstallBanner() {
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.remove();
+        }
+
+        // Track successful installation
+        window.addEventListener('appinstalled', () => {
+            console.log('[PWA] App installed successfully');
+            deferredPrompt = null;
         });
     </script>
 </body>
