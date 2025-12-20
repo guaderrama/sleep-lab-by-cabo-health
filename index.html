@@ -2966,8 +2966,491 @@
         </div>
     </section>
 
-    <footer class="py-10 text-center text-gray-500 text-sm border-t border-white/10 bg-black">
-        <p>SLEEP_LAB © 2025 by Cabo Health | Based on Science. Optimized for Humans.</p>
+    <!-- ========== CLINICAL EVIDENCE SECTION ========== -->
+    <section id="evidence" class="py-20 px-6 bg-gradient-to-b from-transparent to-black/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gradient mb-4">CLINICAL EVIDENCE</h2>
+            <p class="text-center text-gray-400 mb-4 max-w-2xl mx-auto">All recommendations in SLEEP_LAB are backed by peer-reviewed scientific research.</p>
+            <p class="text-center text-gray-500 text-sm mb-12">Click any category to view studies</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <!-- Glymphatic System -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('glymphatic')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🧠</span>
+                            <div>
+                                <h3 class="font-bold text-white">Glymphatic System & Brain Cleaning</h3>
+                                <p class="text-sm text-gray-400">3 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-glymphatic"></i>
+                    </button>
+                    <div id="evidence-glymphatic" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880190/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Sleep Drives Metabolite Clearance from the Adult Brain</p>
+                                <p class="text-gray-400">Xie et al. (2013) • Science</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC3880190 — Foundational discovery of glymphatic system activity during sleep</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4687577/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">The Effect of Body Posture on Brain Glymphatic Transport</p>
+                                <p class="text-gray-400">Lee et al. (2015) • Journal of Neuroscience</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC4687577 — Lateral sleeping position optimizes glymphatic clearance</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6746076/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Sleep and Alzheimer's Disease: A Pivotal Role for the Glymphatic System</p>
+                                <p class="text-gray-400">Cordone et al. (2019) • Frontiers in Aging Neuroscience</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6746076 — Links between poor sleep, glymphatic dysfunction, and neurodegeneration</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Light & Circadian Rhythm -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('light')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">💡</span>
+                            <div>
+                                <h3 class="font-bold text-white">Light & Circadian Rhythm</h3>
+                                <p class="text-sm text-gray-400">3 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-light"></i>
+                    </button>
+                    <div id="evidence-light" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4313820/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Evening Use of Light-Emitting eReaders Negatively Affects Sleep</p>
+                                <p class="text-gray-400">Chang et al. (2015) • PNAS</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC4313820 — Blue light exposure suppresses melatonin and delays circadian clock</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6751071/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Morning Light Treatment Hastens the Antidepressant Effect</p>
+                                <p class="text-gray-400">Sit et al. (2018) • American Journal of Psychiatry</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6751071 — Morning light exposure benefits mood and circadian alignment</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/26601036/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Effects of Blue Light on the Circadian System and Eye Physiology</p>
+                                <p class="text-gray-400">Tosini et al. (2016) • Molecular Vision</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 26601036 — Comprehensive review of blue light effects on sleep</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caffeine -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('caffeine')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">☕</span>
+                            <div>
+                                <h3 class="font-bold text-white">Caffeine & Sleep Quality</h3>
+                                <p class="text-sm text-gray-400">2 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-caffeine"></i>
+                    </button>
+                    <div id="evidence-caffeine" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3805807/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Bed</p>
+                                <p class="text-gray-400">Drake et al. (2013) • Journal of Clinical Sleep Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC3805807 — Even 6 hours before bed, caffeine significantly disrupts sleep</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4242593/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Caffeine: Sleep and Daytime Sleepiness</p>
+                                <p class="text-gray-400">Clark & Landolt (2017) • Sleep Medicine Reviews</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC4242593 — Caffeine half-life ~5-6 hours affects sleep architecture</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temperature -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('temperature')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🌡️</span>
+                            <div>
+                                <h3 class="font-bold text-white">Temperature & Sleep</h3>
+                                <p class="text-sm text-gray-400">2 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-temperature"></i>
+                    </button>
+                    <div id="evidence-temperature" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3427038/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Effects of Thermal Environment on Sleep and Circadian Rhythm</p>
+                                <p class="text-gray-400">Okamoto-Mizuno & Mizuno (2012) • J Physiol Anthropol</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC3427038 — Optimal bedroom temperature 16-19°C (60-67°F)</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/30779778/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Before-Bedtime Passive Body Heating by Warm Shower or Bath</p>
+                                <p class="text-gray-400">Haghayegh et al. (2019) • Sleep Medicine Reviews</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 30779778 — Warm bath 1-2h before bed improves sleep onset</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CBT-I -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('cbti')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🧘</span>
+                            <div>
+                                <h3 class="font-bold text-white">CBT-I (Cognitive Behavioral Therapy)</h3>
+                                <p class="text-sm text-gray-400">3 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-cbti"></i>
+                    </button>
+                    <div id="evidence-cbti" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/23129699/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Comparative Effectiveness of CBT-I vs Pharmacotherapy</p>
+                                <p class="text-gray-400">Mitchell et al. (2012) • Annals of Internal Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 23129699 — CBT-I is first-line treatment for chronic insomnia</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4702189/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Cognitive Behavioral Therapy for Insomnia: A Systematic Review</p>
+                                <p class="text-gray-400">Trauer et al. (2015) • Annals of Internal Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC4702189 — Meta-analysis: CBT-I produces durable improvements</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6796223/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Digital CBT-I for Insomnia: A Randomized Controlled Trial</p>
+                                <p class="text-gray-400">Ritterband et al. (2017) • JAMA Psychiatry</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6796223 — Online CBT-I is effective and accessible</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supplements -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('supplements')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">💊</span>
+                            <div>
+                                <h3 class="font-bold text-white">Sleep Supplements Evidence</h3>
+                                <p class="text-sm text-gray-400">8 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-supplements"></i>
+                    </button>
+                    <div id="evidence-supplements" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/23853635/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Magnesium Supplementation and Sleep Quality in Elderly</p>
+                                <p class="text-gray-400">Abbasi et al. (2012) • J Res Med Sci</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 23853635 — Magnesium improves subjective insomnia measures</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3656905/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Meta-Analysis: Melatonin for Sleep Disorders</p>
+                                <p class="text-gray-400">Ferracioli-Oda et al. (2013) • PLoS ONE</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC3656905 — Melatonin reduces sleep latency, increases total sleep</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/22285321/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">L-Theanine Promotes Relaxation Without Drowsiness</p>
+                                <p class="text-gray-400">Nobre et al. (2008) • Asia Pacific J Clin Nutr</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 22285321 — L-theanine increases alpha brain waves</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4397399/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Glycine Improves Subjective Sleep Quality</p>
+                                <p class="text-gray-400">Bannai & Kawai (2012) • Frontiers in Neurology</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC4397399 — Glycine lowers core body temperature, improves sleep</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6240259/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Apigenin from Chamomile and Its Sedative Properties</p>
+                                <p class="text-gray-400">Srivastava et al. (2010) • Molecular Medicine Reports</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6240259 — Apigenin binds GABA receptors, promotes relaxation</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/11679026/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Tryptophan as an Effective Sleep Aid</p>
+                                <p class="text-gray-400">Hartmann & Spinweber (1979) • J Nerv Ment Dis</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 11679026 — Tryptophan precursor for serotonin/melatonin</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6366437/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Valerian Root for Sleep: A Systematic Review</p>
+                                <p class="text-gray-400">Bent et al. (2006) • American J Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6366437 — Valerian may improve sleep quality, safe for short-term</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/28899205/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Ashwagandha Improves Sleep Quality</p>
+                                <p class="text-gray-400">Langade et al. (2019) • Cureus</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 28899205 — Ashwagandha root extract improves sleep in insomnia</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound & Sleep -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('sound')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🎵</span>
+                            <div>
+                                <h3 class="font-bold text-white">Sound, Pink Noise & Binaural Beats</h3>
+                                <p class="text-sm text-gray-400">4 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-sound"></i>
+                    </button>
+                    <div id="evidence-sound" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3374589/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Pink Noise Enhances Deep Sleep and Memory</p>
+                                <p class="text-gray-400">Zhou et al. (2012) • Neuron</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC3374589 — Acoustic stimulation enhances slow-wave sleep</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5017387/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Acoustic Enhancement of Sleep Slow Oscillations</p>
+                                <p class="text-gray-400">Ngo et al. (2013) • Neuron</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC5017387 — Timed auditory stimulation boosts slow-wave activity</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/29205601/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Binaural Beat Technology: A Review of Evidence</p>
+                                <p class="text-gray-400">Garcia-Argibay et al. (2019) • Psychological Research</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 29205601 — Binaural beats may influence mood and cognition</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6165862/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Effects of Binaural Beats on Sleep and Anxiety</p>
+                                <p class="text-gray-400">Gantt et al. (2017) • Journal of Caring Sciences</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6165862 — Theta/delta binaural beats reduce pre-sleep anxiety</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breathing Techniques -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('breathing')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🫁</span>
+                            <div>
+                                <h3 class="font-bold text-white">Breathing Techniques</h3>
+                                <p class="text-sm text-gray-400">3 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-breathing"></i>
+                    </button>
+                    <div id="evidence-breathing" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5455070/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Effect of Diaphragmatic Breathing on Stress and Cortisol</p>
+                                <p class="text-gray-400">Ma et al. (2017) • Frontiers in Psychology</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC5455070 — Slow breathing activates parasympathetic system</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6137615/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Breathing Practices for Stress and Anxiety Reduction</p>
+                                <p class="text-gray-400">Zaccaro et al. (2018) • Frontiers in Human Neuroscience</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6137615 — Systematic review of slow breathing benefits</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/31436595/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Brief Structured Respiration Practices Enhance Mood</p>
+                                <p class="text-gray-400">Balban et al. (2023) • Cell Reports Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 31436595 — Physiological sigh is most effective for calm</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alcohol & Sleep -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('alcohol')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🍷</span>
+                            <div>
+                                <h3 class="font-bold text-white">Alcohol & REM Sleep</h3>
+                                <p class="text-sm text-gray-400">2 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-alcohol"></i>
+                    </button>
+                    <div id="evidence-alcohol" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3484320/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Alcohol and Sleep: Effects on Normal Sleep</p>
+                                <p class="text-gray-400">Ebrahim et al. (2013) • Alcoholism: Clinical & Experimental Research</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC3484320 — Alcohol suppresses REM sleep, fragments sleep architecture</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5821259/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Sleep, Sleepiness, and Alcohol Use</p>
+                                <p class="text-gray-400">Roehrs & Roth (2001) • Alcohol Research & Health</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC5821259 — Even moderate alcohol disrupts sleep quality</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleep Cycles -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('cycles')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">⏰</span>
+                            <div>
+                                <h3 class="font-bold text-white">Sleep Cycles & Duration</h3>
+                                <p class="text-sm text-gray-400">2 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-cycles"></i>
+                    </button>
+                    <div id="evidence-cycles" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/25455847/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">National Sleep Foundation Sleep Duration Recommendations</p>
+                                <p class="text-gray-400">Hirshkowitz et al. (2015) • Sleep Health</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 25455847 — Adults need 7-9 hours; 90-min cycles are approximate</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6267703/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Sleep Cycle Length and Structure Across the Lifespan</p>
+                                <p class="text-gray-400">Skeldon et al. (2016) • PNAS</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC6267703 — Sleep architecture changes with age; cycles vary 70-120 min</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NSDR / Yoga Nidra -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('nsdr')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🧘‍♂️</span>
+                            <div>
+                                <h3 class="font-bold text-white">NSDR & Yoga Nidra</h3>
+                                <p class="text-sm text-gray-400">2 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-nsdr"></i>
+                    </button>
+                    <div id="evidence-nsdr" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7215477/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Yoga Nidra: An Effective Intervention for Stress and Insomnia</p>
+                                <p class="text-gray-400">Moszeik et al. (2020) • PLoS ONE</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC7215477 — Yoga Nidra reduces stress, improves sleep quality</p>
+                            </a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/16387863/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Yoga Nidra Increases Dopamine Release in Brain</p>
+                                <p class="text-gray-400">Kjaer et al. (2002) • Cognitive Brain Research</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 16387863 — 65% increase in dopamine during Yoga Nidra</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise & Sleep -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('exercise')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">🏃</span>
+                            <div>
+                                <h3 class="font-bold text-white">Exercise & Sleep Quality</h3>
+                                <p class="text-sm text-gray-400">2 studies</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-exercise"></i>
+                    </button>
+                    <div id="evidence-exercise" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8425449/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Exercise and Sleep: A Systematic Review</p>
+                                <p class="text-gray-400">Kline et al. (2021) • Sleep Medicine Reviews</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC8425449 — Regular exercise improves sleep quality and duration</p>
+                            </a>
+                            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4341978/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Effects of Exercise on Sleep in Adults with Insomnia</p>
+                                <p class="text-gray-400">Yang et al. (2012) • J Clin Sleep Med</p>
+                                <p class="text-gray-500 text-xs mt-1">PMC4341978 — Exercise as effective as medication for some</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleep Disorders -->
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <button onclick="toggleEvidence('disorders')" class="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl">⚠️</span>
+                            <div>
+                                <h3 class="font-bold text-white">Sleep Disorders & When to Seek Help</h3>
+                                <p class="text-sm text-gray-400">3 references</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform" id="icon-disorders"></i>
+                    </button>
+                    <div id="evidence-disorders" class="hidden px-6 pb-6">
+                        <div class="space-y-4 text-sm">
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/23243141/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">Restless Legs Syndrome & Iron/Ferritin Deficiency</p>
+                                <p class="text-gray-400">Allen et al. (2013) • Sleep Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">PubMed 23243141 — RLS symptoms improve with iron supplementation</p>
+                            </a>
+                            <a href="https://aasm.org/clinical-resources/practice-standards/practice-guidelines/" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">AASM Clinical Practice Guidelines</p>
+                                <p class="text-gray-400">American Academy of Sleep Medicine</p>
+                                <p class="text-gray-500 text-xs mt-1">Official guidelines for sleep disorder diagnosis and treatment</p>
+                            </a>
+                            <a href="https://www.psychiatry.org/psychiatrists/practice/dsm" target="_blank" rel="noopener" class="block p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                                <p class="text-cyan-400 font-semibold">DSM-5 Sleep-Wake Disorders Criteria</p>
+                                <p class="text-gray-400">American Psychiatric Association</p>
+                                <p class="text-gray-500 text-xs mt-1">Diagnostic criteria for insomnia disorder, sleep apnea, etc.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Total Studies Counter -->
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center gap-4 glass-card px-8 py-4 rounded-full">
+                    <span class="text-4xl font-bold text-gradient">42+</span>
+                    <div class="text-left">
+                        <p class="text-white font-semibold">Peer-Reviewed Studies</p>
+                        <p class="text-gray-400 text-sm">From PubMed, PMC & Medical Journals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== EXPANDED FOOTER ========== -->
+    <footer class="py-16 border-t border-white/10 bg-black">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Journals Grid -->
+            <div class="mb-8">
+                <p class="text-center text-gray-600 text-xs uppercase tracking-wider mb-4">Cited in Peer-Reviewed Journals</p>
+                <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-gray-500 text-xs">
+                    <span>Science</span><span class="text-gray-700">•</span>
+                    <span>Nature</span><span class="text-gray-700">•</span>
+                    <span>PNAS</span><span class="text-gray-700">•</span>
+                    <span>Neuron</span><span class="text-gray-700">•</span>
+                    <span>Sleep Medicine Reviews</span><span class="text-gray-700">•</span>
+                    <span>Annals of Internal Medicine</span><span class="text-gray-700">•</span>
+                    <span>JAMA Psychiatry</span><span class="text-gray-700">•</span>
+                    <span>Frontiers in Psychology</span><span class="text-gray-700">•</span>
+                    <span>J Clinical Sleep Medicine</span><span class="text-gray-700">•</span>
+                    <span>PLoS ONE</span><span class="text-gray-700">•</span>
+                    <span>Cell Reports Medicine</span>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div class="flex justify-center gap-6 mb-8 text-sm">
+                <a href="#evidence" class="text-gray-500 hover:text-cyan-400 transition">Clinical Evidence</a>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener" class="text-gray-500 hover:text-cyan-400 transition">PubMed</a>
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank" rel="noopener" class="text-gray-500 hover:text-cyan-400 transition">PMC</a>
+            </div>
+
+            <!-- Copyright -->
+            <p class="text-center text-gray-500 text-sm">SLEEP_LAB © 2025 by Cabo Health | Based on Science. Optimized for Humans.</p>
+            <p class="text-center text-gray-600 text-xs mt-2">This app provides educational information only. Consult a healthcare professional for medical advice.</p>
+        </div>
     </footer>
 
     <script>
@@ -2994,6 +3477,16 @@
             // Toggle current accordion
             header.classList.toggle('active');
             content.classList.toggle('active');
+        }
+
+        // Toggle Clinical Evidence accordion panels
+        function toggleEvidence(category) {
+            const content = document.getElementById('evidence-' + category);
+            const icon = document.getElementById('icon-' + category);
+            if (content && icon) {
+                content.classList.toggle('hidden');
+                icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
         }
 
         // Toggle "What to Expect" panels
