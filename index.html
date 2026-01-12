@@ -1504,7 +1504,7 @@
     <!-- FULL TOOLS SECTION (linked from cards above) -->
     <section id="synth-full" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> Neuro-Acoustic Lab</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> <span data-i18n="tools.title">Neuro-Acoustic Lab</span></h2>
 
             <!-- Guided Sessions - Pre-configured Presets -->
             <div class="mb-12 fade-up">
@@ -1651,20 +1651,20 @@
 
                 <div class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-8">
                     <div class="flex-1">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> Neuro-Synthesizer</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed max-w-2xl">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2"><i class="fa-solid fa-wave-square text-dynamic mr-3"></i> <span data-i18n="tools.synth.title">Neuro-Synthesizer</span></h3>
+                        <p class="text-sm text-gray-400 leading-relaxed max-w-2xl" data-i18n="tools.synth.desc">
                             Real-time algorithmic entrainment engine. Uses mathematical sound pulses to guide your brainwaves into specific relaxation states (FFR).
                         </p>
                         <div class="mt-4 flex flex-wrap gap-3">
-                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-volume-high mr-2 text-green-400"></i>Speakers OK (Isochronic)</span>
-                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-headphones mr-2 text-blue-400"></i>Headphones (Binaural)</span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-volume-high mr-2 text-green-400"></i><span data-i18n="tools.synth.speakers">Speakers OK (Isochronic)</span></span>
+                            <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400 border border-white/10"><i class="fa-solid fa-headphones mr-2 text-blue-400"></i><span data-i18n="tools.synth.headphones">Headphones (Binaural)</span></span>
                         </div>
                     </div>
 
                     <div class="w-full lg:w-auto flex flex-col items-end">
-                        <div id="synthStatus" class="text-xs font-mono text-dynamic mb-3 tracking-widest">SYSTEM STANDBY</div>
+                        <div id="synthStatus" class="text-xs font-mono text-dynamic mb-3 tracking-widest" data-i18n="tools.synth.status">SYSTEM STANDBY</div>
                         <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center">
-                            <i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION
+                            <i class="fa-solid fa-play mr-3"></i> <span data-i18n="tools.synth.activate">ACTIVATE SESSION</span>
                         </button>
                     </div>
                 </div>
@@ -1678,26 +1678,26 @@
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 border-t border-white/10 pt-8">
                     <!-- Left: Mode & Timer -->
                     <div>
-                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Target Brainwave State</h4>
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4" data-i18n="tools.synth.brainwave">Target Brainwave State</h4>
                         <div class="grid grid-cols-4 gap-2 mb-6">
                             <button onclick="setSynthMode('sleep')" class="synth-btn active flex flex-col items-center py-3" id="mode-sleep">
                                 <i class="fa-solid fa-moon text-xl mb-1"></i>
-                                <span class="font-bold text-xs">Sleep</span>
+                                <span class="font-bold text-xs" data-i18n="tools.synth.sleep">Sleep</span>
                                 <span class="text-[9px] opacity-70">0.5Hz Delta</span>
                             </button>
                             <button onclick="setSynthMode('calm')" class="synth-btn flex flex-col items-center py-3" id="mode-calm">
                                 <i class="fa-solid fa-om text-xl mb-1"></i>
-                                <span class="font-bold text-xs">Meditate</span>
+                                <span class="font-bold text-xs" data-i18n="tools.synth.meditate">Meditate</span>
                                 <span class="text-[9px] opacity-70">6Hz Theta</span>
                             </button>
                             <button onclick="setSynthMode('relax')" class="synth-btn flex flex-col items-center py-3" id="mode-relax">
                                 <i class="fa-solid fa-water text-xl mb-1"></i>
-                                <span class="font-bold text-xs">Relax</span>
+                                <span class="font-bold text-xs" data-i18n="tools.synth.relax">Relax</span>
                                 <span class="text-[9px] opacity-70">10Hz Alpha</span>
                             </button>
                             <button onclick="setSynthMode('focus')" class="synth-btn flex flex-col items-center py-3" id="mode-focus">
                                 <i class="fa-solid fa-bolt text-xl mb-1"></i>
-                                <span class="font-bold text-xs">Focus</span>
+                                <span class="font-bold text-xs" data-i18n="tools.synth.focus">Focus</span>
                                 <span class="text-[9px] opacity-70">40Hz Gamma</span>
                             </button>
                         </div>
@@ -1705,48 +1705,48 @@
                         <div class="flex items-center gap-4 bg-black/30 p-3 rounded-xl border border-white/5">
                             <i class="fa-solid fa-hourglass-half text-gray-400 pl-2"></i>
                             <select id="synthTimer" class="bg-transparent text-white text-sm w-full focus:outline-none cursor-pointer">
-                                <option value="0">Continuous Play</option>
-                                <option value="15">Timer: 15 Minutes</option>
-                                <option value="30" selected>Timer: 30 Minutes</option>
-                                <option value="60">Timer: 1 Hour</option>
-                                <option value="480">Timer: 8 Hours</option>
+                                <option value="0" data-i18n="tools.synth.continuous">Continuous Play</option>
+                                <option value="15" data-i18n="tools.synth.timer15">Timer: 15 Minutes</option>
+                                <option value="30" selected data-i18n="tools.synth.timer30">Timer: 30 Minutes</option>
+                                <option value="60" data-i18n="tools.synth.timer60">Timer: 1 Hour</option>
+                                <option value="480" data-i18n="tools.synth.timer480">Timer: 8 Hours</option>
                             </select>
                         </div>
                     </div>
 
                     <!-- Right: Method & Volume -->
                     <div>
-                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Modulation Technique</h4>
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4" data-i18n="tools.synth.modulation">Modulation Technique</h4>
                         <div class="grid grid-cols-2 gap-3 mb-6">
                             <button onclick="setSynthMethod('isochronic')" class="synth-btn active h-full text-left px-4" id="method-isochronic">
-                                <strong class="block text-sm mb-1">Isochronic</strong>
-                                <span class="text-[10px] opacity-70 block leading-tight">Rhythmic pulses. Strongest effect. Speakers OK.</span>
+                                <strong class="block text-sm mb-1" data-i18n="tools.synth.isochronic">Isochronic</strong>
+                                <span class="text-[10px] opacity-70 block leading-tight" data-i18n="tools.synth.isochronicDesc">Rhythmic pulses. Strongest effect. Speakers OK.</span>
                             </button>
                             <button onclick="setSynthMethod('binaural')" class="synth-btn h-full text-left px-4" id="method-binaural">
-                                <strong class="block text-sm mb-1">Binaural</strong>
-                                <span class="text-[10px] opacity-70 block leading-tight">Frequency difference. Smoother. <strong>Headphones Only.</strong></span>
+                                <strong class="block text-sm mb-1" data-i18n="tools.synth.binaural">Binaural</strong>
+                                <span class="text-[10px] opacity-70 block leading-tight" data-i18n="tools.synth.binauralDesc">Frequency difference. Smoother. Headphones Only.</span>
                             </button>
                         </div>
                         
                         <div class="space-y-4">
                             <div class="bg-white/5 p-3 rounded-xl border border-white/5">
                                 <div class="flex items-center justify-between mb-3">
-                                    <span class="text-sm text-gray-300 ml-2"><i class="fa-solid fa-wind mr-2 text-pink-400"></i>Background Noise</span>
+                                    <span class="text-sm text-gray-300 ml-2"><i class="fa-solid fa-wind mr-2 text-pink-400"></i><span data-i18n="tools.synth.noise">Background Noise</span></span>
                                     <button onclick="toggleNoise()" id="noiseBtn" class="w-12 h-6 rounded-full bg-gray-700 relative transition-colors" role="switch" aria-pressed="false" aria-label="Enable background noise">
                                         <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
                                     </button>
                                 </div>
                                 <div class="flex flex-wrap gap-2 justify-center" id="noiseTypeSelector" role="group" aria-label="Noise type selector">
-                                    <button onclick="setNoiseType('pink')" class="noise-type-btn active min-w-[50px] min-h-[36px]" id="noise-pink" aria-pressed="true">Pink</button>
-                                    <button onclick="setNoiseType('brown')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-brown" aria-pressed="false">Brown</button>
-                                    <button onclick="setNoiseType('white')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-white" aria-pressed="false">White</button>
+                                    <button onclick="setNoiseType('pink')" class="noise-type-btn active min-w-[50px] min-h-[36px]" id="noise-pink" aria-pressed="true" data-i18n="noise.pinkBtn">Pink</button>
+                                    <button onclick="setNoiseType('brown')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-brown" aria-pressed="false" data-i18n="noise.brownBtn">Brown</button>
+                                    <button onclick="setNoiseType('white')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-white" aria-pressed="false" data-i18n="noise.whiteBtn">White</button>
                                 </div>
-                                <p class="text-[10px] text-gray-500 text-center mt-2" id="noiseDescription">Pink: Balanced, best for sleep</p>
+                                <p class="text-[10px] text-gray-500 text-center mt-2" id="noiseDescription" data-i18n="noise.pink">Pink: Balanced, best for sleep</p>
                             </div>
                             
                             <div class="bg-white/5 p-3 rounded-xl border border-white/5">
                                 <div class="flex justify-between mb-2 text-xs text-gray-400 px-1">
-                                    <span>Volume</span>
+                                    <span data-i18n="tools.synth.volume">Volume</span>
                                     <span id="volDisplay">30%</span>
                                 </div>
                                 <input type="range" min="0" max="100" value="30" class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[var(--primary-glow)]" oninput="updateVolume(this.value)">
@@ -1762,22 +1762,22 @@
                 <div id="breath-full" class="glass-card p-6 rounded-2xl fade-up">
                     <!-- User Guide -->
                     <div class="tool-info-card mb-4">
-                        <h4><i class="fa-solid fa-circle-info mr-2"></i> Breathing Guide</h4>
+                        <h4><i class="fa-solid fa-circle-info mr-2"></i> <span data-i18n="breath.guide.title">Breathing Guide</span></h4>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <p class="text-xs text-cyan-400 font-bold mb-1">🎯 BENEFITS</p>
+                                <p class="text-xs text-cyan-400 font-bold mb-1">🎯 <span data-i18n="breath.guide.benefitsTitle">BENEFITS</span></p>
                                 <ul class="text-[11px]">
-                                    <li>Activates vagus nerve</li>
-                                    <li>Lowers cortisol instantly</li>
-                                    <li>Shifts to rest mode</li>
+                                    <li data-i18n="breath.guide.benefit1">Activates vagus nerve</li>
+                                    <li data-i18n="breath.guide.benefit2">Lowers cortisol instantly</li>
+                                    <li data-i18n="breath.guide.benefit3">Shifts to rest mode</li>
                                 </ul>
                             </div>
                             <div>
-                                <p class="text-xs text-purple-400 font-bold mb-1">⏰ WHEN TO USE</p>
+                                <p class="text-xs text-purple-400 font-bold mb-1">⏰ <span data-i18n="breath.guide.whenTitle">WHEN TO USE</span></p>
                                 <ul class="text-[11px]">
-                                    <li>Before bed (4-7-8)</li>
-                                    <li>During stress (Box)</li>
-                                    <li>Panic attack (Sigh)</li>
+                                    <li data-i18n="breath.guide.when1">Before bed (4-7-8)</li>
+                                    <li data-i18n="breath.guide.when2">During stress (Box)</li>
+                                    <li data-i18n="breath.guide.when3">Panic attack (Sigh)</li>
                                 </ul>
                             </div>
                         </div>
@@ -1814,11 +1814,11 @@
 
                     <!-- Pattern Selector -->
                     <div class="flex flex-wrap justify-center gap-2 mb-6" role="group" aria-label="Breathing pattern selector">
-                        <button onclick="setBreathPattern('478')" class="noise-type-btn active text-[11px] min-w-[60px] min-h-[44px]" id="breath-478" aria-pressed="true">4-7-8</button>
-                        <button onclick="setBreathPattern('box')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-box" aria-pressed="false">Box</button>
-                        <button onclick="setBreathPattern('sigh')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-sigh" aria-pressed="false">Physio Sigh</button>
+                        <button onclick="setBreathPattern('478')" class="noise-type-btn active text-[11px] min-w-[60px] min-h-[44px]" id="breath-478" aria-pressed="true" data-i18n="breath.pattern.478">4-7-8</button>
+                        <button onclick="setBreathPattern('box')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-box" aria-pressed="false" data-i18n="breath.pattern.box">Box</button>
+                        <button onclick="setBreathPattern('sigh')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-sigh" aria-pressed="false" data-i18n="breath.pattern.sigh">Physio Sigh</button>
                     </div>
-                    <p class="text-[10px] text-gray-500 text-center mb-4" id="breathPatternDesc">4-7-8: Deep relaxation, best for sleep</p>
+                    <p class="text-[10px] text-gray-500 text-center mb-4" id="breathPatternDesc" data-i18n="breath.pattern.478Desc">4-7-8: Deep relaxation, best for sleep</p>
 
                     <div class="flex flex-col items-center">
                         <div id="breathCircle" class="breath-circle mb-4 transition-all duration-[4000ms] ease-in-out relative">
@@ -1828,13 +1828,13 @@
                                 <circle class="breath-progress-bar" id="breathProgressBar" cx="100" cy="100" r="95" stroke-dasharray="597" stroke-dashoffset="597"></circle>
                             </svg>
                             <div class="flex flex-col items-center">
-                                <span id="breathText" class="breath-text">Ready</span>
-                                <span id="breathCycleCount" class="breath-cycle-counter text-gray-400">Cycle 0/8</span>
+                                <span id="breathText" class="breath-text" data-i18n="breath.ready">Ready</span>
+                                <span id="breathCycleCount" class="breath-cycle-counter text-gray-400"><span data-i18n="breath.cycle">Cycle</span> 0/8</span>
                             </div>
                         </div>
 
                         <div class="flex gap-3">
-                            <button onclick="toggleBreathing()" id="breathBtn" class="px-6 py-2 border border-white/20 rounded-full text-sm font-bold hover:bg-white/10 transition">
+                            <button onclick="toggleBreathing()" id="breathBtn" class="px-6 py-2 border border-white/20 rounded-full text-sm font-bold hover:bg-white/10 transition" data-i18n="breath.start">
                                 Start
                             </button>
                             <button onclick="toggleBreathSound()" id="breathSoundBtn" class="px-4 py-2 border border-white/20 rounded-full text-sm hover:bg-white/10 transition" title="Toggle audio cues">
@@ -1848,22 +1848,22 @@
                 <div id="calc-full" class="glass-card p-6 rounded-2xl fade-up" style="transition-delay: 100ms;">
                     <!-- User Guide -->
                     <div class="tool-info-card mb-6">
-                        <h4><i class="fa-solid fa-circle-info mr-2"></i> Calculator Guide</h4>
+                        <h4><i class="fa-solid fa-circle-info mr-2"></i> <span data-i18n="calc.guide.title">Calculator Guide</span></h4>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <p class="text-xs text-cyan-400 font-bold mb-1">🎯 WHY IT WORKS</p>
+                                <p class="text-xs text-cyan-400 font-bold mb-1">🎯 <span data-i18n="calc.guide.whyTitle">WHY IT WORKS</span></p>
                                 <ul class="text-[11px]">
-                                    <li>Sleep cycles = 90 mins</li>
-                                    <li>Waking mid-cycle = groggy</li>
-                                    <li>End of cycle = refreshed</li>
+                                    <li data-i18n="calc.guide.why1">Sleep cycles = 90 mins</li>
+                                    <li data-i18n="calc.guide.why2">Waking mid-cycle = groggy</li>
+                                    <li data-i18n="calc.guide.why3">End of cycle = refreshed</li>
                                 </ul>
                             </div>
                             <div>
-                                <p class="text-xs text-purple-400 font-bold mb-1">💡 PRO TIPS</p>
+                                <p class="text-xs text-purple-400 font-bold mb-1">💡 <span data-i18n="calc.guide.tipsTitle">PRO TIPS</span></p>
                                 <ul class="text-[11px]">
-                                    <li>5 cycles (7.5h) is optimal</li>
-                                    <li>Account for fall-asleep time</li>
-                                    <li>Be consistent daily</li>
+                                    <li data-i18n="calc.guide.tips1">5 cycles (7.5h) is optimal</li>
+                                    <li data-i18n="calc.guide.tips2">Account for fall-asleep time</li>
+                                    <li data-i18n="calc.guide.tips3">Be consistent daily</li>
                                 </ul>
                             </div>
                         </div>
@@ -1894,7 +1894,7 @@
                         <select id="sleepLatency" name="sleepLatency" class="bg-transparent text-white text-sm focus:outline-none cursor-pointer" aria-describedby="latencyHelp">
                             <option value="5">5 min</option>
                             <option value="10">10 min</option>
-                            <option value="14" selected>14 min (avg)</option>
+                            <option value="14" selected data-i18n="calc.latency14">14 min (avg)</option>
                             <option value="20">20 min</option>
                             <option value="30">30 min</option>
                         </select>
@@ -1905,11 +1905,11 @@
                     </button>
 
                     <div id="sleepResults" class="hidden">
-                        <p class="text-xs text-gray-400 text-center mb-2" id="calcResultLabel">Go to bed at:</p>
+                        <p class="text-xs text-gray-400 text-center mb-2" id="calcResultLabel" data-i18n="calc.goBed">Go to bed at:</p>
                         <div class="grid grid-cols-3 gap-2 text-center">
-                            <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time1">--</span><span class="text-[9px] text-gray-500 block">6 Cycles</span></div>
-                            <div class="p-2 bg-dynamic text-black rounded-lg border border-dynamic shadow-[0_0_10px_var(--primary-glow)] transform scale-105"><span class="block text-base font-bold" id="time2">--</span><span class="text-[9px] opacity-70 block font-bold">5 Cycles ★</span></div>
-                            <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time3">--</span><span class="text-[9px] text-gray-500 block">4 Cycles</span></div>
+                            <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time1">--</span><span class="text-[9px] text-gray-500 block">6 <span data-i18n="calc.cycles">Cycles</span></span></div>
+                            <div class="p-2 bg-dynamic text-black rounded-lg border border-dynamic shadow-[0_0_10px_var(--primary-glow)] transform scale-105"><span class="block text-base font-bold" id="time2">--</span><span class="text-[9px] opacity-70 block font-bold">5 <span data-i18n="calc.cycles">Cycles</span> ★</span></div>
+                            <div class="p-2 bg-white/5 rounded-lg border border-white/5"><span class="block text-base font-bold text-white" id="time3">--</span><span class="text-[9px] text-gray-500 block">4 <span data-i18n="calc.cycles">Cycles</span></span></div>
                         </div>
                     </div>
                 </div>
@@ -1920,7 +1920,7 @@
     <!-- 2. DIAGNOSIS -->
     <section id="diagnosis" class="py-24 bg-black/30 border-y border-white/5">
         <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">02.</span> Diagnosis Center</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-white"><span class="text-dynamic">02.</span> <span data-i18n="diagnosis.title">Diagnosis Center</span></h2>
             <p class="text-center text-gray-400 mb-12" data-i18n="diagnosis.subtitle">Select your primary symptom to reveal the specific combat protocol.</p>
 
             <!-- Interactive Diagnostic Quiz -->
@@ -2051,14 +2051,14 @@
 
             <!-- Scrollable Tabs -->
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 pb-4">
-                <button onclick="openTab('nocturia')" class="tab-btn active px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-nocturia"><i class="fa-solid fa-toilet mr-2 text-blue-400"></i> Urine</button>
-                <button onclick="openTab('mente')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-mente"><i class="fa-solid fa-brain mr-2 text-purple-400"></i> Mind</button>
-                <button onclick="openTab('despertar')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-despertar"><i class="fa-regular fa-clock mr-2 text-yellow-400"></i> 3:00 AM</button>
-                <button onclick="openTab('shallow')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-shallow"><i class="fa-solid fa-battery-quarter mr-2 text-gray-400"></i> Shallow</button>
-                <button onclick="openTab('apnea')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-apnea"><i class="fa-solid fa-lungs mr-2 text-red-400"></i> Apnea</button>
-                <button onclick="openTab('piernas')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-piernas"><i class="fa-solid fa-bolt mr-2 text-orange-400"></i> RLS</button>
-                <button onclick="openTab('sofocos')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-sofocos"><i class="fa-solid fa-fire mr-2 text-pink-400"></i> Flashes</button>
-                <button onclick="openTab('restriccion')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-restriccion"><i class="fa-solid fa-ban mr-2 text-red-500"></i> SRT</button>
+                <button onclick="openTab('nocturia')" class="tab-btn active px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-nocturia"><i class="fa-solid fa-toilet mr-2 text-blue-400"></i> <span data-i18n="diagnosis.urine">Urine</span></button>
+                <button onclick="openTab('mente')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-mente"><i class="fa-solid fa-brain mr-2 text-purple-400"></i> <span data-i18n="diagnosis.mind">Mind</span></button>
+                <button onclick="openTab('despertar')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-despertar"><i class="fa-regular fa-clock mr-2 text-yellow-400"></i> <span data-i18n="diagnosis.3am">3:00 AM</span></button>
+                <button onclick="openTab('shallow')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-shallow"><i class="fa-solid fa-battery-quarter mr-2 text-gray-400"></i> <span data-i18n="diagnosis.shallow">Shallow</span></button>
+                <button onclick="openTab('apnea')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-apnea"><i class="fa-solid fa-lungs mr-2 text-red-400"></i> <span data-i18n="diagnosis.apnea">Apnea</span></button>
+                <button onclick="openTab('piernas')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-piernas"><i class="fa-solid fa-bolt mr-2 text-orange-400"></i> <span data-i18n="diagnosis.rls">RLS</span></button>
+                <button onclick="openTab('sofocos')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-sofocos"><i class="fa-solid fa-fire mr-2 text-pink-400"></i> <span data-i18n="diagnosis.flashes">Flashes</span></button>
+                <button onclick="openTab('restriccion')" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-gray-300 hover:bg-white/5 transition flex items-center text-sm border border-transparent" id="btn-restriccion"><i class="fa-solid fa-ban mr-2 text-red-500"></i> <span data-i18n="diagnosis.srt">SRT</span></button>
             </div>
 
             <div class="glass-card p-8 md:p-10 rounded-3xl min-h-[300px]">
@@ -2066,26 +2066,26 @@
                 <div id="nocturia" class="tab-content active">
                     <div class="flex flex-col md:flex-row gap-10">
                         <div class="md:w-1/3 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Nocturia</h3>
-                            <p class="text-xs text-blue-400 uppercase tracking-widest mb-4 font-bold">Nighttime Urination</p>
-                            <p class="text-gray-300 text-sm leading-relaxed">
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.nocturia.title">Nocturia</h3>
+                            <p class="text-xs text-blue-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.nocturia.subtitle">Nighttime Urination</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.nocturia.desc">
                                 <strong>The Hidden Cause:</strong> It is rarely a "small bladder". It is usually caused by <em>Cardiac Stress</em> from poor breathing/apnea. The heart releases ANP (Atrial Natriuretic Peptide) signaling kidneys to dump water to lower pressure.
                             </p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Correction Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Correction Protocol</h4>
                             <div class="grid gap-4">
                                 <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
                                     <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-tape text-blue-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Mouth Taping</p><p class="text-xs text-gray-400 mt-1">Use 3M Micropore tape. Nasal breathing calms the heart rate and stops ANP production.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.nocturia.p1.title">Mouth Taping</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.nocturia.p1.desc">Use 3M Micropore tape. Nasal breathing calms the heart rate and stops ANP production.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
                                     <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-glass-water text-blue-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Salt + Water Hack</p><p class="text-xs text-gray-400 mt-1">Sip a tiny amount of water with a pinch of sea salt before bed. Helps retain fluid in cells, not the bladder.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.nocturia.p2.title">Salt + Water Hack</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.nocturia.p2.desc">Sip a tiny amount of water with a pinch of sea salt before bed. Helps retain fluid in cells, not the bladder.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
                                     <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-blue-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Zero Liquids 2h Before</p><p class="text-xs text-gray-400 mt-1">Stop drinking water 2 hours before bed. Empty bladder right before sleeping.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.nocturia.p3.title">Zero Liquids 2h Before</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.nocturia.p3.desc">Stop drinking water 2 hours before bed. Empty bladder right before sleeping.</p></div>
                                 </div>
                             </div>
                         </div>
@@ -2096,30 +2096,30 @@
                 <div id="mente" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
                         <div class="md:w-1/3 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Monkey Mind</h3>
-                            <p class="text-xs text-purple-400 uppercase tracking-widest mb-4 font-bold">Rumination & Anxiety</p>
-                            <p class="text-gray-300 text-sm leading-relaxed">
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.mind.title">Monkey Mind</h3>
+                            <p class="text-xs text-purple-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.mind.subtitle">Rumination & Anxiety</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.mind.desc">
                                 <strong>The Problem:</strong> Cognitive Hyperarousal. A lack of GABA inhibition or high evening Cortisol keeps the prefrontal cortex active. Your brain hasn't received the "safe" signal.
                             </p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Correction Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Correction Protocol</h4>
                             <div class="grid gap-4">
                                 <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
                                     <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-temperature-arrow-up text-purple-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Hot Bath (90 min before)</p><p class="text-xs text-gray-400 mt-1">Vasodilation pushes blood to skin, triggering a rapid core temp drop afterwards (a sleep signal).</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.mind.p1.title">Hot Bath (90 min before)</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.mind.p1.desc">Vasodilation pushes blood to skin, triggering a rapid core temp drop afterwards (a sleep signal).</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-capsules text-purple-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">L-Theanine (200-400mg)</p><p class="text-xs text-gray-400 mt-1">Increases Alpha brainwaves, quieting internal dialogue without sedation.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.mind.p2.title">L-Theanine (200-400mg)</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.mind.p2.desc">Increases Alpha brainwaves, quieting internal dialogue without sedation.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-pen-to-square text-purple-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Cognitive Dump (Journaling)</p><p class="text-xs text-gray-400 mt-1">2 hours before bed, write ALL your pending tasks on paper. Get them out of your head and onto the page.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.mind.p3.title">Cognitive Dump (Journaling)</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.mind.p3.desc">2 hours before bed, write ALL your pending tasks on paper. Get them out of your head and onto the page.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-purple-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-headphones text-purple-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Boring Distraction</p><p class="text-xs text-gray-400 mt-1">Listen to a boring audiobook or "Sleep Stories" (Calm app) so your brain focuses on something other than your problems.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.mind.p4.title">Boring Distraction</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.mind.p4.desc">Listen to a boring audiobook or "Sleep Stories" (Calm app) so your brain focuses on something other than your problems.</p></div>
                                 </div>
                             </div>
                         </div>
@@ -2130,30 +2130,30 @@
                 <div id="despertar" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
                         <div class="md:w-1/3 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">3:00 AM Wakeup</h3>
-                            <p class="text-xs text-yellow-400 uppercase tracking-widest mb-4 font-bold">Maintenance Insomnia</p>
-                            <p class="text-gray-300 text-sm leading-relaxed">
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.3am.title">3:00 AM Wakeup</h3>
+                            <p class="text-xs text-yellow-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.3am.subtitle">Maintenance Insomnia</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.3am.desc">
                                 <strong>The Cause:</strong> Usually Hypoglycemia (Low Blood Sugar). The brain panics, releasing Adrenaline and Cortisol to liberate stored glucose. This adrenaline spike wakes you up alert.
                             </p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Correction Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Correction Protocol</h4>
                             <div class="grid gap-4">
                                 <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5">
                                     <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-jar text-yellow-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Raw Honey / MCT Oil</p><p class="text-xs text-gray-400 mt-1">1 tsp right before bed provides stable fuel for the brain, preventing the adrenaline spike.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.3am.p1.title">Raw Honey / MCT Oil</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.3am.p1.desc">1 tsp right before bed provides stable fuel for the brain, preventing the adrenaline spike.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-eye-slash text-yellow-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">NSDR (Non-Sleep Deep Rest)</p><p class="text-xs text-gray-400 mt-1">If you wake up, do NOT check the time. Immediately start a Yoga Nidra body scan.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.3am.p2.title">NSDR (Non-Sleep Deep Rest)</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.3am.p2.desc">If you wake up, do NOT check the time. Immediately start a Yoga Nidra body scan.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-capsules text-yellow-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Inositol (2-3g)</p><p class="text-xs text-gray-400 mt-1">Keep by your bed. If you wake up, take 2-3 grams. It helps you fall back asleep quickly.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.3am.p3.title">Inositol (2-3g)</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.3am.p3.desc">Keep by your bed. If you wake up, take 2-3 grams. It helps you fall back asleep quickly.</p></div>
                                 </div>
                                 <div class="bg-white/5 p-4 rounded-lg flex items-start border border-white/5">
                                     <div class="bg-yellow-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-clock text-yellow-400"></i></div>
-                                    <div><p class="font-bold text-white text-sm">Never Check the Clock</p><p class="text-xs text-gray-400 mt-1">Looking at the time triggers anxiety and cortisol. Turn clocks away from view.</p></div>
+                                    <div><p class="font-bold text-white text-sm" data-i18n="diag.3am.p4.title">Never Check the Clock</p><p class="text-xs text-gray-400 mt-1" data-i18n="diag.3am.p4.desc">Looking at the time triggers anxiety and cortisol. Turn clocks away from view.</p></div>
                                 </div>
                             </div>
                         </div>
@@ -2164,15 +2164,15 @@
                 <div id="shallow" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
                          <div class="md:w-1/3 border-r border-white/10 pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Shallow Sleep</h3>
-                            <p class="text-xs text-gray-400 uppercase tracking-widest mb-4 font-bold">Unrefreshing Sleep</p>
-                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Cause:</strong> Often due to high core body temperature, residual caffeine, or alcohol. The body cannot drop into NREM3 (Restorative) stages.</p>
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.shallow.title">Shallow Sleep</h3>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.shallow.subtitle">Unrefreshing Sleep</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.shallow.desc"><strong>The Cause:</strong> Often due to high core body temperature, residual caffeine, or alcohol. The body cannot drop into NREM3 (Restorative) stages.</p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Protocol</h4>
                             <div class="grid gap-4">
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-gray-700 p-2 rounded-lg mr-4"><i class="fa-solid fa-snowflake text-white"></i></div><div><p class="font-bold text-white text-sm">Glycine (3-5g)</p><p class="text-xs text-gray-400">Actively lowers core body temperature.</p></div></div>
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-gray-700 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-white"></i></div><div><p class="font-bold text-white text-sm">Zero Alcohol</p><p class="text-xs text-gray-400">Alcohol fragments REM sleep. Cut it out.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-gray-700 p-2 rounded-lg mr-4"><i class="fa-solid fa-snowflake text-white"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.shallow.p1.title">Glycine (3-5g)</p><p class="text-xs text-gray-400" data-i18n="diag.shallow.p1.desc">Actively lowers core body temperature.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-gray-700 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-white"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.shallow.p2.title">Zero Alcohol</p><p class="text-xs text-gray-400" data-i18n="diag.shallow.p2.desc">Alcohol fragments REM sleep. Cut it out.</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -2182,15 +2182,15 @@
                 <div id="apnea" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
                          <div class="md:w-1/3 border-r border-white/10 pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Apnea</h3>
-                            <p class="text-xs text-red-400 uppercase tracking-widest mb-4 font-bold">Hypoxia</p>
-                            <p class="text-gray-300 text-sm leading-relaxed"><strong>Danger:</strong> Airway collapse cuts off oxygen, destroying testosterone production and stressing the heart.</p>
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.apnea.title">Apnea</h3>
+                            <p class="text-xs text-red-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.apnea.subtitle">Hypoxia</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.apnea.desc"><strong>Danger:</strong> Airway collapse cuts off oxygen, destroying testosterone production and stressing the heart.</p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Protocol</h4>
                             <div class="grid gap-4">
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-bed text-red-400"></i></div><div><p class="font-bold text-white text-sm">Side Sleeping</p><p class="text-xs text-gray-400">Avoid supine position to keep airways open.</p></div></div>
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-user-doctor text-red-400"></i></div><div><p class="font-bold text-white text-sm">Sleep Study</p><p class="text-xs text-gray-400">Mandatory if you snore loudly. Get a CPAP.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-bed text-red-400"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.apnea.p1.title">Side Sleeping</p><p class="text-xs text-gray-400" data-i18n="diag.apnea.p1.desc">Avoid supine position to keep airways open.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-red-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-user-doctor text-red-400"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.apnea.p2.title">Sleep Study</p><p class="text-xs text-gray-400" data-i18n="diag.apnea.p2.desc">Mandatory if you snore loudly. Get a CPAP.</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -2200,15 +2200,15 @@
                 <div id="piernas" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
                          <div class="md:w-1/3 border-r border-white/10 pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Restless Legs</h3>
-                            <p class="text-xs text-orange-400 uppercase tracking-widest mb-4 font-bold">RLS</p>
-                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Cause:</strong> Often linked to low brain iron (Ferritin) or Magnesium deficiency.</p>
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.rls.title">Restless Legs</h3>
+                            <p class="text-xs text-orange-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.rls.subtitle">RLS</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.rls.desc"><strong>The Cause:</strong> Often linked to low brain iron (Ferritin) or Magnesium deficiency.</p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Protocol</h4>
                             <div class="grid gap-4">
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-vial text-orange-400"></i></div><div><p class="font-bold text-white text-sm">Check Ferritin</p><p class="text-xs text-gray-400">Must be >50 ng/mL. Supplement Iron + Vit C.</p></div></div>
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-orange-400"></i></div><div><p class="font-bold text-white text-sm">Avoid Triggers</p><p class="text-xs text-gray-400">No antihistamines (Benadryl worsens RLS).</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-vial text-orange-400"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.rls.p1.title">Check Ferritin</p><p class="text-xs text-gray-400" data-i18n="diag.rls.p1.desc">Must be >50 ng/mL. Supplement Iron + Vit C.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-ban text-orange-400"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.rls.p2.title">Avoid Triggers</p><p class="text-xs text-gray-400" data-i18n="diag.rls.p2.desc">No antihistamines (Benadryl worsens RLS).</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -2218,15 +2218,15 @@
                 <div id="sofocos" class="tab-content">
                     <div class="flex flex-col md:flex-row gap-10">
                          <div class="md:w-1/3 border-r border-white/10 pr-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Hot Flashes</h3>
-                            <p class="text-xs text-pink-400 uppercase tracking-widest mb-4 font-bold">Thermoregulation</p>
-                            <p class="text-gray-300 text-sm leading-relaxed"><strong>The Cause:</strong> Hormonal drops (Estrogen) wreck the body's thermostat.</p>
+                            <h3 class="text-2xl font-bold text-white mb-2" data-i18n="diag.flashes.title">Hot Flashes</h3>
+                            <p class="text-xs text-pink-400 uppercase tracking-widest mb-4 font-bold" data-i18n="diag.flashes.subtitle">Thermoregulation</p>
+                            <p class="text-gray-300 text-sm leading-relaxed" data-i18n-html="diag.flashes.desc"><strong>The Cause:</strong> Hormonal drops (Estrogen) wreck the body's thermostat.</p>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest">Protocol</h4>
+                            <h4 class="text-sm font-bold text-dynamic mb-6 uppercase tracking-widest" data-i18n="diag.protocol">Protocol</h4>
                             <div class="grid gap-4">
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-pink-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-snowflake text-pink-400"></i></div><div><p class="font-bold text-white text-sm">Active Cooling</p><p class="text-xs text-gray-400">Eight Sleep or ChiliPad is non-negotiable.</p></div></div>
-                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-pink-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-leaf text-pink-400"></i></div><div><p class="font-bold text-white text-sm">Vitamin E (400IU)</p><p class="text-xs text-gray-400">Clinically shown to reduce hot flash severity.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-pink-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-snowflake text-pink-400"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.flashes.p1.title">Active Cooling</p><p class="text-xs text-gray-400" data-i18n="diag.flashes.p1.desc">Eight Sleep or ChiliPad is non-negotiable.</p></div></div>
+                                <div class="bg-white/5 p-4 rounded-xl flex items-start border border-white/5"><div class="bg-pink-500/20 p-2 rounded-lg mr-4"><i class="fa-solid fa-leaf text-pink-400"></i></div><div><p class="font-bold text-white text-sm" data-i18n="diag.flashes.p2.title">Vitamin E (400IU)</p><p class="text-xs text-gray-400" data-i18n="diag.flashes.p2.desc">Clinically shown to reduce hot flash severity.</p></div></div>
                             </div>
                         </div>
                     </div>
@@ -4170,6 +4170,18 @@
                 'noise.pink': 'Pink: Balanced, best for sleep',
                 'noise.brown': 'Brown: Deep rumble, calms anxiety',
                 'noise.white': 'White: Static, masks all sounds',
+                'noise.pinkBtn': 'Pink',
+                'noise.brownBtn': 'Brown',
+                'noise.whiteBtn': 'White',
+
+                // Timer options
+                'tools.synth.timer15': 'Timer: 15 Minutes',
+                'tools.synth.timer30': 'Timer: 30 Minutes',
+                'tools.synth.timer60': 'Timer: 1 Hour',
+                'tools.synth.timer480': 'Timer: 8 Hours',
+
+                // Calculator latency
+                'calc.latency14': '14 min (avg)',
 
                 // Diagnosis Section
                 'diagnosis.title': 'Diagnosis Center',
@@ -4180,6 +4192,82 @@
                 'diagnosis.apnea': 'Apnea',
                 'diagnosis.rls': 'RLS',
                 'diagnosis.flashes': 'Flashes',
+                'diagnosis.3am': '3:00 AM',
+                'diagnosis.srt': 'SRT',
+
+                // Diagnosis Tab Content - Nocturia
+                'diag.nocturia.title': 'Nocturia',
+                'diag.nocturia.subtitle': 'Nighttime Urination',
+                'diag.nocturia.desc': '<strong>The Hidden Cause:</strong> It is rarely a "small bladder". It is usually caused by <em>Cardiac Stress</em> from poor breathing/apnea. The heart releases ANP (Atrial Natriuretic Peptide) signaling kidneys to dump water to lower pressure.',
+                'diag.protocol': 'Correction Protocol',
+                'diag.nocturia.p1.title': 'Mouth Taping',
+                'diag.nocturia.p1.desc': 'Use 3M Micropore tape. Nasal breathing calms the heart rate and stops ANP production.',
+                'diag.nocturia.p2.title': 'Salt + Water Hack',
+                'diag.nocturia.p2.desc': 'Sip a tiny amount of water with a pinch of sea salt before bed. Helps retain fluid in cells, not the bladder.',
+                'diag.nocturia.p3.title': 'Zero Liquids 2h Before',
+                'diag.nocturia.p3.desc': 'Stop drinking water 2 hours before bed. Empty bladder right before sleeping.',
+
+                // Diagnosis Tab Content - Monkey Mind
+                'diag.mind.title': 'Monkey Mind',
+                'diag.mind.subtitle': 'Rumination & Anxiety',
+                'diag.mind.desc': '<strong>The Problem:</strong> Cognitive Hyperarousal. A lack of GABA inhibition or high evening Cortisol keeps the prefrontal cortex active. Your brain hasn\'t received the "safe" signal.',
+                'diag.mind.p1.title': 'Hot Bath (90 min before)',
+                'diag.mind.p1.desc': 'Vasodilation pushes blood to skin, triggering a rapid core temp drop afterwards (a sleep signal).',
+                'diag.mind.p2.title': 'L-Theanine (200-400mg)',
+                'diag.mind.p2.desc': 'Increases Alpha brainwaves, quieting internal dialogue without sedation.',
+                'diag.mind.p3.title': 'Cognitive Dump (Journaling)',
+                'diag.mind.p3.desc': '2 hours before bed, write ALL your pending tasks on paper. Get them out of your head and onto the page.',
+                'diag.mind.p4.title': 'Boring Distraction',
+                'diag.mind.p4.desc': 'Listen to a boring audiobook or "Sleep Stories" (Calm app) so your brain focuses on something other than your problems.',
+
+                // Diagnosis Tab Content - 3AM Wakeup
+                'diag.3am.title': '3:00 AM Wakeup',
+                'diag.3am.subtitle': 'Maintenance Insomnia',
+                'diag.3am.desc': '<strong>The Cause:</strong> Usually Hypoglycemia (Low Blood Sugar). The brain panics, releasing Adrenaline and Cortisol to liberate stored glucose. This adrenaline spike wakes you up alert.',
+                'diag.3am.p1.title': 'Raw Honey / MCT Oil',
+                'diag.3am.p1.desc': '1 tsp right before bed provides stable fuel for the brain, preventing the adrenaline spike.',
+                'diag.3am.p2.title': 'NSDR (Non-Sleep Deep Rest)',
+                'diag.3am.p2.desc': 'If you wake up, do NOT check the time. Immediately start a Yoga Nidra body scan.',
+                'diag.3am.p3.title': 'Inositol (2-3g)',
+                'diag.3am.p3.desc': 'Keep by your bed. If you wake up, take 2-3 grams. It helps you fall back asleep quickly.',
+                'diag.3am.p4.title': 'Never Check the Clock',
+                'diag.3am.p4.desc': 'Looking at the time triggers anxiety and cortisol. Turn clocks away from view.',
+
+                // Diagnosis Tab Content - Shallow Sleep
+                'diag.shallow.title': 'Shallow Sleep',
+                'diag.shallow.subtitle': 'Unrefreshing Sleep',
+                'diag.shallow.desc': '<strong>The Cause:</strong> Often due to high core body temperature, residual caffeine, or alcohol. The body cannot drop into NREM3 (Restorative) stages.',
+                'diag.shallow.p1.title': 'Glycine (3-5g)',
+                'diag.shallow.p1.desc': 'Actively lowers core body temperature.',
+                'diag.shallow.p2.title': 'Zero Alcohol',
+                'diag.shallow.p2.desc': 'Alcohol fragments REM sleep. Cut it out.',
+
+                // Diagnosis Tab Content - Apnea
+                'diag.apnea.title': 'Apnea',
+                'diag.apnea.subtitle': 'Hypoxia',
+                'diag.apnea.desc': '<strong>Danger:</strong> Airway collapse cuts off oxygen, destroying testosterone production and stressing the heart.',
+                'diag.apnea.p1.title': 'Side Sleeping',
+                'diag.apnea.p1.desc': 'Avoid supine position to keep airways open.',
+                'diag.apnea.p2.title': 'Sleep Study',
+                'diag.apnea.p2.desc': 'Mandatory if you snore loudly. Get a CPAP.',
+
+                // Diagnosis Tab Content - Restless Legs
+                'diag.rls.title': 'Restless Legs',
+                'diag.rls.subtitle': 'RLS',
+                'diag.rls.desc': '<strong>The Cause:</strong> Often linked to low brain iron (Ferritin) or Magnesium deficiency.',
+                'diag.rls.p1.title': 'Check Ferritin',
+                'diag.rls.p1.desc': 'Must be >50 ng/mL. Supplement Iron + Vit C.',
+                'diag.rls.p2.title': 'Avoid Triggers',
+                'diag.rls.p2.desc': 'No antihistamines (Benadryl worsens RLS).',
+
+                // Diagnosis Tab Content - Hot Flashes
+                'diag.flashes.title': 'Hot Flashes',
+                'diag.flashes.subtitle': 'Thermoregulation',
+                'diag.flashes.desc': '<strong>The Cause:</strong> Hormonal drops (Estrogen) wreck the body\'s thermostat.',
+                'diag.flashes.p1.title': 'Active Cooling',
+                'diag.flashes.p1.desc': 'Eight Sleep or ChiliPad is non-negotiable.',
+                'diag.flashes.p2.title': 'Vitamin E (400IU)',
+                'diag.flashes.p2.desc': 'Clinically shown to reduce hot flash severity.',
 
                 // Common
                 'common.learnMore': 'Learn More',
@@ -4446,6 +4534,18 @@
                 'noise.pink': 'Rosa: Equilibrado, ideal para dormir',
                 'noise.brown': 'Café: Rumor profundo, calma ansiedad',
                 'noise.white': 'Blanco: Estático, enmascara todo',
+                'noise.pinkBtn': 'Rosa',
+                'noise.brownBtn': 'Café',
+                'noise.whiteBtn': 'Blanco',
+
+                // Timer options
+                'tools.synth.timer15': 'Timer: 15 Minutos',
+                'tools.synth.timer30': 'Timer: 30 Minutos',
+                'tools.synth.timer60': 'Timer: 1 Hora',
+                'tools.synth.timer480': 'Timer: 8 Horas',
+
+                // Calculator latency
+                'calc.latency14': '14 min (prom)',
 
                 // Diagnosis Section
                 'diagnosis.title': 'Centro de Diagnóstico',
@@ -4456,6 +4556,82 @@
                 'diagnosis.apnea': 'Apnea',
                 'diagnosis.rls': 'SPI',
                 'diagnosis.flashes': 'Sofocos',
+                'diagnosis.3am': '3:00 AM',
+                'diagnosis.srt': 'TRS',
+
+                // Diagnosis Tab Content - Nocturia
+                'diag.nocturia.title': 'Nocturia',
+                'diag.nocturia.subtitle': 'Micción Nocturna',
+                'diag.nocturia.desc': '<strong>La Causa Oculta:</strong> Raramente es una "vejiga pequeña". Usualmente es causada por <em>Estrés Cardíaco</em> por mala respiración/apnea. El corazón libera ANP (Péptido Natriurético Auricular) señalando a los riñones que eliminen agua para bajar la presión.',
+                'diag.protocol': 'Protocolo de Corrección',
+                'diag.nocturia.p1.title': 'Cinta en la Boca',
+                'diag.nocturia.p1.desc': 'Usa cinta 3M Micropore. La respiración nasal calma el ritmo cardíaco y detiene la producción de ANP.',
+                'diag.nocturia.p2.title': 'Truco de Sal + Agua',
+                'diag.nocturia.p2.desc': 'Bebe una pequeña cantidad de agua con una pizca de sal de mar antes de dormir. Ayuda a retener líquido en las células, no en la vejiga.',
+                'diag.nocturia.p3.title': 'Cero Líquidos 2h Antes',
+                'diag.nocturia.p3.desc': 'Deja de beber agua 2 horas antes de dormir. Vacía la vejiga justo antes de acostarte.',
+
+                // Diagnosis Tab Content - Monkey Mind
+                'diag.mind.title': 'Mente de Mono',
+                'diag.mind.subtitle': 'Rumiación y Ansiedad',
+                'diag.mind.desc': '<strong>El Problema:</strong> Hiperactivación Cognitiva. La falta de inhibición GABA o alto cortisol vespertino mantiene activa la corteza prefrontal. Tu cerebro no ha recibido la señal de "seguro".',
+                'diag.mind.p1.title': 'Baño Caliente (90 min antes)',
+                'diag.mind.p1.desc': 'La vasodilatación empuja sangre a la piel, provocando una caída rápida de temperatura central después (señal de sueño).',
+                'diag.mind.p2.title': 'L-Teanina (200-400mg)',
+                'diag.mind.p2.desc': 'Aumenta las ondas cerebrales Alfa, silenciando el diálogo interno sin sedación.',
+                'diag.mind.p3.title': 'Volcado Cognitivo (Journaling)',
+                'diag.mind.p3.desc': '2 horas antes de dormir, escribe TODAS tus tareas pendientes en papel. Sácalas de tu cabeza y ponlas en la página.',
+                'diag.mind.p4.title': 'Distracción Aburrida',
+                'diag.mind.p4.desc': 'Escucha un audiolibro aburrido o "Sleep Stories" (app Calm) para que tu cerebro se enfoque en algo distinto a tus problemas.',
+
+                // Diagnosis Tab Content - 3AM Wakeup
+                'diag.3am.title': 'Despertar a las 3:00 AM',
+                'diag.3am.subtitle': 'Insomnio de Mantenimiento',
+                'diag.3am.desc': '<strong>La Causa:</strong> Usualmente Hipoglucemia (Bajo Azúcar en Sangre). El cerebro entra en pánico, liberando Adrenalina y Cortisol para liberar glucosa almacenada. Este pico de adrenalina te despierta alerta.',
+                'diag.3am.p1.title': 'Miel Cruda / Aceite MCT',
+                'diag.3am.p1.desc': '1 cucharadita justo antes de dormir provee combustible estable para el cerebro, previniendo el pico de adrenalina.',
+                'diag.3am.p2.title': 'NSDR (Descanso Profundo Sin Sueño)',
+                'diag.3am.p2.desc': 'Si despiertas, NO revises la hora. Inmediatamente inicia un escaneo corporal de Yoga Nidra.',
+                'diag.3am.p3.title': 'Inositol (2-3g)',
+                'diag.3am.p3.desc': 'Tenlo junto a tu cama. Si despiertas, toma 2-3 gramos. Te ayuda a volver a dormir rápidamente.',
+                'diag.3am.p4.title': 'Nunca Revises el Reloj',
+                'diag.3am.p4.desc': 'Ver la hora dispara ansiedad y cortisol. Voltea los relojes para que no los veas.',
+
+                // Diagnosis Tab Content - Shallow Sleep
+                'diag.shallow.title': 'Sueño Superficial',
+                'diag.shallow.subtitle': 'Sueño No Reparador',
+                'diag.shallow.desc': '<strong>La Causa:</strong> Frecuentemente debido a alta temperatura corporal central, cafeína residual o alcohol. El cuerpo no puede entrar en etapas NREM3 (Restauradoras).',
+                'diag.shallow.p1.title': 'Glicina (3-5g)',
+                'diag.shallow.p1.desc': 'Baja activamente la temperatura corporal central.',
+                'diag.shallow.p2.title': 'Cero Alcohol',
+                'diag.shallow.p2.desc': 'El alcohol fragmenta el sueño REM. Elimínalo.',
+
+                // Diagnosis Tab Content - Apnea
+                'diag.apnea.title': 'Apnea',
+                'diag.apnea.subtitle': 'Hipoxia',
+                'diag.apnea.desc': '<strong>Peligro:</strong> El colapso de las vías respiratorias corta el oxígeno, destruyendo la producción de testosterona y estresando el corazón.',
+                'diag.apnea.p1.title': 'Dormir de Lado',
+                'diag.apnea.p1.desc': 'Evita la posición supina para mantener las vías respiratorias abiertas.',
+                'diag.apnea.p2.title': 'Estudio del Sueño',
+                'diag.apnea.p2.desc': 'Obligatorio si roncas fuerte. Obtén un CPAP.',
+
+                // Diagnosis Tab Content - Restless Legs
+                'diag.rls.title': 'Piernas Inquietas',
+                'diag.rls.subtitle': 'SPI',
+                'diag.rls.desc': '<strong>La Causa:</strong> Frecuentemente relacionado con bajo hierro cerebral (Ferritina) o deficiencia de Magnesio.',
+                'diag.rls.p1.title': 'Revisa Ferritina',
+                'diag.rls.p1.desc': 'Debe ser >50 ng/mL. Suplementa Hierro + Vit C.',
+                'diag.rls.p2.title': 'Evita Disparadores',
+                'diag.rls.p2.desc': 'Sin antihistamínicos (Benadryl empeora el SPI).',
+
+                // Diagnosis Tab Content - Hot Flashes
+                'diag.flashes.title': 'Sofocos',
+                'diag.flashes.subtitle': 'Termorregulación',
+                'diag.flashes.desc': '<strong>La Causa:</strong> Las caídas hormonales (Estrógeno) arruinan el termostato del cuerpo.',
+                'diag.flashes.p1.title': 'Enfriamiento Activo',
+                'diag.flashes.p1.desc': 'Eight Sleep o ChiliPad es innegociable.',
+                'diag.flashes.p2.title': 'Vitamina E (400UI)',
+                'diag.flashes.p2.desc': 'Clínicamente demostrado que reduce la severidad de los sofocos.',
 
                 // Common
                 'common.learnMore': 'Saber Más',
@@ -4543,6 +4719,14 @@
                 }
             });
 
+            // Update all elements with data-i18n-html attribute (for content with HTML tags)
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                if(translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+
             // Update all elements with data-i18n-placeholder attribute
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
@@ -4601,6 +4785,16 @@
             const langBtn = document.querySelector('.fab-btn.text-xs');
             if(langBtn) {
                 langBtn.textContent = currentLang === 'en' ? 'ES' : 'EN';
+            }
+
+            // Update synth play button
+            const mainPlayBtn = document.getElementById('mainPlayBtn');
+            if(mainPlayBtn) {
+                if(synthRunning) {
+                    mainPlayBtn.innerHTML = '<i class="fa-solid fa-stop mr-3"></i> ' + t('tools.synth.deactivate');
+                } else {
+                    mainPlayBtn.innerHTML = '<i class="fa-solid fa-play mr-3"></i> ' + t('tools.synth.activate');
+                }
             }
 
             // Update HTML lang attribute
@@ -4822,7 +5016,7 @@
         function toggleSynth() {
             if(!synthRunning) {
                 startSynth();
-                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-stop mr-3"></i> DEACTIVATE';
+                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-stop mr-3"></i> ' + t('tools.synth.deactivate');
                 document.getElementById('mainPlayBtn').classList.replace('bg-white/10', 'bg-red-500/20');
                 document.getElementById('visualizer').classList.remove('opacity-30');
                 startRealVisualizer();
@@ -4830,7 +5024,7 @@
                 if(mins > 0) { timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000); }
             } else {
                 stopSynth();
-                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ACTIVATE SESSION';
+                document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ' + t('tools.synth.activate');
                 document.getElementById('mainPlayBtn').classList.replace('bg-red-500/20', 'bg-white/10');
                 document.getElementById('visualizer').classList.add('opacity-30');
                 stopRealVisualizer();
@@ -5090,7 +5284,7 @@
             document.querySelectorAll('[id^="breath-"]').forEach(btn => btn.classList.remove('active'));
             document.getElementById('breath-' + pattern)?.classList.add('active');
             const patternDesc = document.getElementById('breathPatternDesc');
-            if(patternDesc) patternDesc.innerText = BREATH_PATTERNS[pattern].desc;
+            if(patternDesc) patternDesc.innerText = t('breath.pattern.' + pattern + 'Desc');
 
             if(isBreathing) {
                 stopBreathing();
