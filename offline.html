@@ -112,6 +112,26 @@
             box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
         }
 
+        .lang-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid #00f3ff;
+            color: #00f3ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: #00f3ff;
+            color: #000;
+        }
+
         .status {
             margin-top: 30px;
             font-size: 0.8rem;
@@ -176,61 +196,137 @@
     </style>
 </head>
 <body>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">ES</button>
+
     <div class="container">
         <div class="icon">🌙</div>
 
-        <h1>You're Offline</h1>
-        <p>Don't worry! Once you reconnect, SLEEP_LAB will be fully available. In the meantime, try this simple breathing exercise below.</p>
+        <h1 id="title">You're Offline</h1>
+        <p id="desc">Don't worry! Once you reconnect, SLEEP_LAB will be fully available. In the meantime, try this simple breathing exercise below.</p>
 
         <div class="features">
-            <h3>When you're back online:</h3>
+            <h3 id="featuresTitle">When you're back online:</h3>
             <div class="feature-item">
                 <span class="feature-icon">🎵</span>
-                <span class="feature-text">Neuro-Synthesizer with binaural beats</span>
+                <span class="feature-text" id="feat1">Neuro-Synthesizer with binaural beats</span>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🫁</span>
-                <span class="feature-text">Guided breathing exercises</span>
+                <span class="feature-text" id="feat2">Guided breathing exercises</span>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🧮</span>
-                <span class="feature-text">Sleep cycle calculator</span>
+                <span class="feature-text" id="feat3">Sleep cycle calculator</span>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">📚</span>
-                <span class="feature-text">Evidence-based sleep protocols</span>
+                <span class="feature-text" id="feat4">Evidence-based sleep protocols</span>
             </div>
         </div>
 
-        <button class="btn" onclick="location.reload()">
+        <button class="btn" onclick="location.reload()" id="retryBtn">
             Try Again
         </button>
 
         <div class="status">
             <span class="status-dot"></span>
-            Waiting for connection...
+            <span id="statusText">Waiting for connection...</span>
         </div>
 
         <!-- Simple offline breathing tool -->
         <div class="offline-tool">
-            <h3>4-7-8 Breathing (Offline)</h3>
+            <h3 id="breathTitle">4-7-8 Breathing (Offline)</h3>
             <div class="breath-circle" id="breathCircle">
                 Breathe
             </div>
-            <p class="breath-instruction">
+            <p class="breath-instruction" id="breathInstr">
                 Follow the circle: Inhale as it expands, hold, exhale as it contracts.<br>
-                4 seconds in → 7 seconds hold → 8 seconds out
+                4 seconds in &rarr; 7 seconds hold &rarr; 8 seconds out
             </p>
         </div>
     </div>
 
     <script>
+        // Bilingual support
+        const texts = {
+            en: {
+                title: "You're Offline",
+                desc: "Don't worry! Once you reconnect, SLEEP_LAB will be fully available. In the meantime, try this simple breathing exercise below.",
+                featuresTitle: "When you're back online:",
+                feat1: "Neuro-Synthesizer with binaural beats",
+                feat2: "Guided breathing exercises",
+                feat3: "Sleep cycle calculator",
+                feat4: "Evidence-based sleep protocols",
+                retryBtn: "Try Again",
+                statusText: "Waiting for connection...",
+                breathTitle: "4-7-8 Breathing (Offline)",
+                breathInstr: "Follow the circle: Inhale as it expands, hold, exhale as it contracts.<br>4 seconds in &rarr; 7 seconds hold &rarr; 8 seconds out",
+                breathe: "Breathe",
+                inhale: "Inhale",
+                hold: "Hold",
+                exhale: "Exhale"
+            },
+            es: {
+                title: "Estás Sin Conexión",
+                desc: "¡No te preocupes! Una vez que te reconectes, SLEEP_LAB estará completamente disponible. Mientras tanto, prueba este simple ejercicio de respiración.",
+                featuresTitle: "Cuando vuelvas a estar en línea:",
+                feat1: "Neuro-Sintetizador con beats binaurales",
+                feat2: "Ejercicios de respiración guiada",
+                feat3: "Calculadora de ciclos de sueño",
+                feat4: "Protocolos de sueño basados en evidencia",
+                retryBtn: "Intentar de Nuevo",
+                statusText: "Esperando conexión...",
+                breathTitle: "Respiración 4-7-8 (Sin Conexión)",
+                breathInstr: "Sigue el círculo: Inhala mientras se expande, sostén, exhala mientras se contrae.<br>4 segundos dentro &rarr; 7 segundos sostener &rarr; 8 segundos fuera",
+                breathe: "Respira",
+                inhale: "Inhala",
+                hold: "Sostén",
+                exhale: "Exhala"
+            }
+        };
+
+        // Detect language from localStorage (saved by main app)
+        let currentLang = 'en';
+        try {
+            const saved = localStorage.getItem('sleepLabSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                if (settings.language === 'es') currentLang = 'es';
+            }
+        } catch(e) {}
+
+        function applyLang() {
+            const t = texts[currentLang];
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('desc').textContent = t.desc;
+            document.getElementById('featuresTitle').textContent = t.featuresTitle;
+            document.getElementById('feat1').textContent = t.feat1;
+            document.getElementById('feat2').textContent = t.feat2;
+            document.getElementById('feat3').textContent = t.feat3;
+            document.getElementById('feat4').textContent = t.feat4;
+            document.getElementById('retryBtn').textContent = t.retryBtn;
+            document.getElementById('statusText').textContent = t.statusText;
+            document.getElementById('breathTitle').textContent = t.breathTitle;
+            document.getElementById('breathInstr').innerHTML = t.breathInstr;
+            document.getElementById('langBtn').textContent = currentLang === 'en' ? 'ES' : 'EN';
+            document.documentElement.lang = currentLang;
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            applyLang();
+            // Update breathing phases
+            phases[0].text = texts[currentLang].inhale;
+            phases[1].text = texts[currentLang].hold;
+            phases[2].text = texts[currentLang].exhale;
+        }
+
         // Simple offline breathing animation text
         const breathCircle = document.getElementById('breathCircle');
         const phases = [
-            { text: 'Inhale', duration: 4000 },
-            { text: 'Hold', duration: 7000 },
-            { text: 'Exhale', duration: 8000 }
+            { text: texts[currentLang].inhale, duration: 4000 },
+            { text: texts[currentLang].hold, duration: 7000 },
+            { text: texts[currentLang].exhale, duration: 8000 }
         ];
         let currentPhase = 0;
 
@@ -242,6 +338,8 @@
             }, phases[currentPhase].duration);
         }
 
+        // Apply initial language and start breathing
+        applyLang();
         updateBreathText();
 
         // Check for online status
