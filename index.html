@@ -5225,7 +5225,8 @@
                 carrierOscR.start();
             }
 
-            // Fade in
+            // Fade in (setValueAtTime anchor required for reliable linearRamp behavior)
+            masterGain.gain.setValueAtTime(0, ctx.currentTime);
             masterGain.gain.linearRampToValueAtTime(currentVolume, ctx.currentTime + FADE_TIME);
 
             if(isNoiseOn) startNoise();
@@ -5236,19 +5237,27 @@
 
             const doStop = () => {
                 synthRunning = false;
+                // Always clean up noise before disconnecting masterGain to prevent orphaned nodes
+                if(noiseNode) {
+                    try {
+                        noiseNode.stop(); noiseNode.disconnect(); noiseNode = null;
+                        if(noiseGain) { noiseGain.disconnect(); noiseGain = null; }
+                    } catch(e) { console.warn('Error in noise cleanup:', e); }
+                    noiseStopPending = false;
+                }
                 try {
                     if(carrierOscL) { carrierOscL.stop(); carrierOscL.disconnect(); carrierOscL = null; }
                     if(carrierOscR) { carrierOscR.stop(); carrierOscR.disconnect(); carrierOscR = null; }
                     if(lfoOsc) { lfoOsc.stop(); lfoOsc.disconnect(); lfoOsc = null; }
                     if(masterGain) { masterGain.disconnect(); masterGain = null; }
                 } catch(e) { console.warn('Error stopping synth:', e); }
-                if(noiseNode && !isNoiseOn) stopNoise();
             };
 
             if(immediate || !audioCtx) {
                 doStop();
             } else {
-                // Fade out
+                // Fade out (setValueAtTime anchor required for reliable linearRamp behavior)
+                masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
                 masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + FADE_TIME);
                 setTimeout(doStop, FADE_TIME * 1000);
             }
@@ -5315,7 +5324,8 @@
             }
             noiseNode.start();
 
-            // Fade in noise
+            // Fade in noise (setValueAtTime anchor required for reliable linearRamp behavior)
+            noiseGain.gain.setValueAtTime(0, ctx.currentTime);
             noiseGain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 1);
         }
 
@@ -5325,6 +5335,7 @@
 
             try {
                 if(noiseGain && audioCtx) {
+                    noiseGain.gain.setValueAtTime(noiseGain.gain.value, audioCtx.currentTime);
                     noiseGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
                     setTimeout(() => {
                         try {
