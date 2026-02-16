@@ -421,7 +421,7 @@
             <!-- Section Header -->
             <div class="text-center mb-10">
                 <span class="bg-cyan-500/20 text-cyan-400 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest" data-i18n="tools.badge">Interactive Tools</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-6 text-white" data-i18n="tools.title">Use These <span class="text-gradient">Right Now</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold mt-6 text-white" data-i18n-html="tools.hub.title">Use These <span class="text-gradient">Right Now</span></h2>
                 <p class="text-gray-400 mt-4 max-w-2xl mx-auto" data-i18n="tools.subtitle">No reading required. Pick a tool and start improving your sleep immediately.</p>
             </div>
 
@@ -1718,13 +1718,15 @@
                     <div>
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4" data-i18n="tools.synth.modulation">Modulation Technique</h4>
                         <div class="grid grid-cols-2 gap-3 mb-6">
-                            <button onclick="setSynthMethod('isochronic')" class="synth-btn active h-full text-left px-4" id="method-isochronic">
+                            <button onclick="setSynthMethod('isochronic')" class="synth-btn active h-full text-left px-4 py-3" id="method-isochronic">
                                 <strong class="block text-sm mb-1" data-i18n="tools.synth.isochronic">Isochronic</strong>
                                 <span class="text-[10px] opacity-70 block leading-tight" data-i18n="tools.synth.isochronicDesc">Rhythmic pulses. Strongest effect. Speakers OK.</span>
+                                <span class="text-[9px] text-green-400/80 block mt-1.5 leading-tight" data-i18n="tools.synth.isochronicWhen">Use for: Sleep, meditation, naps</span>
                             </button>
-                            <button onclick="setSynthMethod('binaural')" class="synth-btn h-full text-left px-4" id="method-binaural">
+                            <button onclick="setSynthMethod('binaural')" class="synth-btn h-full text-left px-4 py-3" id="method-binaural">
                                 <strong class="block text-sm mb-1" data-i18n="tools.synth.binaural">Binaural</strong>
                                 <span class="text-[10px] opacity-70 block leading-tight" data-i18n="tools.synth.binauralDesc">Frequency difference. Smoother. Headphones Only.</span>
+                                <span class="text-[9px] text-cyan-400/80 block mt-1.5 leading-tight" data-i18n="tools.synth.binauralWhen">Use for: Focus, relaxation, study</span>
                             </button>
                         </div>
                         
@@ -1736,12 +1738,21 @@
                                         <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
                                     </button>
                                 </div>
-                                <div class="flex flex-wrap gap-2 justify-center" id="noiseTypeSelector" role="group" aria-label="Noise type selector">
-                                    <button onclick="setNoiseType('pink')" class="noise-type-btn active min-w-[50px] min-h-[36px]" id="noise-pink" aria-pressed="true" data-i18n="noise.pinkBtn">Pink</button>
-                                    <button onclick="setNoiseType('brown')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-brown" aria-pressed="false" data-i18n="noise.brownBtn">Brown</button>
-                                    <button onclick="setNoiseType('white')" class="noise-type-btn min-w-[50px] min-h-[36px]" id="noise-white" aria-pressed="false" data-i18n="noise.whiteBtn">White</button>
+                                <div class="grid grid-cols-3 gap-2" id="noiseTypeSelector" role="group" aria-label="Noise type selector">
+                                    <button onclick="setNoiseType('pink')" class="noise-type-btn active min-h-[52px] flex flex-col items-center justify-center py-2 px-1" id="noise-pink" aria-pressed="true">
+                                        <span class="text-xs font-bold" data-i18n="noise.pinkBtn">Pink</span>
+                                        <span class="text-[8px] opacity-60 mt-0.5 leading-tight" data-i18n="noise.pinkUse">Best for sleep</span>
+                                    </button>
+                                    <button onclick="setNoiseType('brown')" class="noise-type-btn min-h-[52px] flex flex-col items-center justify-center py-2 px-1" id="noise-brown" aria-pressed="false">
+                                        <span class="text-xs font-bold" data-i18n="noise.brownBtn">Brown</span>
+                                        <span class="text-[8px] opacity-60 mt-0.5 leading-tight" data-i18n="noise.brownUse">Best for anxiety</span>
+                                    </button>
+                                    <button onclick="setNoiseType('white')" class="noise-type-btn min-h-[52px] flex flex-col items-center justify-center py-2 px-1" id="noise-white" aria-pressed="false">
+                                        <span class="text-xs font-bold" data-i18n="noise.whiteBtn">White</span>
+                                        <span class="text-[8px] opacity-60 mt-0.5 leading-tight" data-i18n="noise.whiteUse">Best for focus</span>
+                                    </button>
                                 </div>
-                                <p class="text-[10px] text-gray-500 text-center mt-2" id="noiseDescription" data-i18n="noise.pink">Pink: Balanced, best for sleep</p>
+                                <p class="text-[10px] text-gray-500 text-center mt-2" id="noiseDescription" data-i18n="noise.pink">Pink: Balanced, natural sound — ideal for falling asleep and staying asleep</p>
                             </div>
                             
                             <div class="bg-white/5 p-3 rounded-xl border border-white/5">
@@ -3996,7 +4007,7 @@
 
                 // Tools Hub Section
                 'tools.badge': 'Interactive Tools',
-                'tools.title': 'Use These Right Now',
+                'tools.hub.title': 'Use These <span class="text-gradient">Right Now</span>',
                 'tools.subtitle': 'No reading required. Pick a tool and start improving your sleep immediately.',
                 'tools.synth.name': 'Neuro-Synthesizer',
                 'tools.synth.tagline': 'Brainwave entrainment',
@@ -4094,8 +4105,10 @@
                 'tools.synth.modulation': 'Modulation Technique',
                 'tools.synth.isochronic': 'Isochronic',
                 'tools.synth.isochronicDesc': 'Rhythmic pulses. Strongest effect. Speakers OK.',
+                'tools.synth.isochronicWhen': 'Use for: Sleep, meditation, naps',
                 'tools.synth.binaural': 'Binaural',
                 'tools.synth.binauralDesc': 'Frequency difference. Smoother. Headphones Only.',
+                'tools.synth.binauralWhen': 'Use for: Focus, relaxation, study',
                 'tools.synth.noise': 'Background Noise',
                 'tools.synth.volume': 'Volume',
                 'tools.synth.continuous': 'Continuous Play',
@@ -4167,12 +4180,15 @@
                 'calc.error.bed': 'Please enter a bedtime',
 
                 // Noise descriptions
-                'noise.pink': 'Pink: Balanced, best for sleep',
-                'noise.brown': 'Brown: Deep rumble, calms anxiety',
-                'noise.white': 'White: Static, masks all sounds',
+                'noise.pink': 'Pink: Balanced, natural sound — ideal for falling asleep and staying asleep',
+                'noise.brown': 'Brown: Deep rumble — calms anxiety, great for deep relaxation',
+                'noise.white': 'White: Uniform static — masks all external sounds, best for focus',
                 'noise.pinkBtn': 'Pink',
                 'noise.brownBtn': 'Brown',
                 'noise.whiteBtn': 'White',
+                'noise.pinkUse': 'Best for sleep',
+                'noise.brownUse': 'Best for anxiety',
+                'noise.whiteUse': 'Best for focus',
 
                 // Timer options
                 'tools.synth.timer15': 'Timer: 15 Minutes',
@@ -4559,7 +4575,7 @@
 
                 // Tools Hub Section
                 'tools.badge': 'Herramientas Interactivas',
-                'tools.title': 'Úsalas Ahora Mismo',
+                'tools.hub.title': 'Úsalas <span class="text-gradient">Ahora Mismo</span>',
                 'tools.subtitle': 'Sin necesidad de leer. Elige una herramienta y comienza a mejorar tu sueño de inmediato.',
                 'tools.synth.name': 'Neuro-Sintetizador',
                 'tools.synth.tagline': 'Sincronización cerebral',
@@ -4657,8 +4673,10 @@
                 'tools.synth.modulation': 'Técnica de Modulación',
                 'tools.synth.isochronic': 'Isocrónico',
                 'tools.synth.isochronicDesc': 'Pulsos rítmicos. Efecto más fuerte. Bocinas OK.',
+                'tools.synth.isochronicWhen': 'Úsalo para: Dormir, meditar, siestas',
                 'tools.synth.binaural': 'Binaural',
                 'tools.synth.binauralDesc': 'Diferencia de frecuencia. Más suave. Solo audífonos.',
+                'tools.synth.binauralWhen': 'Úsalo para: Enfoque, relajación, estudio',
                 'tools.synth.noise': 'Ruido de Fondo',
                 'tools.synth.volume': 'Volumen',
                 'tools.synth.continuous': 'Reproducción Continua',
@@ -4730,12 +4748,15 @@
                 'calc.error.bed': 'Por favor ingresa hora de dormir',
 
                 // Noise descriptions
-                'noise.pink': 'Rosa: Equilibrado, ideal para dormir',
-                'noise.brown': 'Café: Rumor profundo, calma ansiedad',
-                'noise.white': 'Blanco: Estático, enmascara todo',
+                'noise.pink': 'Rosa: Sonido natural y equilibrado — ideal para dormirte y mantener el sueño',
+                'noise.brown': 'Café: Rumor profundo — calma la ansiedad, ideal para relajación profunda',
+                'noise.white': 'Blanco: Estático uniforme — enmascara ruidos externos, ideal para concentración',
                 'noise.pinkBtn': 'Rosa',
                 'noise.brownBtn': 'Café',
                 'noise.whiteBtn': 'Blanco',
+                'noise.pinkUse': 'Ideal para dormir',
+                'noise.brownUse': 'Ideal para ansiedad',
+                'noise.whiteUse': 'Ideal para enfoque',
 
                 // Timer options
                 'tools.synth.timer15': 'Timer: 15 Minutos',
@@ -5409,7 +5430,7 @@
             if(!synthRunning) {
                 startSynth();
                 document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-stop mr-3"></i> ' + t('tools.synth.deactivate');
-                document.getElementById('mainPlayBtn').classList.replace('bg-white/10', 'bg-red-500/20');
+                document.getElementById('mainPlayBtn').classList.replace('bg-dynamic', 'bg-red-500/20');
                 document.getElementById('visualizer').classList.remove('opacity-30');
                 startRealVisualizer();
                 const mins = parseInt(document.getElementById('synthTimer').value, 10);
@@ -5417,7 +5438,7 @@
             } else {
                 stopSynth();
                 document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ' + t('tools.synth.activate');
-                document.getElementById('mainPlayBtn').classList.replace('bg-red-500/20', 'bg-white/10');
+                document.getElementById('mainPlayBtn').classList.replace('bg-red-500/20', 'bg-dynamic');
                 document.getElementById('visualizer').classList.add('opacity-30');
                 stopRealVisualizer();
                 if(timerInterval) { clearTimeout(timerInterval); timerInterval = null; }
@@ -5426,7 +5447,7 @@
 
         function toggleNoise() {
             isNoiseOn = !isNoiseOn;
-            const t = document.getElementById('noiseToggle');
+            const toggleEl = document.getElementById('noiseToggle');
             const btn = document.getElementById('noiseBtn');
             // Update ARIA for accessibility
             if(btn) {
@@ -5434,12 +5455,12 @@
                 btn.setAttribute('aria-label', isNoiseOn ? (currentLang === 'es' ? 'Desactivar ruido de fondo' : 'Disable background noise') : (currentLang === 'es' ? 'Activar ruido de fondo' : 'Enable background noise'));
             }
             if(isNoiseOn) {
-                t.style.transform = 'translateX(24px)';
-                t.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
+                toggleEl.style.transform = 'translateX(24px)';
+                toggleEl.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
                 if(synthRunning) startNoise();
             } else {
-                t.style.transform = 'translateX(0)';
-                t.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
+                toggleEl.style.transform = 'translateX(0)';
+                toggleEl.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
                 stopNoise();
             }
         }
@@ -5485,7 +5506,8 @@
                 carrierOscR.start();
             }
 
-            // Fade in
+            // Fade in (setValueAtTime anchor required for reliable linearRamp behavior)
+            masterGain.gain.setValueAtTime(0, ctx.currentTime);
             masterGain.gain.linearRampToValueAtTime(currentVolume, ctx.currentTime + FADE_TIME);
 
             if(isNoiseOn) startNoise();
@@ -5496,19 +5518,27 @@
 
             const doStop = () => {
                 synthRunning = false;
+                // Always clean up noise before disconnecting masterGain to prevent orphaned nodes
+                if(noiseNode) {
+                    try {
+                        noiseNode.stop(); noiseNode.disconnect(); noiseNode = null;
+                        if(noiseGain) { noiseGain.disconnect(); noiseGain = null; }
+                    } catch(e) { console.warn('Error in noise cleanup:', e); }
+                    noiseStopPending = false;
+                }
                 try {
                     if(carrierOscL) { carrierOscL.stop(); carrierOscL.disconnect(); carrierOscL = null; }
                     if(carrierOscR) { carrierOscR.stop(); carrierOscR.disconnect(); carrierOscR = null; }
                     if(lfoOsc) { lfoOsc.stop(); lfoOsc.disconnect(); lfoOsc = null; }
                     if(masterGain) { masterGain.disconnect(); masterGain = null; }
                 } catch(e) { console.warn('Error stopping synth:', e); }
-                if(noiseNode && !isNoiseOn) stopNoise();
             };
 
             if(immediate || !audioCtx) {
                 doStop();
             } else {
-                // Fade out
+                // Fade out (setValueAtTime anchor required for reliable linearRamp behavior)
+                masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
                 masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + FADE_TIME);
                 setTimeout(doStop, FADE_TIME * 1000);
             }
@@ -5575,7 +5605,8 @@
             }
             noiseNode.start();
 
-            // Fade in noise
+            // Fade in noise (setValueAtTime anchor required for reliable linearRamp behavior)
+            noiseGain.gain.setValueAtTime(0, ctx.currentTime);
             noiseGain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 1);
         }
 
@@ -5585,6 +5616,7 @@
 
             try {
                 if(noiseGain && audioCtx) {
+                    noiseGain.gain.setValueAtTime(noiseGain.gain.value, audioCtx.currentTime);
                     noiseGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
                     setTimeout(() => {
                         try {
