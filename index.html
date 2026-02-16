@@ -1712,6 +1712,19 @@
                                 <option value="480" data-i18n="tools.synth.timer480">Timer: 8 Hours</option>
                             </select>
                         </div>
+                        <!-- Countdown Timer Display -->
+                        <div id="countdownContainer" class="hidden mt-3 bg-black/30 rounded-xl border border-white/5 overflow-hidden">
+                            <div class="flex items-center justify-between px-4 py-2.5">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-clock text-dynamic text-xs animate-pulse"></i>
+                                    <span class="text-xs text-gray-400" data-i18n="timer.remaining">Remaining</span>
+                                </div>
+                                <span id="countdownDisplay" class="text-sm font-mono font-bold text-dynamic tracking-wider">00:00</span>
+                            </div>
+                            <div class="w-full h-1 bg-white/5">
+                                <div id="countdownBar" class="h-full bg-dynamic transition-all duration-1000 ease-linear" style="width: 100%"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Right: Method & Volume -->
@@ -4195,6 +4208,7 @@
                 'tools.synth.timer30': 'Timer: 30 Minutes',
                 'tools.synth.timer60': 'Timer: 1 Hour',
                 'tools.synth.timer480': 'Timer: 8 Hours',
+                'timer.remaining': 'Remaining',
 
                 // Calculator latency
                 'calc.latency14': '14 min (avg)',
@@ -4763,6 +4777,7 @@
                 'tools.synth.timer30': 'Timer: 30 Minutos',
                 'tools.synth.timer60': 'Timer: 1 Hora',
                 'tools.synth.timer480': 'Timer: 8 Horas',
+                'timer.remaining': 'Restante',
 
                 // Calculator latency
                 'calc.latency14': '14 min (prom)',
@@ -5275,6 +5290,7 @@
         let carrierOscL, carrierOscR, masterGain, lfoOsc, noiseNode, noiseGain;
         let isNoiseOn = false; let timerInterval; let currentVolume = 0.3;
         let currentNoiseType = 'pink';
+        let countdownInterval = null; let countdownEndTime = 0;
         const FADE_TIME = 2; // seconds for fade in/out
 
         // Presets with Gamma (40Hz focus)
@@ -5434,7 +5450,10 @@
                 document.getElementById('visualizer').classList.remove('opacity-30');
                 startRealVisualizer();
                 const mins = parseInt(document.getElementById('synthTimer').value, 10);
-                if(mins > 0) { timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000); }
+                if(mins > 0) {
+                    timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000);
+                    startCountdown(mins * 60);
+                }
             } else {
                 stopSynth();
                 document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ' + t('tools.synth.activate');
@@ -5442,7 +5461,44 @@
                 document.getElementById('visualizer').classList.add('opacity-30');
                 stopRealVisualizer();
                 if(timerInterval) { clearTimeout(timerInterval); timerInterval = null; }
+                stopCountdown();
             }
+        }
+
+        function startCountdown(totalSeconds) {
+            stopCountdown();
+            countdownEndTime = Date.now() + totalSeconds * 1000;
+            const container = document.getElementById('countdownContainer');
+            const display = document.getElementById('countdownDisplay');
+            const bar = document.getElementById('countdownBar');
+            if(!container || !display || !bar) return;
+
+            container.classList.remove('hidden');
+            updateCountdownDisplay(totalSeconds, totalSeconds, display, bar);
+
+            countdownInterval = setInterval(() => {
+                const remaining = Math.max(0, Math.round((countdownEndTime - Date.now()) / 1000));
+                updateCountdownDisplay(remaining, totalSeconds, display, bar);
+                if(remaining <= 0) stopCountdown();
+            }, 1000);
+        }
+
+        function updateCountdownDisplay(remaining, total, display, bar) {
+            const hrs = Math.floor(remaining / 3600);
+            const mins = Math.floor((remaining % 3600) / 60);
+            const secs = remaining % 60;
+            if(hrs > 0) {
+                display.textContent = String(hrs).padStart(2, '0') + ':' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+            } else {
+                display.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+            }
+            bar.style.width = (remaining / total * 100) + '%';
+        }
+
+        function stopCountdown() {
+            if(countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+            const container = document.getElementById('countdownContainer');
+            if(container) container.classList.add('hidden');
         }
 
         function toggleNoise() {
@@ -6222,6 +6278,7 @@
         // Cleanup on page unload to prevent memory leaks
         window.addEventListener('beforeunload', () => {
             if(timerInterval) clearTimeout(timerInterval);
+            if(countdownInterval) clearInterval(countdownInterval);
             if(breathInterval) clearTimeout(breathInterval);
             if(synthRunning) stopSynth();
             if(noiseNode) stopNoise();
