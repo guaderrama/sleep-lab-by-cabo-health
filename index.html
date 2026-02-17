@@ -1672,6 +1672,10 @@
                         <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center">
                             <i class="fa-solid fa-play mr-3"></i> <span data-i18n="tools.synth.activate">ACTIVATE SESSION</span>
                         </button>
+                        <div id="bgAudioIndicator" class="hidden mt-3 flex items-center gap-2 text-sm text-green-400">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span data-i18n="audio.background.active">Audio continues with screen locked</span>
+                        </div>
                     </div>
                 </div>
 
@@ -4225,6 +4229,7 @@
                 'tools.synth.timer60': 'Timer: 1 Hour',
                 'tools.synth.timer480': 'Timer: 8 Hours',
                 'timer.remaining': 'Remaining',
+                'audio.background.active': 'Audio continues with screen locked',
 
                 // Calculator latency
                 'calc.latency14': '14 min (avg)',
@@ -4661,6 +4666,7 @@
                 'tools.synth.timer60': 'Timer: 1 Hora',
                 'tools.synth.timer480': 'Timer: 8 Horas',
                 'timer.remaining': 'Restante',
+                'audio.background.active': 'Audio continúa con pantalla bloqueada',
 
                 // Calculator latency
                 'calc.latency14': '14 min (prom)',
@@ -4991,6 +4997,128 @@
             saveSettings();
         }
 
+        // ========== BACKGROUND AUDIO MANAGER ==========
+        // Keeps audio alive when the phone screen locks (iOS/Android)
+        // Uses: silent <audio> bridge + Media Session API + AudioContext recovery
+        let bgAudioManager = null;
+
+        const BackgroundAudioManager = {
+            silentAudio: null,
+            isActive: false,
+
+            activate(metadata) {
+                if (this.isActive) return;
+                this._startSilentAudio();
+                this._setupMediaSession(metadata || {});
+                this._setupAudioSession();
+                this.isActive = true;
+                const ind = document.getElementById('bgAudioIndicator');
+                if (ind) ind.classList.remove('hidden');
+            },
+
+            deactivate() {
+                this._stopSilentAudio();
+                this._clearMediaSession();
+                this.isActive = false;
+                const ind = document.getElementById('bgAudioIndicator');
+                if (ind) ind.classList.add('hidden');
+            },
+
+            _startSilentAudio() {
+                if (this.silentAudio) return;
+                this.silentAudio = document.createElement('audio');
+                this.silentAudio.src = this._createSilentWavURL();
+                this.silentAudio.loop = true;
+                this.silentAudio.volume = 0.01;
+                this.silentAudio.setAttribute('playsinline', '');
+                this.silentAudio.setAttribute('x-webkit-airplay', 'deny');
+                this.silentAudio.play().catch(e => console.warn('Silent bridge failed:', e));
+            },
+
+            _stopSilentAudio() {
+                if (!this.silentAudio) return;
+                this.silentAudio.pause();
+                this.silentAudio.removeAttribute('src');
+                this.silentAudio.load();
+                this.silentAudio = null;
+            },
+
+            _createSilentWavURL() {
+                const sr = 22050, dur = 1, ns = sr * dur;
+                const buf = new ArrayBuffer(44 + ns);
+                const v = new DataView(buf);
+                const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+                w(0,'RIFF'); v.setUint32(4, 36 + ns, true); w(8,'WAVE'); w(12,'fmt ');
+                v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+                v.setUint32(24,sr,true); v.setUint32(28,sr,true); v.setUint16(32,1,true);
+                v.setUint16(34,8,true); w(36,'data'); v.setUint32(40, ns, true);
+                for (let i = 44; i < 44 + ns; i++) v.setUint8(i, 128);
+                return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+            },
+
+            _setupMediaSession(meta) {
+                if (!('mediaSession' in navigator)) return;
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: meta.title || 'Sleep Session',
+                    artist: 'Sleep Lab by Cabo Health',
+                    album: meta.album || 'Neuro-Acoustic Sleep',
+                    artwork: [
+                        { src: '/icons/IMG_7864.png', sizes: '192x192', type: 'image/png' },
+                        { src: '/icons/IMG_7865.png', sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+                try { navigator.mediaSession.setActionHandler('play', () => {
+                    if (!synthRunning) toggleSynth();
+                    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+                    if (this.silentAudio) this.silentAudio.play();
+                    navigator.mediaSession.playbackState = 'playing';
+                }); } catch(e) {}
+                try { navigator.mediaSession.setActionHandler('pause', () => {
+                    if (synthRunning) toggleSynth();
+                    navigator.mediaSession.playbackState = 'paused';
+                }); } catch(e) {}
+                try { navigator.mediaSession.setActionHandler('stop', () => {
+                    if (synthRunning) toggleSynth();
+                    this.deactivate();
+                }); } catch(e) {}
+                navigator.mediaSession.playbackState = 'playing';
+            },
+
+            _clearMediaSession() {
+                if (!('mediaSession' in navigator)) return;
+                navigator.mediaSession.metadata = null;
+                navigator.mediaSession.playbackState = 'none';
+                for (const a of ['play','pause','stop']) {
+                    try { navigator.mediaSession.setActionHandler(a, null); } catch(e) {}
+                }
+            },
+
+            _setupAudioSession() {
+                if ('audioSession' in navigator) {
+                    navigator.audioSession.type = 'playback';
+                }
+            },
+
+            resumeAudioContext() {
+                if (audioCtx && (audioCtx.state === 'suspended' || audioCtx.state === 'interrupted')) {
+                    audioCtx.resume().catch(e => console.warn('AudioContext resume failed:', e));
+                }
+            }
+        };
+
+        // Re-activate audio when user returns to the app
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && BackgroundAudioManager.isActive) {
+                BackgroundAudioManager.resumeAudioContext();
+                if (BackgroundAudioManager.silentAudio) {
+                    BackgroundAudioManager.silentAudio.play().catch(() => {});
+                }
+            }
+        });
+        window.addEventListener('focus', () => {
+            if (BackgroundAudioManager.isActive) BackgroundAudioManager.resumeAudioContext();
+        });
+
         // 4. Audio Logic - Lazy AudioContext initialization
         let audioCtx = null;
         let analyser = null;
@@ -5210,6 +5338,12 @@
                     timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000);
                     startCountdown(mins * 60);
                 }
+                // Activate background audio bridge (keeps audio alive when screen locks)
+                const preset = PRESETS[currentMode] || PRESETS.sleep;
+                BackgroundAudioManager.activate({
+                    title: preset.name + ' ' + preset.targetHz + 'Hz — ' + (currentMethod === 'binaural' ? 'Binaural' : 'Isochronic'),
+                    album: mins > 0 ? mins + ' min session' : 'Continuous'
+                });
             } else {
                 stopSynth();
                 document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ' + t('tools.synth.activate');
@@ -5218,6 +5352,8 @@
                 stopRealVisualizer();
                 if(timerInterval) { clearTimeout(timerInterval); timerInterval = null; }
                 stopCountdown();
+                // Deactivate background audio bridge only if no other audio is active
+                if (!isNoiseOn && !isBreathing) BackgroundAudioManager.deactivate();
             }
         }
 
@@ -5270,10 +5406,15 @@
                 toggleEl.style.transform = 'translateX(24px)';
                 toggleEl.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
                 if(synthRunning) startNoise();
+                // Activate background bridge if not already active
+                if (!BackgroundAudioManager.isActive) {
+                    BackgroundAudioManager.activate({ title: currentNoiseType.charAt(0).toUpperCase() + currentNoiseType.slice(1) + ' Noise', album: 'Ambient Sound' });
+                }
             } else {
                 toggleEl.style.transform = 'translateX(0)';
                 toggleEl.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
                 stopNoise();
+                if (!synthRunning && !isBreathing) BackgroundAudioManager.deactivate();
             }
         }
 
@@ -5595,6 +5736,9 @@
             isBreathing = true;
             breathCycle = 0;
             document.getElementById('breathBtn').innerText = t('breath.stop');
+            if (!BackgroundAudioManager.isActive) {
+                BackgroundAudioManager.activate({ title: t('tools.breath.name'), album: 'Breathing Session' });
+            }
             runBreathCycle();
         }
 
@@ -5611,6 +5755,7 @@
             if(breathOscillator) {
                 try { breathOscillator.stop(); } catch(e) {}
             }
+            if (!synthRunning && !isNoiseOn) BackgroundAudioManager.deactivate();
         }
 
         function runBreathCycle() {
@@ -6044,6 +6189,7 @@
             if(breathProgressInterval) clearInterval(breathProgressInterval);
             if(synthRunning) stopSynth();
             if(noiseNode) stopNoise();
+            BackgroundAudioManager.deactivate();
         });
 
         // ========== PWA SERVICE WORKER REGISTRATION ==========
