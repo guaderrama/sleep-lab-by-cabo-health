@@ -62,8 +62,14 @@
             --accent-color: #00f3ff;
             --deep-bg: #050510;
             /* Darker card background for better readability */
-            --card-bg: rgba(10, 10, 20, 0.85); 
+            --card-bg: rgba(10, 10, 20, 0.85);
             --text-main: #e0e0e0;
+        }
+
+        /* Accessibility: visible focus ring for keyboard navigation */
+        :focus-visible {
+            outline: 2px solid var(--primary-glow);
+            outline-offset: 2px;
         }
 
         body.night-mode {
@@ -146,11 +152,11 @@
         .breath-progress-ring circle { fill: none; stroke-width: 4; stroke-linecap: round; }
         .breath-progress-bg { stroke: rgba(255,255,255,0.1); }
         .breath-progress-bar { stroke: var(--primary-glow); transition: stroke-dashoffset 0.1s linear; }
-        .breath-cycle-counter { font-size: 0.7rem; opacity: 0.7; margin-top: 4px; }
+        .breath-cycle-counter { font-size: 0.875rem; opacity: 0.8; margin-top: 4px; }
         .breath-circle > div { position: relative; z-index: 1; }
 
         /* Noise Type Selector */
-        .noise-type-btn { padding: 4px 10px; border-radius: 20px; font-size: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #999; transition: all 0.3s; cursor: pointer; }
+        .noise-type-btn { padding: 6px 12px; border-radius: 20px; font-size: 0.875rem; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #bbb; transition: all 0.3s; cursor: pointer; }
         .noise-type-btn.active { background: var(--primary-glow); color: black; border-color: var(--primary-glow); }
         .noise-type-btn:hover:not(.active) { border-color: var(--primary-glow); color: var(--primary-glow); }
 
@@ -335,8 +341,8 @@
 
     <!-- Floating Actions -->
     <div class="fab-container">
-        <button class="fab-btn" onclick="toggleNightMode()" title="Night Mode"><i class="fa-solid fa-moon"></i></button>
-        <button class="fab-btn text-xs font-bold" onclick="toggleLanguage()">EN</button>
+        <button class="fab-btn" onclick="toggleNightMode()" title="Night Mode" aria-label="Toggle Night Mode"><i class="fa-solid fa-moon"></i></button>
+        <button class="fab-btn text-sm font-bold" onclick="toggleLanguage()" aria-label="Toggle Language">EN</button>
     </div>
 
     <!-- Navigation -->
@@ -347,7 +353,7 @@
                     <i class="fa-solid fa-microchip text-dynamic text-3xl mr-3"></i>
                     <div class="flex flex-col">
                         <span class="font-bold text-2xl tracking-wider text-white leading-none">SLEEP<span class="text-dynamic">_LAB</span></span>
-                        <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em] text-right">by Cabo Health</span>
+                        <span class="text-xs text-gray-400 uppercase tracking-[0.2em] text-right">by Cabo Health</span>
                     </div>
                 </div>
                 
@@ -428,7 +434,7 @@
             <!-- Guided Sessions - Pre-configured Presets -->
             <div class="mb-12 fade-up">
                 <div class="text-center mb-6">
-                    <span class="text-xs text-gray-400 uppercase tracking-widest" data-i18n="guided.title">Quick Sessions - Click to Auto-Configure</span>
+                    <span class="text-sm text-gray-300 uppercase tracking-widest" data-i18n="guided.title">Quick Sessions - Click to Auto-Configure</span>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <!-- Bedtime Session -->
@@ -437,10 +443,10 @@
                             <div class="bg-purple-500/20 p-2 rounded-lg group-hover:bg-purple-500/30 transition">
                                 <i class="fa-solid fa-moon text-purple-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">30 min</span>
+                            <span class="text-sm text-gray-400">30 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.bedtime.title">Bedtime Routine</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.bedtime.desc">Delta waves + Pink noise + 4-7-8 breathing</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.bedtime.desc">Delta waves + Pink noise + 4-7-8 breathing</p>
                     </button>
 
                     <!-- Power Nap Session -->
@@ -449,10 +455,10 @@
                             <div class="bg-cyan-500/20 p-2 rounded-lg group-hover:bg-cyan-500/30 transition">
                                 <i class="fa-solid fa-bolt text-cyan-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">20 min</span>
+                            <span class="text-sm text-gray-400">20 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.nap.title">Power Nap</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.nap.desc">Theta waves for quick recovery</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.nap.desc">Theta waves for quick recovery</p>
                     </button>
 
                     <!-- Stress Relief Session -->
@@ -461,10 +467,10 @@
                             <div class="bg-green-500/20 p-2 rounded-lg group-hover:bg-green-500/30 transition">
                                 <i class="fa-solid fa-heart-pulse text-green-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">15 min</span>
+                            <span class="text-sm text-gray-400">15 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.stress.title">Stress Relief</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.stress.desc">Alpha waves + Box breathing</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.stress.desc">Alpha waves + Box breathing</p>
                     </button>
 
                     <!-- Deep Focus Session -->
@@ -473,10 +479,10 @@
                             <div class="bg-yellow-500/20 p-2 rounded-lg group-hover:bg-yellow-500/30 transition">
                                 <i class="fa-solid fa-brain text-yellow-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">60 min</span>
+                            <span class="text-sm text-gray-400">60 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.focus.title">Deep Focus</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.focus.desc">Gamma waves for concentration</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.focus.desc">Gamma waves for concentration</p>
                     </button>
                 </div>
 
@@ -502,7 +508,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-white" data-i18n="tools.synth.name">Neuro-Synthesizer</h3>
-                            <p class="text-xs text-gray-400" data-i18n="tools.synth.tagline">Brainwave entrainment</p>
+                            <p class="text-sm text-gray-300" data-i18n="tools.synth.tagline">Brainwave entrainment</p>
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n="tools.synth.desc">Sound frequencies that guide your brain into sleep, relaxation, or focus states.</p>
@@ -520,7 +526,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-white" data-i18n="tools.breath.name">Breathing Lab</h3>
-                            <p class="text-xs text-gray-400" data-i18n="tools.breath.tagline">Vagus nerve activation</p>
+                            <p class="text-sm text-gray-300" data-i18n="tools.breath.tagline">Vagus nerve activation</p>
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n="tools.breath.desc">Guided breathing patterns that instantly switch your nervous system to rest mode.</p>
@@ -538,7 +544,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-white" data-i18n="tools.calc.name">Cycle Calculator</h3>
-                            <p class="text-xs text-gray-400" data-i18n="tools.calc.tagline">Wake up refreshed</p>
+                            <p class="text-sm text-gray-300" data-i18n="tools.calc.tagline">Wake up refreshed</p>
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n="tools.calc.desc">Calculate optimal bed/wake times based on 90-minute sleep cycles.</p>
@@ -583,7 +589,7 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-bold text-green-400 uppercase tracking-widest" data-i18n="level1.badge">Level 1</span>
-                        <span class="bg-green-500/20 text-green-400 text-[10px] px-2 py-0.5 rounded-full" data-i18n="level1.free">FREE</span>
+                        <span class="bg-green-500/20 text-green-400 text-xs px-2 py-0.5 rounded-full" data-i18n="level1.free">FREE</span>
                     </div>
                     <h2 class="text-2xl md:text-3xl font-bold text-white" data-i18n="level1.title">Foundation Basics</h2>
                 </div>
@@ -664,7 +670,7 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-bold text-blue-400 uppercase tracking-widest" data-i18n="level2.badge">Level 2</span>
-                        <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded-full" data-i18n="level2.cost">$20-50/mo</span>
+                        <span class="bg-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full" data-i18n="level2.cost">$20-50/mo</span>
                     </div>
                     <h2 class="text-2xl md:text-3xl font-bold text-white" data-i18n="level2.title">Low-Cost Optimization</h2>
                 </div>
@@ -708,7 +714,7 @@
                     <p class="text-gray-300 text-sm leading-relaxed mb-4" data-i18n-html="whySleep.glymphaticDesc2">
                         The <strong class="text-blue-400">brain's garbage truck</strong>. It only comes out when you sleep deeply to clean toxins (like those that cause Alzheimer's).
                     </p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
                         <i class="fa-solid fa-flask mr-2"></i> <span data-i18n="whySleep.glymphaticFact">Beta-amyloid plaques are cleared 60% faster during deep sleep.</span>
                     </p>
                 </div>
@@ -724,7 +730,7 @@
                     <p class="text-gray-300 text-sm leading-relaxed mb-4" data-i18n-html="whySleep.hormonesDesc">
                         Your <strong class="text-purple-400">"fuel"</strong> (Testosterone, Growth Hormone) only refills during deep sleep. Skip it, and you run on empty.
                     </p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
                         <i class="fa-solid fa-chart-line mr-2"></i> <span data-i18n="whySleep.hormonesFact">70% of daily HGH is released in the first deep sleep cycle.</span>
                     </p>
                 </div>
@@ -812,14 +818,14 @@
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n-html="foundation.light.desc">Go outside within 30 min of waking. <strong class="text-white">10 minutes</strong> of sunlight directly to eyes (no sunglasses).</p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg mb-3">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg mb-3">
                         <i class="fa-solid fa-lightbulb mr-2 text-yellow-400"></i> <span data-i18n="foundation.light.tip">This starts your 16-hour countdown to melatonin release.</span>
                     </p>
                     <!-- Lux Requirements Section -->
                     <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mt-3">
                         <p class="text-xs text-yellow-300 font-bold mb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i><span data-i18n="foundation.light.luxWarning">WHY INDOOR LIGHT DOESN'T WORK:</span></p>
                         <p class="text-xs text-gray-300 mb-3" data-i18n-html="foundation.light.luxDesc">Your brain needs <strong class="text-yellow-300">&ge;2,000 lux</strong> to sync the circadian rhythm. Indoor lighting is only ~100-300 lux.</p>
-                        <div class="grid grid-cols-2 gap-2 text-[10px] mb-3">
+                        <div class="grid grid-cols-2 gap-2 text-xs mb-3">
                             <div class="bg-black/30 p-2 rounded-lg flex items-center justify-between">
                                 <span class="text-gray-400" data-i18n="foundation.light.indoor">Indoor light</span>
                                 <span class="text-red-400 font-bold">100-300 lux</span>
@@ -837,7 +843,7 @@
                                 <span class="text-green-400 font-bold">10,000 lux</span>
                             </div>
                         </div>
-                        <p class="text-[10px] text-gray-400"><i class="fa-solid fa-info-circle mr-1 text-yellow-400"></i> <span data-i18n="foundation.light.window">Through a window = 50% less effective. On cloudy/winter days, consider a 10,000 lux light therapy lamp.</span></p>
+                        <p class="text-xs text-gray-400"><i class="fa-solid fa-info-circle mr-1 text-yellow-400"></i> <span data-i18n="foundation.light.window">Through a window = 50% less effective. On cloudy/winter days, consider a 10,000 lux light therapy lamp.</span></p>
                     </div>
                 </div>
 
@@ -853,7 +859,7 @@
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n-html="foundation.dark.desc">After 8 PM: dim/warm lights only (red/orange). <strong class="text-white">Zero screens</strong> 1 hour before bed.</p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
                         <i class="fa-solid fa-glasses mr-2 text-orange-400"></i> <span data-i18n="foundation.dark.tip">Blue light blockers (TrueDark) if you must use screens.</span>
                     </p>
                 </div>
@@ -870,14 +876,14 @@
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n-html="foundation.temp.desc">Your body must drop <strong class="text-white">1°C</strong> to enter deep sleep. Cold room is non-negotiable.</p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg mb-3">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg mb-3">
                         <i class="fa-solid fa-shower mr-2 text-cyan-400"></i> <span data-i18n-html="foundation.temp.tip">Hot shower before bed &rarr; rapid cooling &rarr; sleep trigger.</span>
                     </p>
                     <!-- Hot Bath Hack Section -->
                     <div class="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 mt-3">
                         <p class="text-xs text-cyan-300 font-bold mb-2"><i class="fa-solid fa-bath mr-2"></i><span data-i18n="foundation.temp.hackTitle">THE PARADOXICAL HOT BATH HACK:</span></p>
                         <p class="text-xs text-gray-300 mb-3" data-i18n="foundation.temp.hackIntro">It seems counterintuitive, but here's why it works:</p>
-                        <div class="space-y-2 text-[10px] text-gray-400 mb-3">
+                        <div class="space-y-2 text-xs text-gray-400 mb-3">
                             <div class="flex items-start">
                                 <span class="text-cyan-400 font-bold mr-2">1.</span>
                                 <span data-i18n-html="foundation.temp.step1">Hot water <strong class="text-white">dilates blood vessels</strong> in your skin</span>
@@ -896,8 +902,8 @@
                             </div>
                         </div>
                         <div class="bg-black/30 p-3 rounded-lg mb-2">
-                            <p class="text-[10px] text-white font-bold mb-1" data-i18n="foundation.temp.protocol">PROTOCOL:</p>
-                            <div class="grid grid-cols-3 gap-2 text-[10px]">
+                            <p class="text-xs text-white font-bold mb-1" data-i18n="foundation.temp.protocol">PROTOCOL:</p>
+                            <div class="grid grid-cols-3 gap-2 text-xs">
                                 <div class="text-center">
                                     <i class="fa-solid fa-clock text-cyan-400"></i>
                                     <p class="text-gray-400" data-i18n="foundation.temp.time">1-2h before bed</p>
@@ -912,7 +918,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[10px] text-gray-400"><i class="fa-solid fa-socks mr-1 text-cyan-400"></i> <span data-i18n="foundation.temp.alt">Alternative: Warm socks in bed (same vasodilation principle for feet)</span></p>
+                        <p class="text-xs text-gray-400"><i class="fa-solid fa-socks mr-1 text-cyan-400"></i> <span data-i18n="foundation.temp.alt">Alternative: Warm socks in bed (same vasodilation principle for feet)</span></p>
                     </div>
                 </div>
 
@@ -928,7 +934,7 @@
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n-html="foundation.caffeine.desc">Caffeine has a <strong class="text-white">6-hour half-life</strong>. That 3 PM coffee is still 25% active at 9 PM.</p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
                         <i class="fa-solid fa-clock mr-2 text-red-400"></i> <span data-i18n="foundation.caffeine.tip">Even "decaf" has 15-30% caffeine. Switch to herbal tea.</span>
                     </p>
                 </div>
@@ -945,7 +951,7 @@
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n-html="foundation.wake.desc">Wake at the <strong class="text-white">same time every day</strong>, including weekends. This anchors your circadian rhythm.</p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
                         <i class="fa-solid fa-ban mr-2 text-purple-400"></i> <span data-i18n="foundation.wake.tip">No "sleeping in" on weekends. It causes social jet lag.</span>
                     </p>
                 </div>
@@ -962,7 +968,7 @@
                         </div>
                     </div>
                     <p class="text-sm text-gray-300 mb-4" data-i18n-html="foundation.dinner.desc">Heavy meals force digestion, raising core temperature. Eat light, <strong class="text-white">3 hours before</strong> sleep.</p>
-                    <p class="text-xs text-gray-500 bg-white/5 p-3 rounded-lg">
+                    <p class="text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
                         <i class="fa-solid fa-wine-glass mr-2 text-green-400"></i> <span data-i18n="foundation.dinner.tip">Zero alcohol. It's a sedative, not sleep. Destroys REM.</span>
                     </p>
                 </div>
@@ -1037,7 +1043,7 @@
                                     <div class="step-number mr-3">1</div>
                                     <div>
                                         <h5 class="font-bold text-white mb-1">Sleep Restriction (SRT)</h5>
-                                        <p class="text-xs text-gray-400">Limit time in bed to actual sleep time. If you sleep 5h but stay in bed 8h, only stay in bed 5.5h. Increase by 15 min when efficiency reaches 85%.</p>
+                                        <p class="text-sm text-gray-300">Limit time in bed to actual sleep time. If you sleep 5h but stay in bed 8h, only stay in bed 5.5h. Increase by 15 min when efficiency reaches 85%.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1046,7 +1052,7 @@
                                     <div class="step-number mr-3">2</div>
                                     <div>
                                         <h5 class="font-bold text-white mb-1">Stimulus Control</h5>
-                                        <p class="text-xs text-gray-400">Bed = Sleep ONLY. No reading, no phone, no TV in bed. If awake >20 min, get up and do something boring until sleepy.</p>
+                                        <p class="text-sm text-gray-300">Bed = Sleep ONLY. No reading, no phone, no TV in bed. If awake >20 min, get up and do something boring until sleepy.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1055,7 +1061,7 @@
                                     <div class="step-number mr-3">3</div>
                                     <div>
                                         <h5 class="font-bold text-white mb-1">Cognitive Restructuring</h5>
-                                        <p class="text-xs text-gray-400">Challenge catastrophic thoughts like "I'll never sleep again" or "Tomorrow will be ruined." Replace with realistic thinking.</p>
+                                        <p class="text-sm text-gray-300">Challenge catastrophic thoughts like "I'll never sleep again" or "Tomorrow will be ruined." Replace with realistic thinking.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1064,7 +1070,7 @@
                                     <div class="step-number mr-3">4</div>
                                     <div>
                                         <h5 class="font-bold text-white mb-1">Sleep Hygiene</h5>
-                                        <p class="text-xs text-gray-400">Environmental optimization: Dark, cool, quiet. No caffeine after noon. No alcohol. Regular exercise (not before bed).</p>
+                                        <p class="text-sm text-gray-300">Environmental optimization: Dark, cool, quiet. No caffeine after noon. No alcohol. Regular exercise (not before bed).</p>
                                     </div>
                                 </div>
                             </div>
@@ -1073,7 +1079,7 @@
                                     <div class="step-number mr-3">5</div>
                                     <div>
                                         <h5 class="font-bold text-white mb-1">Relaxation Training</h5>
-                                        <p class="text-xs text-gray-400">Progressive Muscle Relaxation (PMR), diaphragmatic breathing, guided imagery. Activates the parasympathetic nervous system.</p>
+                                        <p class="text-sm text-gray-300">Progressive Muscle Relaxation (PMR), diaphragmatic breathing, guided imagery. Activates the parasympathetic nervous system.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1091,9 +1097,9 @@
                                 <div class="bg-black/30 p-4 rounded-xl border border-white/10">
                                     <div class="flex items-center justify-between mb-2">
                                         <h5 class="font-bold text-white text-sm">CBTi Coach</h5>
-                                        <span class="bg-green-500/20 text-green-400 text-[10px] px-2 py-1 rounded-full font-bold">FREE</span>
+                                        <span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-full font-bold">FREE</span>
                                     </div>
-                                    <p class="text-[10px] text-gray-400 mb-2">From the US Department of Veterans Affairs. Complete 6-week CBT-I program with sleep diary, tools, and education.</p>
+                                    <p class="text-sm text-gray-300 mb-2">From the US Department of Veterans Affairs. Complete 6-week CBT-I program with sleep diary, tools, and education.</p>
                                     <div class="flex gap-2">
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-brands fa-apple mr-1"></i>iOS</span>
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-brands fa-android mr-1"></i>Android</span>
@@ -1103,9 +1109,9 @@
                                 <div class="bg-black/30 p-4 rounded-xl border border-white/10">
                                     <div class="flex items-center justify-between mb-2">
                                         <h5 class="font-bold text-white text-sm">Insomnia Coach</h5>
-                                        <span class="bg-green-500/20 text-green-400 text-[10px] px-2 py-1 rounded-full font-bold">FREE</span>
+                                        <span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-full font-bold">FREE</span>
                                     </div>
-                                    <p class="text-[10px] text-gray-400 mb-2">Also from the VA. Includes sleep diary, guided exercises, and weekly coaching. Self-paced program.</p>
+                                    <p class="text-sm text-gray-300 mb-2">Also from the VA. Includes sleep diary, guided exercises, and weekly coaching. Self-paced program.</p>
                                     <div class="flex gap-2">
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-brands fa-apple mr-1"></i>iOS</span>
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-brands fa-android mr-1"></i>Android</span>
@@ -1115,9 +1121,9 @@
                                 <div class="bg-black/30 p-4 rounded-xl border border-white/10">
                                     <div class="flex items-center justify-between mb-2">
                                         <h5 class="font-bold text-white text-sm">Sleepio</h5>
-                                        <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-1 rounded-full font-bold">UK/ORG</span>
+                                        <span class="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-full font-bold">UK/ORG</span>
                                     </div>
-                                    <p class="text-[10px] text-gray-400 mb-2">Clinically validated in multiple RCTs. Available through NHS (UK) and select employers/health plans.</p>
+                                    <p class="text-sm text-gray-300 mb-2">Clinically validated in multiple RCTs. Available through NHS (UK) and select employers/health plans.</p>
                                     <div class="flex gap-2">
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-solid fa-globe mr-1"></i>Web</span>
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-brands fa-apple mr-1"></i>iOS</span>
@@ -1127,16 +1133,16 @@
                                 <div class="bg-black/30 p-4 rounded-xl border border-white/10">
                                     <div class="flex items-center justify-between mb-2">
                                         <h5 class="font-bold text-white text-sm">Somryst</h5>
-                                        <span class="bg-purple-500/20 text-purple-400 text-[10px] px-2 py-1 rounded-full font-bold">Rx USA</span>
+                                        <span class="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-full font-bold">Rx USA</span>
                                     </div>
-                                    <p class="text-[10px] text-gray-400 mb-2"><strong class="text-white">FDA-cleared</strong> prescription digital therapeutic. 9-week program. Requires doctor prescription in the US.</p>
+                                    <p class="text-sm text-gray-300 mb-2"><strong class="text-white">FDA-cleared</strong> prescription digital therapeutic. 9-week program. Requires doctor prescription in the US.</p>
                                     <div class="flex gap-2">
                                         <span class="text-[9px] bg-white/10 px-2 py-1 rounded text-gray-400"><i class="fa-solid fa-prescription mr-1"></i>Prescription</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-blue-500/10 p-3 rounded-lg">
-                                <p class="text-[10px] text-blue-300"><i class="fa-solid fa-circle-info mr-2"></i><strong>Note:</strong> These apps guide you through a structured 6-8 week program. If your insomnia is severe or chronic, they can be more effective than self-guided approaches. Studies show dCBT-I is nearly as effective as in-person therapy with a trained clinician.</p>
+                                <p class="text-xs text-blue-300"><i class="fa-solid fa-circle-info mr-2"></i><strong>Note:</strong> These apps guide you through a structured 6-8 week program. If your insomnia is severe or chronic, they can be more effective than self-guided approaches. Studies show dCBT-I is nearly as effective as in-person therapy with a trained clinician.</p>
                             </div>
                         </div>
                     </div>
@@ -1509,7 +1515,7 @@
             <!-- Guided Sessions - Pre-configured Presets -->
             <div class="mb-12 fade-up">
                 <div class="text-center mb-6">
-                    <span class="text-xs text-gray-400 uppercase tracking-widest" data-i18n="guided.title">Quick Sessions - Click to Auto-Configure</span>
+                    <span class="text-sm text-gray-300 uppercase tracking-widest" data-i18n="guided.title">Quick Sessions - Click to Auto-Configure</span>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <!-- Bedtime Session -->
@@ -1518,10 +1524,10 @@
                             <div class="bg-purple-500/20 p-2 rounded-lg group-hover:bg-purple-500/30 transition">
                                 <i class="fa-solid fa-moon text-purple-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">30 min</span>
+                            <span class="text-sm text-gray-400">30 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.bedtime.title">Bedtime Routine</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.bedtime.desc">Delta waves + Pink noise + 4-7-8 breathing</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.bedtime.desc">Delta waves + Pink noise + 4-7-8 breathing</p>
                     </button>
 
                     <!-- Power Nap Session -->
@@ -1530,10 +1536,10 @@
                             <div class="bg-cyan-500/20 p-2 rounded-lg group-hover:bg-cyan-500/30 transition">
                                 <i class="fa-solid fa-bolt text-cyan-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">20 min</span>
+                            <span class="text-sm text-gray-400">20 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.nap.title">Power Nap</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.nap.desc">Theta waves for quick recovery without grogginess</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.nap.desc">Theta waves for quick recovery without grogginess</p>
                     </button>
 
                     <!-- Stress Relief Session -->
@@ -1542,10 +1548,10 @@
                             <div class="bg-green-500/20 p-2 rounded-lg group-hover:bg-green-500/30 transition">
                                 <i class="fa-solid fa-heart-pulse text-green-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">15 min</span>
+                            <span class="text-sm text-gray-400">15 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.stress.title">Stress Relief</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.stress.desc">Alpha waves + Box breathing for instant calm</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.stress.desc">Alpha waves + Box breathing for instant calm</p>
                     </button>
 
                     <!-- Deep Focus Session -->
@@ -1554,10 +1560,10 @@
                             <div class="bg-yellow-500/20 p-2 rounded-lg group-hover:bg-yellow-500/30 transition">
                                 <i class="fa-solid fa-brain text-yellow-400 text-lg"></i>
                             </div>
-                            <span class="text-xs text-gray-500">60 min</span>
+                            <span class="text-sm text-gray-400">60 min</span>
                         </div>
                         <h4 class="font-bold text-white text-sm mb-1" data-i18n="guided.focus.title">Deep Focus</h4>
-                        <p class="text-[10px] text-gray-400" data-i18n="guided.focus.desc">Gamma waves for enhanced concentration</p>
+                        <p class="text-sm text-gray-300" data-i18n="guided.focus.desc">Gamma waves for enhanced concentration</p>
                     </button>
                 </div>
 
@@ -1666,6 +1672,10 @@
                         <button onclick="toggleSynth()" id="mainPlayBtn" class="w-full lg:w-auto px-12 py-4 bg-dynamic text-black rounded-full font-bold text-lg transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(0,243,255,0.4)] flex items-center justify-center">
                             <i class="fa-solid fa-play mr-3"></i> <span data-i18n="tools.synth.activate">ACTIVATE SESSION</span>
                         </button>
+                        <div id="bgAudioIndicator" class="hidden mt-3 flex items-center gap-2 text-sm text-green-400">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span data-i18n="audio.background.active">Audio continues with screen locked</span>
+                        </div>
                     </div>
                 </div>
 
@@ -1733,12 +1743,12 @@
                         <div class="grid grid-cols-2 gap-3 mb-6">
                             <button onclick="setSynthMethod('isochronic')" class="synth-btn active h-full text-left px-4 py-3" id="method-isochronic">
                                 <strong class="block text-sm mb-1" data-i18n="tools.synth.isochronic">Isochronic</strong>
-                                <span class="text-[10px] opacity-70 block leading-tight" data-i18n="tools.synth.isochronicDesc">Rhythmic pulses. Strongest effect. Speakers OK.</span>
+                                <span class="text-sm opacity-80 block leading-tight" data-i18n="tools.synth.isochronicDesc">Rhythmic pulses. Strongest effect. Speakers OK.</span>
                                 <span class="text-[9px] text-green-400/80 block mt-1.5 leading-tight" data-i18n="tools.synth.isochronicWhen">Use for: Sleep, meditation, naps</span>
                             </button>
                             <button onclick="setSynthMethod('binaural')" class="synth-btn h-full text-left px-4 py-3" id="method-binaural">
                                 <strong class="block text-sm mb-1" data-i18n="tools.synth.binaural">Binaural</strong>
-                                <span class="text-[10px] opacity-70 block leading-tight" data-i18n="tools.synth.binauralDesc">Frequency difference. Smoother. Headphones Only.</span>
+                                <span class="text-sm opacity-80 block leading-tight" data-i18n="tools.synth.binauralDesc">Frequency difference. Smoother. Headphones Only.</span>
                                 <span class="text-[9px] text-cyan-400/80 block mt-1.5 leading-tight" data-i18n="tools.synth.binauralWhen">Use for: Focus, relaxation, study</span>
                             </button>
                         </div>
@@ -1747,8 +1757,8 @@
                             <div class="bg-white/5 p-3 rounded-xl border border-white/5">
                                 <div class="flex items-center justify-between mb-3">
                                     <span class="text-sm text-gray-300 ml-2"><i class="fa-solid fa-wind mr-2 text-pink-400"></i><span data-i18n="tools.synth.noise">Background Noise</span></span>
-                                    <button onclick="toggleNoise()" id="noiseBtn" class="w-12 h-6 rounded-full bg-gray-700 relative transition-colors" role="switch" aria-pressed="false" aria-label="Enable background noise">
-                                        <div class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
+                                    <button onclick="toggleNoise()" id="noiseBtn" class="w-14 h-8 rounded-full bg-gray-700 relative transition-colors" role="switch" aria-pressed="false" aria-label="Enable background noise">
+                                        <div class="w-6 h-6 bg-white rounded-full absolute top-1 left-1 transition-transform" id="noiseToggle"></div>
                                     </button>
                                 </div>
                                 <div class="grid grid-cols-3 gap-2" id="noiseTypeSelector" role="group" aria-label="Noise type selector">
@@ -1765,7 +1775,7 @@
                                         <span class="text-[8px] opacity-60 mt-0.5 leading-tight" data-i18n="noise.whiteUse">Best for focus</span>
                                     </button>
                                 </div>
-                                <p class="text-[10px] text-gray-500 text-center mt-2" id="noiseDescription" data-i18n="noise.pink">Pink: Balanced, natural sound — ideal for falling asleep and staying asleep</p>
+                                <p class="text-sm text-gray-400 text-center mt-2" id="noiseDescription" data-i18n="noise.pink">Pink: Balanced, natural sound — ideal for falling asleep and staying asleep</p>
                             </div>
                             
                             <div class="bg-white/5 p-3 rounded-xl border border-white/5">
@@ -1790,7 +1800,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <p class="text-xs text-cyan-400 font-bold mb-1">🎯 <span data-i18n="breath.guide.benefitsTitle">BENEFITS</span></p>
-                                <ul class="text-[11px]">
+                                <ul class="text-xs">
                                     <li data-i18n="breath.guide.benefit1">Activates vagus nerve</li>
                                     <li data-i18n="breath.guide.benefit2">Lowers cortisol instantly</li>
                                     <li data-i18n="breath.guide.benefit3">Shifts to rest mode</li>
@@ -1798,7 +1808,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-purple-400 font-bold mb-1">⏰ <span data-i18n="breath.guide.whenTitle">WHEN TO USE</span></p>
-                                <ul class="text-[11px]">
+                                <ul class="text-xs">
                                     <li data-i18n="breath.guide.when1">Before bed (4-7-8)</li>
                                     <li data-i18n="breath.guide.when2">During stress (Box)</li>
                                     <li data-i18n="breath.guide.when3">Panic attack (Sigh)</li>
@@ -1838,11 +1848,11 @@
 
                     <!-- Pattern Selector -->
                     <div class="flex flex-wrap justify-center gap-2 mb-6" role="group" aria-label="Breathing pattern selector">
-                        <button onclick="setBreathPattern('478')" class="noise-type-btn active text-[11px] min-w-[60px] min-h-[44px]" id="breath-478" aria-pressed="true" data-i18n="breath.pattern.478">4-7-8</button>
-                        <button onclick="setBreathPattern('box')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-box" aria-pressed="false" data-i18n="breath.pattern.box">Box</button>
-                        <button onclick="setBreathPattern('sigh')" class="noise-type-btn text-[11px] min-w-[60px] min-h-[44px]" id="breath-sigh" aria-pressed="false" data-i18n="breath.pattern.sigh">Physio Sigh</button>
+                        <button onclick="setBreathPattern('478')" class="noise-type-btn active text-sm min-w-[70px] min-h-[48px]" id="breath-478" aria-pressed="true" data-i18n="breath.pattern.478">4-7-8</button>
+                        <button onclick="setBreathPattern('box')" class="noise-type-btn text-sm min-w-[70px] min-h-[48px]" id="breath-box" aria-pressed="false" data-i18n="breath.pattern.box">Box</button>
+                        <button onclick="setBreathPattern('sigh')" class="noise-type-btn text-sm min-w-[70px] min-h-[48px]" id="breath-sigh" aria-pressed="false" data-i18n="breath.pattern.sigh">Physio Sigh</button>
                     </div>
-                    <p class="text-[10px] text-gray-500 text-center mb-4" id="breathPatternDesc" data-i18n="breath.pattern.478Desc">4-7-8: Deep relaxation, best for sleep</p>
+                    <p class="text-sm text-gray-400 text-center mb-4" id="breathPatternDesc" data-i18n="breath.pattern.478Desc">4-7-8: Deep relaxation, best for sleep</p>
 
                     <div class="flex flex-col items-center">
                         <div id="breathCircle" class="breath-circle mb-4 transition-all duration-[4000ms] ease-in-out relative">
@@ -1876,7 +1886,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <p class="text-xs text-cyan-400 font-bold mb-1">🎯 <span data-i18n="calc.guide.whyTitle">WHY IT WORKS</span></p>
-                                <ul class="text-[11px]">
+                                <ul class="text-xs">
                                     <li data-i18n="calc.guide.why1">Sleep cycles = 90 mins</li>
                                     <li data-i18n="calc.guide.why2">Waking mid-cycle = groggy</li>
                                     <li data-i18n="calc.guide.why3">End of cycle = refreshed</li>
@@ -1884,7 +1894,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-purple-400 font-bold mb-1">💡 <span data-i18n="calc.guide.tipsTitle">PRO TIPS</span></p>
-                                <ul class="text-[11px]">
+                                <ul class="text-xs">
                                     <li data-i18n="calc.guide.tips1">5 cycles (7.5h) is optimal</li>
                                     <li data-i18n="calc.guide.tips2">Account for fall-asleep time</li>
                                     <li data-i18n="calc.guide.tips3">Be consistent daily</li>
@@ -1897,8 +1907,8 @@
 
                     <!-- Mode Toggle -->
                     <div class="flex flex-wrap justify-center gap-2 mb-4" role="group" aria-label="Calculator mode selector">
-                        <button onclick="setCalcMode('bedtime')" class="noise-type-btn active text-[11px] min-w-[90px] min-h-[36px]" id="calc-bedtime" aria-pressed="true" data-i18n="calc.findBedtime">Find Bedtime</button>
-                        <button onclick="setCalcMode('waketime')" class="noise-type-btn text-[11px] min-w-[90px] min-h-[36px]" id="calc-waketime" aria-pressed="false" data-i18n="calc.findWaketime">Find Wake Time</button>
+                        <button onclick="setCalcMode('bedtime')" class="noise-type-btn active text-sm min-w-[100px] min-h-[48px]" id="calc-bedtime" aria-pressed="true" data-i18n="calc.findBedtime">Find Bedtime</button>
+                        <button onclick="setCalcMode('waketime')" class="noise-type-btn text-sm min-w-[100px] min-h-[48px]" id="calc-waketime" aria-pressed="false" data-i18n="calc.findWaketime">Find Wake Time</button>
                     </div>
 
                     <form onsubmit="event.preventDefault(); calculateSleep();" class="bg-black/30 p-4 rounded-xl mb-4">
@@ -2282,19 +2292,19 @@
                         <div class="grid md:grid-cols-4 gap-3 mb-4">
                             <div class="bg-black/30 p-3 rounded-lg text-center">
                                 <i class="fa-solid fa-bed text-gray-400 mb-2"></i>
-                                <p class="text-[10px] text-gray-400" data-i18n="diag.srt.step1.item1">Time you got in bed</p>
+                                <p class="text-sm text-gray-300" data-i18n="diag.srt.step1.item1">Time you got in bed</p>
                             </div>
                             <div class="bg-black/30 p-3 rounded-lg text-center">
                                 <i class="fa-solid fa-moon text-gray-400 mb-2"></i>
-                                <p class="text-[10px] text-gray-400" data-i18n="diag.srt.step1.item2">Time you fell asleep (estimate)</p>
+                                <p class="text-sm text-gray-300" data-i18n="diag.srt.step1.item2">Time you fell asleep (estimate)</p>
                             </div>
                             <div class="bg-black/30 p-3 rounded-lg text-center">
                                 <i class="fa-solid fa-rotate text-gray-400 mb-2"></i>
-                                <p class="text-[10px] text-gray-400" data-i18n="diag.srt.step1.item3">Total time awake at night</p>
+                                <p class="text-sm text-gray-300" data-i18n="diag.srt.step1.item3">Total time awake at night</p>
                             </div>
                             <div class="bg-black/30 p-3 rounded-lg text-center">
                                 <i class="fa-solid fa-sun text-gray-400 mb-2"></i>
-                                <p class="text-[10px] text-gray-400" data-i18n="diag.srt.step1.item4">Final wake time</p>
+                                <p class="text-sm text-gray-300" data-i18n="diag.srt.step1.item4">Final wake time</p>
                             </div>
                         </div>
                         <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
@@ -2302,7 +2312,7 @@
                             <p class="text-sm text-white font-mono" data-i18n="diag.srt.step1.formulaText">Total Sleep Time (TST) = Final Wake - Fall Asleep Time - Night Awakenings</p>
                             <p class="text-xs text-gray-400 mt-2" data-i18n="diag.srt.step1.example">Example: Fell asleep 12:00 AM, woke 7:00 AM, 1h awake at night &rarr; TST = 6 hours</p>
                             <p class="text-sm text-yellow-300 mt-3" data-i18n-html="diag.srt.step1.result"><strong>Your Initial Time in Bed = Average TST of the week</strong></p>
-                            <p class="text-[10px] text-gray-400 mt-1" data-i18n="diag.srt.step1.minimum">Minimum: 5 hours (never go below this)</p>
+                            <p class="text-xs text-gray-400 mt-1" data-i18n="diag.srt.step1.minimum">Minimum: 5 hours (never go below this)</p>
                         </div>
                     </div>
 
@@ -2325,7 +2335,7 @@
                             </div>
                         </div>
                         <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
-                            <p class="text-[10px] text-yellow-300"><i class="fa-solid fa-triangle-exclamation mr-2"></i><span data-i18n-html="diag.srt.step2.critical"><strong>CRITICAL:</strong> Do NOT go to bed before your scheduled time, even if exhausted. Do NOT stay in bed past wake time, even if tired. This is what builds sleep pressure.</span></p>
+                            <p class="text-xs text-yellow-300"><i class="fa-solid fa-triangle-exclamation mr-2"></i><span data-i18n-html="diag.srt.step2.critical"><strong>CRITICAL:</strong> Do NOT go to bed before your scheduled time, even if exhausted. Do NOT stay in bed past wake time, even if tired. This is what builds sleep pressure.</span></p>
                         </div>
                     </div>
 
@@ -2354,7 +2364,7 @@
                                 <p class="text-xs text-gray-300 mb-2" data-i18n="diag.srt.step4.sleepEff">Sleep Efficiency</p>
                                 <div class="bg-green-500/20 rounded-lg p-2">
                                     <i class="fa-solid fa-arrow-up text-green-400"></i>
-                                    <p class="text-[10px] text-green-300 font-bold" data-i18n="diag.srt.step4.add">ADD 15-30 min to time in bed</p>
+                                    <p class="text-xs text-green-300 font-bold" data-i18n="diag.srt.step4.add">ADD 15-30 min to time in bed</p>
                                 </div>
                             </div>
                             <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 text-center">
@@ -2362,7 +2372,7 @@
                                 <p class="text-xs text-gray-300 mb-2" data-i18n="diag.srt.step4.sleepEff">Sleep Efficiency</p>
                                 <div class="bg-yellow-500/20 rounded-lg p-2">
                                     <i class="fa-solid fa-equals text-yellow-400"></i>
-                                    <p class="text-[10px] text-yellow-300 font-bold" data-i18n="diag.srt.step4.maintain">MAINTAIN current schedule</p>
+                                    <p class="text-xs text-yellow-300 font-bold" data-i18n="diag.srt.step4.maintain">MAINTAIN current schedule</p>
                                 </div>
                             </div>
                             <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-center">
@@ -2370,7 +2380,7 @@
                                 <p class="text-xs text-gray-300 mb-2" data-i18n="diag.srt.step4.sleepEff">Sleep Efficiency</p>
                                 <div class="bg-red-500/20 rounded-lg p-2">
                                     <i class="fa-solid fa-arrow-down text-red-400"></i>
-                                    <p class="text-[10px] text-red-300 font-bold" data-i18n="diag.srt.step4.reduce">REDUCE 15 min (min 5h)</p>
+                                    <p class="text-xs text-red-300 font-bold" data-i18n="diag.srt.step4.reduce">REDUCE 15 min (min 5h)</p>
                                 </div>
                             </div>
                         </div>
@@ -2381,7 +2391,7 @@
                     <div class="bg-purple-900/20 border border-purple-500/30 rounded-xl p-5 mb-4">
                         <h4 class="font-bold text-white mb-4"><i class="fa-solid fa-chart-line text-purple-400 mr-2"></i><span data-i18n="diag.srt.table.title">EXAMPLE: 6-WEEK PROGRESSION</span></h4>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-[10px]">
+                            <table class="w-full text-xs">
                                 <thead>
                                     <tr class="border-b border-white/10">
                                         <th class="text-left text-gray-400 py-2 px-2" data-i18n="diag.srt.table.week">Week</th>
@@ -2452,7 +2462,7 @@
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
                                 <p class="text-xs text-red-300 font-bold mb-2" data-i18n="diag.srt.warnings.doNotUse">DO NOT USE SRT IF YOU:</p>
-                                <ul class="text-[10px] text-gray-300 space-y-1">
+                                <ul class="text-xs text-gray-300 space-y-1">
                                     <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i><span data-i18n="diag.srt.warnings.driver">Are a professional driver (truck, bus, taxi, pilot)</span></li>
                                     <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i><span data-i18n="diag.srt.warnings.machinery">Operate heavy machinery or construction equipment</span></li>
                                     <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i><span data-i18n="diag.srt.warnings.healthcare">Are a healthcare worker on critical shifts</span></li>
@@ -2463,13 +2473,13 @@
                             </div>
                             <div>
                                 <p class="text-xs text-yellow-300 font-bold mb-2" data-i18n="diag.srt.warnings.sideEffects">NORMAL SIDE EFFECTS (Weeks 1-2):</p>
-                                <ul class="text-[10px] text-gray-300 space-y-1">
+                                <ul class="text-xs text-gray-300 space-y-1">
                                     <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i><span data-i18n="diag.srt.warnings.sleepiness">Increased daytime sleepiness</span></li>
                                     <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i><span data-i18n="diag.srt.warnings.irritability">Irritability and mood changes</span></li>
                                     <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i><span data-i18n="diag.srt.warnings.concentration">Difficulty concentrating</span></li>
                                     <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i><span data-i18n="diag.srt.warnings.worse">Feeling worse before feeling better</span></li>
                                 </ul>
-                                <p class="text-[10px] text-yellow-300 mt-3"><i class="fa-solid fa-circle-info mr-1"></i><span data-i18n="diag.srt.warnings.temporary">This is TEMPORARY and NECESSARY for the therapy to work.</span></p>
+                                <p class="text-xs text-yellow-300 mt-3"><i class="fa-solid fa-circle-info mr-1"></i><span data-i18n="diag.srt.warnings.temporary">This is TEMPORARY and NECESSARY for the therapy to work.</span></p>
                             </div>
                         </div>
                     </div>
@@ -2504,7 +2514,7 @@
                             </div>
                         </div>
                         <div class="bg-green-500/10 p-3 rounded-lg mt-4">
-                            <p class="text-[10px] text-green-300"><i class="fa-solid fa-trophy mr-2"></i><span data-i18n-html="diag.srt.tips.trust"><strong>Trust the process:</strong> SRT has the highest effect size of any CBT-I component. It feels brutal at first, but studies show it works for 80%+ of chronic insomnia patients. Stick with it for at least 4 weeks before judging results.</span></p>
+                            <p class="text-xs text-green-300"><i class="fa-solid fa-trophy mr-2"></i><span data-i18n-html="diag.srt.tips.trust"><strong>Trust the process:</strong> SRT has the highest effect size of any CBT-I component. It feels brutal at first, but studies show it works for 80%+ of chronic insomnia patients. Stick with it for at least 4 weeks before judging results.</span></p>
                         </div>
                     </div>
                 </div>
@@ -2553,126 +2563,126 @@
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Magnesium</h3><span class="bg-cyan-900 text-cyan-300 text-xs px-2 py-1 rounded mb-2">Essential</span><p class="text-xs text-gray-400 mt-2">Mineral cofactor in 300+ enzymatic reactions. Regulates GABA receptors, calms nervous system, and relaxes muscles.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Form:</strong> Bisglycinate or Threonate.</li><li><strong>Dose:</strong> 400mg.</li><li><strong>Timing:</strong> 1h before bed.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Form:</strong> Bisglycinate or Threonate.</li><li><strong>Dose:</strong> 400mg.</li><li><strong>Timing:</strong> 1h before bed.</li></ul></div>
                     </div>
                 </div>
                 <!-- Melatonin -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Melatonin</h3><span class="bg-red-900 text-red-300 text-xs px-2 py-1 rounded mb-2">Clock</span><p class="text-xs text-gray-400 mt-2">Hormone produced by pineal gland. Signals "darkness" to brain—a timing signal, not a sedative.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Microdose:</strong> 0.3mg - 1mg.</li><li><strong>Warning:</strong> High doses (>5mg) ruin natural production.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Microdose:</strong> 0.3mg - 1mg.</li><li><strong>Warning:</strong> High doses (>5mg) ruin natural production.</li></ul></div>
                     </div>
                 </div>
                 <!-- L-Theanine -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">L-Theanine</h3><span class="bg-green-900 text-green-300 text-xs px-2 py-1 rounded mb-2">Calm</span><p class="text-xs text-gray-400 mt-2">Amino acid from green tea. Increases alpha brainwaves (8-12 Hz), promoting relaxed alertness without drowsiness.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 200-400mg.</li><li><strong>Effect:</strong> Quiets racing thoughts.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 200-400mg.</li><li><strong>Effect:</strong> Quiets racing thoughts.</li></ul></div>
                     </div>
                 </div>
                 <!-- Rhodiola -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Rhodiola</h3><span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded mb-2">Adaptogen</span><p class="text-xs text-gray-400 mt-2">Arctic root adaptogen. Modulates HPA axis response, blunting cortisol spikes and improving stress resilience.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Timing:</strong> Morning (AM).</li><li><strong>Effect:</strong> Lowers cortisol later.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Timing:</strong> Morning (AM).</li><li><strong>Effect:</strong> Lowers cortisol later.</li></ul></div>
                     </div>
                 </div>
                 <!-- Glycine -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Glycine</h3><span class="bg-blue-900 text-blue-300 text-xs px-2 py-1 rounded mb-2">Thermal</span><p class="text-xs text-gray-400 mt-2">Inhibitory amino acid. Lowers core body temperature by increasing blood flow to extremities—a key sleep trigger.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 3-5g.</li><li><strong>Benefit:</strong> Improves Deep Sleep.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 3-5g.</li><li><strong>Benefit:</strong> Improves Deep Sleep.</li></ul></div>
                     </div>
                 </div>
                 <!-- Zinc -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Zinc</h3><span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded mb-2">Hormonal</span><p class="text-xs text-gray-400 mt-2">Essential mineral for testosterone synthesis and immune function. Often depleted in athletes and stressed individuals.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 15-30mg.</li><li><strong>Target:</strong> Men. ZMA stack.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 15-30mg.</li><li><strong>Target:</strong> Men. ZMA stack.</li></ul></div>
                     </div>
                 </div>
                 <!-- Tart Cherry -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Tart Cherry</h3><span class="bg-red-900 text-red-300 text-xs px-2 py-1 rounded mb-2">Natural</span><p class="text-xs text-gray-400 mt-2">Natural source of melatonin + anthocyanins. Anti-inflammatory properties accelerate muscle recovery post-exercise.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Benefit:</strong> Natural melatonin.</li><li><strong>Best for:</strong> Athletes.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Benefit:</strong> Natural melatonin.</li><li><strong>Best for:</strong> Athletes.</li></ul></div>
                     </div>
                 </div>
                 <!-- Apigenin -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Apigenin</h3><span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded mb-2">Sedative</span><p class="text-xs text-gray-400 mt-2">Flavonoid from chamomile. Binds to GABA-A receptors, producing mild anxiolytic and sedative effects.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 50mg.</li><li><strong>Effect:</strong> Mild GABA effect.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 50mg.</li><li><strong>Effect:</strong> Mild GABA effect.</li></ul></div>
                     </div>
                 </div>
                 <!-- Inositol -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Inositol</h3><span class="bg-pink-900 text-pink-300 text-xs px-2 py-1 rounded mb-2">Rescue</span><p class="text-xs text-gray-400 mt-2">B-vitamin-like compound. Modulates serotonin signaling and calms anxious brain activity to help you fall back asleep.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 2-3 grams.</li><li><strong>When:</strong> If you wake at 3 AM.</li><li><strong>Effect:</strong> Helps return to sleep quickly.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 2-3 grams.</li><li><strong>When:</strong> If you wake at 3 AM.</li><li><strong>Effect:</strong> Helps return to sleep quickly.</li></ul></div>
                     </div>
                 </div>
                 <!-- Valerian Root -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Valerian</h3><span class="bg-green-900 text-green-300 text-xs px-2 py-1 rounded mb-2">Herbal</span><p class="text-xs text-gray-400 mt-2">Root extract with valerenic acid. Inhibits GABA breakdown, producing mild sedation. Used since ancient Greece.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 300-600mg.</li><li><strong>Timing:</strong> 30-60 min before bed.</li><li><strong>Note:</strong> Takes 2-4 weeks for full effect.</li><li><strong>Warning:</strong> Smell is strong!</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 300-600mg.</li><li><strong>Timing:</strong> 30-60 min before bed.</li><li><strong>Note:</strong> Takes 2-4 weeks for full effect.</li><li><strong>Warning:</strong> Smell is strong!</li></ul></div>
                     </div>
                 </div>
                 <!-- Passionflower -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Passionflower</h3><span class="bg-purple-900 text-purple-300 text-xs px-2 py-1 rounded mb-2">Anxiolytic</span><p class="text-xs text-gray-400 mt-2">Vine extract containing chrysin and other flavonoids. Increases brain GABA, reducing anxiety without sedation.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Form:</strong> Tea or extract.</li><li><strong>Dose:</strong> 250-500mg extract.</li><li><strong>Effect:</strong> Increases GABA.</li><li><strong>Best for:</strong> Racing thoughts.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Form:</strong> Tea or extract.</li><li><strong>Dose:</strong> 250-500mg extract.</li><li><strong>Effect:</strong> Increases GABA.</li><li><strong>Best for:</strong> Racing thoughts.</li></ul></div>
                     </div>
                 </div>
                 <!-- 5-HTP -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">5-HTP</h3><span class="bg-blue-900 text-blue-300 text-xs px-2 py-1 rounded mb-2">Serotonin</span><p class="text-xs text-gray-400 mt-2">Direct precursor to serotonin, which converts to melatonin. Bypasses rate-limiting step in the pathway.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 100-300mg.</li><li><strong>Timing:</strong> 30 min before bed.</li><li><strong>Path:</strong> 5-HTP → Serotonin → Melatonin</li><li><strong>Warning:</strong> Don't combine with SSRIs!</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 100-300mg.</li><li><strong>Timing:</strong> 30 min before bed.</li><li><strong>Path:</strong> 5-HTP → Serotonin → Melatonin</li><li><strong>Warning:</strong> Don't combine with SSRIs!</li></ul></div>
                     </div>
                 </div>
                 <!-- Phosphatidylserine -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">PS (Phosphatidylserine)</h3><span class="bg-orange-900 text-orange-300 text-xs px-2 py-1 rounded mb-2">Cortisol</span><p class="text-xs text-gray-400 mt-2">Phospholipid found in brain cell membranes. Blunts cortisol response to stress by regulating HPA axis activity.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 100-300mg.</li><li><strong>Timing:</strong> Evening (PM).</li><li><strong>Effect:</strong> Blunts cortisol response.</li><li><strong>Best for:</strong> High-stress executives.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 100-300mg.</li><li><strong>Timing:</strong> Evening (PM).</li><li><strong>Effect:</strong> Blunts cortisol response.</li><li><strong>Best for:</strong> High-stress executives.</li></ul></div>
                     </div>
                 </div>
                 <!-- CBD -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">CBD</h3><span class="bg-green-900 text-green-300 text-xs px-2 py-1 rounded mb-2">Cannabinoid</span><p class="text-xs text-gray-400 mt-2">Non-psychoactive cannabinoid. Modulates endocannabinoid system, reducing anxiety and chronic pain that disrupts sleep.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 25-50mg (start low).</li><li><strong>Form:</strong> Full spectrum oil.</li><li><strong>Best for:</strong> Pain, anxiety, PTSD.</li><li><strong>Note:</strong> Quality varies wildly.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 25-50mg (start low).</li><li><strong>Form:</strong> Full spectrum oil.</li><li><strong>Best for:</strong> Pain, anxiety, PTSD.</li><li><strong>Note:</strong> Quality varies wildly.</li></ul></div>
                     </div>
                 </div>
                 <!-- PharmaGABA -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">PharmaGABA®</h3><span class="bg-indigo-900 text-indigo-300 text-xs px-2 py-1 rounded mb-2">Inhibitory</span><p class="text-xs text-gray-400 mt-2">Naturally-fermented GABA (vs synthetic). Crosses blood-brain barrier more effectively, directly calming neural activity.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 100-200mg.</li><li><strong>Timing:</strong> 30 min before bed.</li><li><strong>Effect:</strong> Cuts sleep latency in half, boosts non-REM sleep.</li><li><strong>Bonus:</strong> Reduces cortisol & supports cognition.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 100-200mg.</li><li><strong>Timing:</strong> 30 min before bed.</li><li><strong>Effect:</strong> Cuts sleep latency in half, boosts non-REM sleep.</li><li><strong>Bonus:</strong> Reduces cortisol & supports cognition.</li></ul></div>
                     </div>
                 </div>
                 <!-- NAD+ / NMN -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">NAD+ / NMN</h3><span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded mb-2">Longevity</span><p class="text-xs text-gray-400 mt-2">Coenzyme essential for mitochondrial function. Supports circadian clock genes (SIRT1) and cellular energy production.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 250-500mg NMN.</li><li><strong>Timing:</strong> Morning (energizing).</li><li><strong>Effect:</strong> Improves circadian rhythm.</li><li><strong>Best for:</strong> Anti-aging, energy.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 250-500mg NMN.</li><li><strong>Timing:</strong> Morning (energizing).</li><li><strong>Effect:</strong> Improves circadian rhythm.</li><li><strong>Best for:</strong> Anti-aging, energy.</li></ul></div>
                     </div>
                 </div>
                 <!-- Honokiol -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Honokiol</h3><span class="bg-emerald-900 text-emerald-300 text-xs px-2 py-1 rounded mb-2">GABA-A</span><p class="text-xs text-gray-400 mt-2">Magnolia bark extract. Potent GABA-A receptor modulator with anxiolytic effects comparable to benzodiazepines but without dependency.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 200-400mg.</li><li><strong>Timing:</strong> 30-60 min before bed.</li><li><strong>Effect:</strong> Reduces anxiety, promotes relaxation.</li><li><strong>Note:</strong> Non-addictive GABA modulation.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 200-400mg.</li><li><strong>Timing:</strong> 30-60 min before bed.</li><li><strong>Effect:</strong> Reduces anxiety, promotes relaxation.</li><li><strong>Note:</strong> Non-addictive GABA modulation.</li></ul></div>
                     </div>
                 </div>
                 <!-- Herbal Sleep PM -->
                 <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flip-card-inner">
                         <div class="flip-front"><h3 class="font-bold text-white text-xl mb-2">Herbal Sleep PM</h3><span class="bg-teal-900 text-teal-300 text-xs px-2 py-1 rounded mb-2">Formula</span><p class="text-xs text-gray-400 mt-2">Life Extension's synergistic blend combining Honokiol, Lemon Balm, and Chamomile for comprehensive sleep support.</p></div>
-                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-[11px] text-gray-300 space-y-2"><li><strong>Dose:</strong> 2 capsules.</li><li><strong>Timing:</strong> 30-60 min before bed.</li><li><strong>Brand:</strong> Life Extension.</li><li><strong>Best for:</strong> All-in-one herbal stack.</li></ul></div>
+                        <div class="flip-back"><h4 class="text-sm font-bold text-white mb-2">Protocol</h4><ul class="text-xs text-gray-300 space-y-2"><li><strong>Dose:</strong> 2 capsules.</li><li><strong>Timing:</strong> 30-60 min before bed.</li><li><strong>Brand:</strong> Life Extension.</li><li><strong>Best for:</strong> All-in-one herbal stack.</li></ul></div>
                     </div>
                 </div>
             </div>
@@ -3993,6 +4003,16 @@
             }
         });
 
+        // Close mobile menu with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('mobile-menu');
+                if (menu && menu.classList.contains('open')) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
         // 3. Night Mode
         function toggleNightMode() { document.body.classList.toggle('night-mode'); }
 
@@ -4209,6 +4229,7 @@
                 'tools.synth.timer60': 'Timer: 1 Hour',
                 'tools.synth.timer480': 'Timer: 8 Hours',
                 'timer.remaining': 'Remaining',
+                'audio.background.active': 'Audio continues with screen locked',
 
                 // Calculator latency
                 'calc.latency14': '14 min (avg)',
@@ -4778,6 +4799,7 @@
                 'tools.synth.timer60': 'Timer: 1 Hora',
                 'tools.synth.timer480': 'Timer: 8 Horas',
                 'timer.remaining': 'Restante',
+                'audio.background.active': 'Audio continúa con pantalla bloqueada',
 
                 // Calculator latency
                 'calc.latency14': '14 min (prom)',
@@ -5216,7 +5238,7 @@
             }
 
             // Update language button
-            const langBtn = document.querySelector('.fab-btn.text-xs');
+            const langBtn = document.querySelector('.fab-btn.text-sm');
             if(langBtn) {
                 langBtn.textContent = currentLang === 'en' ? 'ES' : 'EN';
             }
@@ -5240,6 +5262,128 @@
             applyTranslations();
             saveSettings();
         }
+
+        // ========== BACKGROUND AUDIO MANAGER ==========
+        // Keeps audio alive when the phone screen locks (iOS/Android)
+        // Uses: silent <audio> bridge + Media Session API + AudioContext recovery
+        let bgAudioManager = null;
+
+        const BackgroundAudioManager = {
+            silentAudio: null,
+            isActive: false,
+
+            activate(metadata) {
+                if (this.isActive) return;
+                this._startSilentAudio();
+                this._setupMediaSession(metadata || {});
+                this._setupAudioSession();
+                this.isActive = true;
+                const ind = document.getElementById('bgAudioIndicator');
+                if (ind) ind.classList.remove('hidden');
+            },
+
+            deactivate() {
+                this._stopSilentAudio();
+                this._clearMediaSession();
+                this.isActive = false;
+                const ind = document.getElementById('bgAudioIndicator');
+                if (ind) ind.classList.add('hidden');
+            },
+
+            _startSilentAudio() {
+                if (this.silentAudio) return;
+                this.silentAudio = document.createElement('audio');
+                this.silentAudio.src = this._createSilentWavURL();
+                this.silentAudio.loop = true;
+                this.silentAudio.volume = 0.01;
+                this.silentAudio.setAttribute('playsinline', '');
+                this.silentAudio.setAttribute('x-webkit-airplay', 'deny');
+                this.silentAudio.play().catch(e => console.warn('Silent bridge failed:', e));
+            },
+
+            _stopSilentAudio() {
+                if (!this.silentAudio) return;
+                this.silentAudio.pause();
+                this.silentAudio.removeAttribute('src');
+                this.silentAudio.load();
+                this.silentAudio = null;
+            },
+
+            _createSilentWavURL() {
+                const sr = 22050, dur = 1, ns = sr * dur;
+                const buf = new ArrayBuffer(44 + ns);
+                const v = new DataView(buf);
+                const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+                w(0,'RIFF'); v.setUint32(4, 36 + ns, true); w(8,'WAVE'); w(12,'fmt ');
+                v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+                v.setUint32(24,sr,true); v.setUint32(28,sr,true); v.setUint16(32,1,true);
+                v.setUint16(34,8,true); w(36,'data'); v.setUint32(40, ns, true);
+                for (let i = 44; i < 44 + ns; i++) v.setUint8(i, 128);
+                return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+            },
+
+            _setupMediaSession(meta) {
+                if (!('mediaSession' in navigator)) return;
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: meta.title || 'Sleep Session',
+                    artist: 'Sleep Lab by Cabo Health',
+                    album: meta.album || 'Neuro-Acoustic Sleep',
+                    artwork: [
+                        { src: '/icons/IMG_7864.png', sizes: '192x192', type: 'image/png' },
+                        { src: '/icons/IMG_7865.png', sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+                try { navigator.mediaSession.setActionHandler('play', () => {
+                    if (!synthRunning) toggleSynth();
+                    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+                    if (this.silentAudio) this.silentAudio.play();
+                    navigator.mediaSession.playbackState = 'playing';
+                }); } catch(e) {}
+                try { navigator.mediaSession.setActionHandler('pause', () => {
+                    if (synthRunning) toggleSynth();
+                    navigator.mediaSession.playbackState = 'paused';
+                }); } catch(e) {}
+                try { navigator.mediaSession.setActionHandler('stop', () => {
+                    if (synthRunning) toggleSynth();
+                    this.deactivate();
+                }); } catch(e) {}
+                navigator.mediaSession.playbackState = 'playing';
+            },
+
+            _clearMediaSession() {
+                if (!('mediaSession' in navigator)) return;
+                navigator.mediaSession.metadata = null;
+                navigator.mediaSession.playbackState = 'none';
+                for (const a of ['play','pause','stop']) {
+                    try { navigator.mediaSession.setActionHandler(a, null); } catch(e) {}
+                }
+            },
+
+            _setupAudioSession() {
+                if ('audioSession' in navigator) {
+                    navigator.audioSession.type = 'playback';
+                }
+            },
+
+            resumeAudioContext() {
+                if (audioCtx && (audioCtx.state === 'suspended' || audioCtx.state === 'interrupted')) {
+                    audioCtx.resume().catch(e => console.warn('AudioContext resume failed:', e));
+                }
+            }
+        };
+
+        // Re-activate audio when user returns to the app
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && BackgroundAudioManager.isActive) {
+                BackgroundAudioManager.resumeAudioContext();
+                if (BackgroundAudioManager.silentAudio) {
+                    BackgroundAudioManager.silentAudio.play().catch(() => {});
+                }
+            }
+        });
+        window.addEventListener('focus', () => {
+            if (BackgroundAudioManager.isActive) BackgroundAudioManager.resumeAudioContext();
+        });
 
         // 4. Audio Logic - Lazy AudioContext initialization
         let audioCtx = null;
@@ -5454,6 +5598,12 @@
                     timerInterval = setTimeout(() => toggleSynth(), mins * 60 * 1000);
                     startCountdown(mins * 60);
                 }
+                // Activate background audio bridge (keeps audio alive when screen locks)
+                const preset = PRESETS[currentMode] || PRESETS.sleep;
+                BackgroundAudioManager.activate({
+                    title: preset.name + ' ' + preset.targetHz + 'Hz — ' + (currentMethod === 'binaural' ? 'Binaural' : 'Isochronic'),
+                    album: mins > 0 ? mins + ' min session' : 'Continuous'
+                });
             } else {
                 stopSynth();
                 document.getElementById('mainPlayBtn').innerHTML = '<i class="fa-solid fa-play mr-3"></i> ' + t('tools.synth.activate');
@@ -5462,6 +5612,8 @@
                 stopRealVisualizer();
                 if(timerInterval) { clearTimeout(timerInterval); timerInterval = null; }
                 stopCountdown();
+                // Deactivate background audio bridge only if no other audio is active
+                if (!isNoiseOn && !isBreathing) BackgroundAudioManager.deactivate();
             }
         }
 
@@ -5514,10 +5666,15 @@
                 toggleEl.style.transform = 'translateX(24px)';
                 toggleEl.parentElement.classList.replace('bg-gray-700', 'bg-green-500');
                 if(synthRunning) startNoise();
+                // Activate background bridge if not already active
+                if (!BackgroundAudioManager.isActive) {
+                    BackgroundAudioManager.activate({ title: currentNoiseType.charAt(0).toUpperCase() + currentNoiseType.slice(1) + ' Noise', album: 'Ambient Sound' });
+                }
             } else {
                 toggleEl.style.transform = 'translateX(0)';
                 toggleEl.parentElement.classList.replace('bg-green-500', 'bg-gray-700');
                 stopNoise();
+                if (!synthRunning && !isBreathing) BackgroundAudioManager.deactivate();
             }
         }
 
@@ -5748,6 +5905,7 @@
         let isBreathing = false;
         let breathInterval;
         let breathCycle = 0;
+        let breathProgressInterval = null;
         let totalBreathCycles = 8;
         let currentBreathPattern = '478';
         let breathSoundEnabled = true;
@@ -5838,6 +5996,9 @@
             isBreathing = true;
             breathCycle = 0;
             document.getElementById('breathBtn').innerText = t('breath.stop');
+            if (!BackgroundAudioManager.isActive) {
+                BackgroundAudioManager.activate({ title: t('tools.breath.name'), album: 'Breathing Session' });
+            }
             runBreathCycle();
         }
 
@@ -5850,9 +6011,11 @@
             document.getElementById('breathCircle').style.transform = "scale(1)";
             updateBreathProgress(0, 1);
             clearTimeout(breathInterval);
+            if(breathProgressInterval) { clearInterval(breathProgressInterval); breathProgressInterval = null; }
             if(breathOscillator) {
                 try { breathOscillator.stop(); } catch(e) {}
             }
+            if (!synthRunning && !isNoiseOn) BackgroundAudioManager.deactivate();
         }
 
         function runBreathCycle() {
@@ -5892,19 +6055,20 @@
             circle.style.transition = `transform ${pattern.inhale}s ease-in-out`;
             circle.style.transform = "scale(1.5)";
 
-            const updateProgress = setInterval(() => {
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
+            breathProgressInterval = setInterval(() => {
                 elapsed += 0.1;
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
 
             breathInterval = setTimeout(() => {
-                if (!isBreathing) { clearInterval(updateProgress); return; }
+                if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                 // Hold
                 text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
 
                 breathInterval = setTimeout(() => {
-                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                     // Exhale
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
@@ -5912,7 +6076,7 @@
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
-                        clearInterval(updateProgress);
+                        clearInterval(breathProgressInterval); breathProgressInterval = null;
                         runBreathCycle();
                     }, pattern.exhale * 1000);
                 }, pattern.hold * 1000);
@@ -5923,7 +6087,8 @@
             const totalTime = pattern.inhale + pattern.hold + pattern.exhale + pattern.hold2;
             let elapsed = 0;
 
-            const updateProgress = setInterval(() => {
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
+            breathProgressInterval = setInterval(() => {
                 elapsed += 0.1;
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
@@ -5934,24 +6099,24 @@
             circle.style.transform = "scale(1.4)";
 
             breathInterval = setTimeout(() => {
-                if (!isBreathing) { clearInterval(updateProgress); return; }
+                if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                 text.innerText = t('breath.hold');
                 playBreathTone(523, 0.3);
 
                 breathInterval = setTimeout(() => {
-                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
-                        if (!isBreathing) { clearInterval(updateProgress); return; }
+                        if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                         text.innerText = t('breath.hold');
                         playBreathTone(392, 0.3);
 
                         breathInterval = setTimeout(() => {
-                            clearInterval(updateProgress);
+                            clearInterval(breathProgressInterval); breathProgressInterval = null;
                             runBreathCycle();
                         }, pattern.hold2 * 1000);
                     }, pattern.exhale * 1000);
@@ -5963,7 +6128,8 @@
             const totalTime = pattern.inhale + pattern.inhale2 + pattern.exhale;
             let elapsed = 0;
 
-            const updateProgress = setInterval(() => {
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
+            breathProgressInterval = setInterval(() => {
                 elapsed += 0.1;
                 updateBreathProgress(elapsed, totalTime);
             }, 100);
@@ -5974,21 +6140,21 @@
             circle.style.transform = "scale(1.3)";
 
             breathInterval = setTimeout(() => {
-                if (!isBreathing) { clearInterval(updateProgress); return; }
+                if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                 text.innerText = t('breath.sip');
                 playBreathTone(523, 0.2);
                 circle.style.transition = `transform ${pattern.inhale2}s ease-in-out`;
                 circle.style.transform = "scale(1.5)";
 
                 breathInterval = setTimeout(() => {
-                    if (!isBreathing) { clearInterval(updateProgress); return; }
+                    if (!isBreathing) { clearInterval(breathProgressInterval); breathProgressInterval = null; return; }
                     text.innerText = t('breath.exhale');
                     playBreathTone(330, 0.3);
                     circle.style.transition = `transform ${pattern.exhale}s ease-in-out`;
                     circle.style.transform = "scale(1)";
 
                     breathInterval = setTimeout(() => {
-                        clearInterval(updateProgress);
+                        clearInterval(breathProgressInterval); breathProgressInterval = null;
                         runBreathCycle();
                     }, pattern.exhale * 1000);
                 }, pattern.inhale2 * 1000);
@@ -6280,8 +6446,10 @@
             if(timerInterval) clearTimeout(timerInterval);
             if(countdownInterval) clearInterval(countdownInterval);
             if(breathInterval) clearTimeout(breathInterval);
+            if(breathProgressInterval) clearInterval(breathProgressInterval);
             if(synthRunning) stopSynth();
             if(noiseNode) stopNoise();
+            BackgroundAudioManager.deactivate();
         });
 
         // ========== PWA SERVICE WORKER REGISTRATION ==========
