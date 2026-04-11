@@ -333,6 +333,64 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
+        /* ========== VIEW NAVIGATION SYSTEM ========== */
+        .nav-view-btn {
+            color: #9ca3af;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-view-btn:hover { color: var(--primary-glow); background: rgba(255,255,255,0.05); }
+        .nav-view-btn.active { color: var(--primary-glow); background: rgba(255,255,255,0.1); }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(5, 5, 16, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.4rem 0;
+            padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
+        }
+        body.night-mode .bottom-nav {
+            background: rgba(15, 2, 2, 0.98);
+        }
+        .bottom-nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+            padding: 0.5rem 1rem;
+            color: #555;
+            font-size: 0.65rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        .bottom-nav-btn i { font-size: 1.15rem; transition: all 0.3s; }
+        .bottom-nav-btn.active { color: var(--primary-glow); }
+        .bottom-nav-btn.active i { text-shadow: 0 0 12px var(--primary-glow); }
+        .bottom-nav-btn:hover { color: var(--primary-glow); }
+
+        /* Adjust body for bottom nav */
+        body { padding-bottom: 65px; }
+
+        /* Move FAB above bottom nav */
+        .fab-container { bottom: 85px; }
     </style>
 </head>
 <body class="antialiased">
@@ -357,42 +415,21 @@
                     </div>
                 </div>
                 
-                <!-- Desktop Menu - Simplified Navigation -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#tools" class="text-cyan-400 hover:text-dynamic text-sm font-bold transition" data-i18n="nav.tools"><i class="fa-solid fa-wrench mr-1"></i>Tools</a>
-                        <a href="#level-1" class="text-green-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level1"><i class="fa-solid fa-seedling mr-1"></i>Level 1</a>
-                        <a href="#level-2" class="text-blue-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level2"><i class="fa-solid fa-flask mr-1"></i>Level 2</a>
-                        <a href="#level-3" class="text-purple-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level3"><i class="fa-solid fa-microchip mr-1"></i>Level 3</a>
-                        <a href="#level-4" class="text-red-400 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.level4"><i class="fa-solid fa-atom mr-1"></i>Level 4</a>
-                        <a href="#resources" class="text-gray-300 hover:text-dynamic text-sm font-medium transition" data-i18n="nav.resources"><i class="fa-solid fa-book mr-1"></i>Resources</a>
-                    </div>
+                <!-- Desktop Menu - View Navigation -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <button onclick="showView('home')" data-view="home" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition active"><i class="fa-solid fa-house mr-1"></i><span data-i18n="nav.home">Home</span></button>
+                    <button onclick="showView('tools')" data-view="tools" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i><span data-i18n="nav.tools">Tools</span></button>
+                    <button onclick="showView('learn')" data-view="learn" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-graduation-cap mr-1"></i><span data-i18n="nav.learn">Learn</span></button>
+                    <button onclick="showView('resources')" data-view="resources" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-book-open mr-1"></i><span data-i18n="nav.resources">Resources</span></button>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button onclick="toggleMobileMenu()" class="text-white hover:text-dynamic p-2">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Overlay - Simplified Navigation -->
-        <div id="mobile-menu" class="fixed top-16 right-0 w-64 h-screen bg-black/95 border-l border-white/10 p-6 md:hidden overflow-y-auto">
-            <div class="flex flex-col space-y-5">
-                <a href="#tools" onclick="toggleMobileMenu()" class="text-lg text-cyan-400 font-bold" data-i18n="nav.tools"><i class="fa-solid fa-wrench mr-2"></i>Tools</a>
-                <a href="#level-1" onclick="toggleMobileMenu()" class="text-lg text-green-400" data-i18n="nav.level1"><i class="fa-solid fa-seedling mr-2"></i>Level 1 - Free</a>
-                <a href="#level-2" onclick="toggleMobileMenu()" class="text-lg text-blue-400" data-i18n="nav.level2"><i class="fa-solid fa-flask mr-2"></i>Level 2</a>
-                <a href="#level-3" onclick="toggleMobileMenu()" class="text-lg text-purple-400" data-i18n="nav.level3"><i class="fa-solid fa-microchip mr-2"></i>Level 3</a>
-                <a href="#level-4" onclick="toggleMobileMenu()" class="text-lg text-red-400" data-i18n="nav.level4"><i class="fa-solid fa-atom mr-2"></i>Level 4</a>
-                <a href="#resources" onclick="toggleMobileMenu()" class="text-lg text-gray-300" data-i18n="nav.resources"><i class="fa-solid fa-book mr-2"></i>Resources</a>
+                <!-- Mobile: navigation handled by bottom bar -->
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative h-screen flex items-center justify-center overflow-hidden pt-16">
+    <header id="hero-section" class="relative h-screen flex items-center justify-center overflow-hidden pt-16">
         <div class="text-center z-10 px-4 max-w-4xl">
             <div class="inline-block px-4 py-1 mb-6 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-dynamic text-sm font-bold tracking-widest uppercase fade-up" data-i18n="hero.subtitle">
                 Scientific Sleep Optimization
@@ -404,7 +441,7 @@
                 Evidence-based protocols to transform your sleep architecture. From circadian biology to cutting-edge interventions.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 fade-up">
-                <a href="#tools" class="px-8 py-4 bg-dynamic text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                <a href="#synth-full" class="px-8 py-4 bg-dynamic text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-all duration-300 flex items-center justify-center">
                     <i class="fa-solid fa-wave-square mr-2"></i> Open Neuro-Lab
                 </a>
                 <a href="#diagnosis" class="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white/10 text-white font-bold rounded-lg transition flex items-center justify-center">
@@ -676,6 +713,29 @@
                 </div>
             </div>
             <p class="text-gray-400 mb-10 max-w-3xl" data-i18n="level2.desc">Once you've mastered Level 1, these affordable additions can significantly enhance your sleep quality.</p>
+
+            <!-- Level 2 Quick Overview -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition">
+                    <div class="bg-blue-500/20 p-3 rounded-xl w-fit mb-4"><i class="fa-solid fa-capsules text-blue-400 text-2xl"></i></div>
+                    <h3 class="font-bold text-white mb-2" data-i18n="level2.supps">Core Supplements</h3>
+                    <p class="text-sm text-gray-300" data-i18n="level2.suppsDesc">Magnesium, L-Theanine, Glycine - the essential sleep stack for $20-30/month.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition">
+                    <div class="bg-blue-500/20 p-3 rounded-xl w-fit mb-4"><i class="fa-solid fa-glasses text-blue-400 text-2xl"></i></div>
+                    <h3 class="font-bold text-white mb-2" data-i18n="level2.bluelight">Blue Light Blocking</h3>
+                    <p class="text-sm text-gray-300" data-i18n="level2.bluelightDesc">Blue light blocking glasses for evening use. Protects melatonin production.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/50 transition">
+                    <div class="bg-blue-500/20 p-3 rounded-xl w-fit mb-4"><i class="fa-solid fa-mask-face text-blue-400 text-2xl"></i></div>
+                    <h3 class="font-bold text-white mb-2" data-i18n="level2.mask">Sleep Mask & Earplugs</h3>
+                    <p class="text-sm text-gray-300" data-i18n="level2.maskDesc">Total darkness + noise isolation. Simple, effective, affordable.</p>
+                </div>
+            </div>
+
+            <a href="#supplements" class="inline-flex items-center text-blue-400 text-sm font-bold hover:text-white transition"><span data-i18n="level2.seeSupps">See Full Supplement Guide</span><i class="fa-solid fa-arrow-right ml-2"></i></a>
+        </div>
+    </section>
 
     <!-- WHY WE SLEEP - Introduction (kept for educational content) -->
     <section id="why-sleep" class="py-24 relative overflow-hidden">
@@ -3810,6 +3870,26 @@
         </div>
     </section>
 
+    <!-- ========== BOTTOM NAVIGATION BAR ========== -->
+    <nav class="bottom-nav" id="bottom-nav" aria-label="Main navigation">
+        <button onclick="showView('home')" data-view="home" class="bottom-nav-btn active" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+            <span data-i18n="nav.home">Home</span>
+        </button>
+        <button onclick="showView('tools')" data-view="tools" class="bottom-nav-btn" aria-label="Tools">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span data-i18n="nav.tools">Tools</span>
+        </button>
+        <button onclick="showView('learn')" data-view="learn" class="bottom-nav-btn" aria-label="Learn">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span data-i18n="nav.learn">Learn</span>
+        </button>
+        <button onclick="showView('resources')" data-view="resources" class="bottom-nav-btn" aria-label="Resources">
+            <i class="fa-solid fa-book-open"></i>
+            <span data-i18n="nav.resources">Resources</span>
+        </button>
+    </nav>
+
     <!-- ========== EXPANDED FOOTER ========== -->
     <footer class="py-16 border-t border-white/10 bg-black">
         <div class="max-w-6xl mx-auto px-6">
@@ -6539,6 +6619,147 @@
             console.log('[PWA] App installed successfully');
             deferredPrompt = null;
         });
+
+        // ========== VIEW NAVIGATION SYSTEM ==========
+        let currentView = 'home';
+
+        const viewSections = {
+            home: ['hero-section', 'tools', 'level-1', 'diagnosis'],
+            tools: ['synth-full'],
+            learn: ['level-2', 'why-sleep', 'how-to', 'foundation', 'advanced-protocols', 'architecture', 'supplements', 'profiles', 'frontier', 'protocol'],
+            resources: ['investment', 'myths', 'tech-lab', 'maestros', 'chronotypes', 'evidence']
+        };
+
+        const allViewSectionIds = Object.values(viewSections).flat();
+
+        function showView(viewName) {
+            if (!viewSections[viewName]) return;
+            currentView = viewName;
+
+            // Hide all managed sections
+            allViewSectionIds.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+
+            // Show sections for the active view
+            viewSections[viewName].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.style.display = '';
+            });
+
+            // Update all nav buttons (top + bottom)
+            document.querySelectorAll('[data-view]').forEach(function(btn) {
+                if (btn.dataset.view === viewName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // Intercept anchor clicks for cross-view navigation
+        document.addEventListener('click', function(e) {
+            var anchor = e.target.closest('a[href^="#"]');
+            if (!anchor) return;
+            var targetId = anchor.getAttribute('href').substring(1);
+            if (!targetId) return;
+
+            // Find which view contains this section ID
+            for (var view in viewSections) {
+                if (viewSections[view].indexOf(targetId) !== -1) {
+                    e.preventDefault();
+                    showView(view);
+                    setTimeout(function() {
+                        var el = document.getElementById(targetId);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50);
+                    return;
+                }
+            }
+
+            // Check if target element is INSIDE a managed section
+            var targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                for (var v in viewSections) {
+                    for (var i = 0; i < viewSections[v].length; i++) {
+                        var sectionEl = document.getElementById(viewSections[v][i]);
+                        if (sectionEl && sectionEl.contains(targetEl)) {
+                            e.preventDefault();
+                            showView(v);
+                            setTimeout(function() {
+                                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 50);
+                            return;
+                        }
+                    }
+                }
+            }
+        });
+
+        // Patch startGuidedSession to switch to tools view
+        if (typeof startGuidedSession === 'function') {
+            var _origStartGuidedSession = startGuidedSession;
+            window.startGuidedSession = function(type) {
+                showView('tools');
+                _origStartGuidedSession(type);
+            };
+        }
+
+        // Add missing translations for new nav items
+        if (typeof translations !== 'undefined') {
+            if (translations.en) {
+                translations.en['nav.home'] = 'Home';
+                translations.en['nav.learn'] = 'Learn';
+            }
+            if (translations.es) {
+                translations.es['nav.home'] = 'Inicio';
+                translations.es['nav.learn'] = 'Aprender';
+            }
+        }
+
+        // Initialize view system
+        (function initViewSystem() {
+            var hash = window.location.hash.substring(1);
+
+            // Direct view name in hash
+            if (viewSections[hash]) {
+                showView(hash);
+                return;
+            }
+
+            // Hash points to a section within a view
+            if (hash) {
+                for (var view in viewSections) {
+                    if (viewSections[view].indexOf(hash) !== -1) {
+                        showView(view);
+                        setTimeout(function() {
+                            var el = document.getElementById(hash);
+                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }, 200);
+                        return;
+                    }
+                    // Check for subsection IDs (like breath-full, calc-full)
+                    for (var j = 0; j < viewSections[view].length; j++) {
+                        var section = document.getElementById(viewSections[view][j]);
+                        var target = document.getElementById(hash);
+                        if (section && target && section.contains(target)) {
+                            showView(view);
+                            setTimeout(function() {
+                                target.scrollIntoView({ behavior: 'smooth' });
+                            }, 200);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Default: show home
+            showView('home');
+        })();
     </script>
 </body>
 </html>
