@@ -1,7 +1,8 @@
 // SLEEP_LAB Service Worker
 // Enables offline functionality and caching
 
-const CACHE_NAME = 'sleeplab-v1';
+// Bump on every deploy that changes cached files so clients drop stale copies
+const CACHE_NAME = 'sleeplab-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install
@@ -10,18 +11,25 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/manifest.json',
   '/offline.html',
+  '/css/tailwind.css',
   // External CDN resources (cached on first use)
 ];
 
-// External resources to cache when fetched
+// External resources to cache when fetched (prefixes; includes Font Awesome webfonts)
 const EXTERNAL_CACHE = [
-  'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/',
+  'https://fonts.googleapis.com/',
+  'https://fonts.gstatic.com/',
+  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/',
+  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/'
 ];
+
+function isCacheable(request, response) {
+  if (!response) return false;
+  if (response.status === 200) return true;
+  // CDN <script>/<link> tags without crossorigin return opaque responses (status 0)
+  return response.type === 'opaque' && EXTERNAL_CACHE.some(ext => request.url.startsWith(ext));
+}
 
 // Install event - cache core assets
 self.addEventListener('install', (event) => {
@@ -78,6 +86,35 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Same-origin files (app shell, compiled CSS, manifest, icons): network first, so a
+  // deploy is seen on the first visit and HTML and CSS never mix versions. The cache is
+  // the offline fallback. Only real HTML responses are stored as the app shell.
+  if (url.origin === location.origin) {
+    const isNavigation = request.mode === 'navigate';
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const isHtml = (networkResponse.headers.get('content-type') || '').includes('text/html');
+            const isAppShell = isNavigation && isHtml && url.pathname !== OFFLINE_URL;
+            const cacheKey = isNavigation ? (isAppShell ? '/index.html' : null) : request;
+            if (cacheKey) {
+              const copy = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(cacheKey, copy));
+            }
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(isNavigation ? '/index.html' : request).then((cached) => {
+          if (cached) return cached;
+          if (isNavigation) return caches.match(OFFLINE_URL);
+          return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
+        }))
+    );
+    return;
+  }
+
+  // Cross-origin CDN files have versioned URLs: cache first, refresh in the background
   event.respondWith(
     caches.match(request)
       .then((cachedResponse) => {
@@ -87,7 +124,7 @@ self.addEventListener('fetch', (event) => {
           event.waitUntil(
             fetch(request)
               .then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200) {
+                if (isCacheable(request, networkResponse)) {
                   const responseClone = networkResponse.clone();
                   caches.open(CACHE_NAME)
                     .then((cache) => cache.put(request, responseClone));
@@ -102,7 +139,7 @@ self.addEventListener('fetch', (event) => {
         return fetch(request)
           .then((networkResponse) => {
             // Check if valid response
-            if (!networkResponse || networkResponse.status !== 200) {
+            if (!isCacheable(request, networkResponse)) {
               return networkResponse;
             }
 
@@ -146,8 +183,8 @@ self.addEventListener('push', (event) => {
   const data = event.data.json();
   const options = {
     body: data.body || 'Time for your sleep routine!',
-    icon: '/icons/icon-192.png',
-    badge: '/icons/badge-72.png',
+    icon: '/icons/IMG_7864.png',
+    badge: '/icons/IMG_7864.png',
     vibrate: [100, 50, 100],
     data: {
       url: data.url || '/'
