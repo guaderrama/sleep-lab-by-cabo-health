@@ -86,22 +86,35 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Pages: network first, so a new deploy is seen on the first visit (cache = offline fallback)
-  if (request.mode === 'navigate') {
+  // Same-origin files (app shell, compiled CSS, manifest, icons): network first, so a
+  // deploy is seen on the first visit and HTML and CSS never mix versions. The cache is
+  // the offline fallback. Only real HTML responses are stored as the app shell.
+  if (url.origin === location.origin) {
+    const isNavigation = request.mode === 'navigate';
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
-            const copy = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put('/index.html', copy));
+            const isHtml = (networkResponse.headers.get('content-type') || '').includes('text/html');
+            const isAppShell = isNavigation && isHtml && url.pathname !== OFFLINE_URL;
+            const cacheKey = isNavigation ? (isAppShell ? '/index.html' : null) : request;
+            if (cacheKey) {
+              const copy = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(cacheKey, copy));
+            }
           }
           return networkResponse;
         })
-        .catch(() => caches.match('/index.html').then((cached) => cached || caches.match(OFFLINE_URL)))
+        .catch(() => caches.match(isNavigation ? '/index.html' : request).then((cached) => {
+          if (cached) return cached;
+          if (isNavigation) return caches.match(OFFLINE_URL);
+          return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
+        }))
     );
     return;
   }
 
+  // Cross-origin CDN files have versioned URLs: cache first, refresh in the background
   event.respondWith(
     caches.match(request)
       .then((cachedResponse) => {

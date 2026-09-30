@@ -140,7 +140,7 @@
 
 ## 6. Pruebas
 
-- **43 pruebas funcionales automatizadas (43/43 pasan).** Cubren:
+- **50 pruebas funcionales automatizadas (50/50 pasan)**, más una prueba del service worker en modo offline. Cubren:
   - condiciones de carrera
   - sesiones guiadas
   - capas en vivo
@@ -178,6 +178,15 @@
   - Three.js (~600 KB, solo partículas decorativas) ya no bloquea el primer render: se carga después de que la página es interactiva.
   - Se omite si el usuario pidió "reducir movimiento" o ahorro de datos.
   - Renderiza a ~20 fps en lugar de 60, un tercio del consumo de GPU y batería.
+- **Citas del resto de la sección de Evidencia:** se verificaron las 32 restantes. Solo 7 estaban bien: 21 IDs apuntaban a papers sin relación (genética de arroz, aspergilosis, un editorial de impresión 3D), 3 papers no existían como se citaban y 1 afirmación no coincidía con el estudio. Todas se reemplazaron por el paper correcto, verificado por título, autores, año y revista, con la afirmación ajustada a lo que el estudio encontró.
+- **Revisión de código (10 hallazgos, todos corregidos):**
+  - contador que seguía corriendo al cambiar de sesión guiada;
+  - acordes amontonados tras una pausa larga del teléfono;
+  - service worker que mezclaba HTML nuevo con CSS viejo o guardaba páginas que no eran la app;
+  - las sesiones guiadas ya no sobrescriben tu configuración, que se restaura al terminar;
+  - timer que no terminaba si iOS no reanudaba el audio;
+  - indicador de sesión guiada que no se limpiaba;
+  - textos en vivo (fase de respiración, error de la calculadora) que se perdían al cambiar de idioma.
 - **Timer robusto:** si el audio se suspende (por ejemplo, una llamada), la sesión espera a que el fade termine en el reloj de audio en vez de cortarse.
 
 ## 8. Pendientes recomendados
