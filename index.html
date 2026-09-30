@@ -6179,9 +6179,10 @@
                 breathDesc.textContent = t('breath.pattern.' + currentBreathPattern + 'Desc');
             }
 
-            // Update synth status + layer switch labels
+            // Update synth status + layer switch labels + active guided session name
             updateSessionStatus();
             syncLayerSwitches();
+            updateGuidedSessionNames();
 
             // Update breath text if ready
             const breathText = document.getElementById('breathText');
@@ -6991,6 +6992,13 @@
         // Timer reached its end: the audio already faded out on the audio clock
         function finishSession(session) {
             if (currentSession !== session) return;
+            // The audio clock pauses while the context is suspended (e.g. a phone call on iOS)
+            // but the wall-clock timer keeps running: wait for the scheduled fade to really end
+            if (audioCtx && session.endTime && audioCtx.currentTime < session.endTime - 0.25) {
+                clearTimeout(session.endTimer);
+                session.endTimer = setTimeout(() => finishSession(session), (session.endTime - audioCtx.currentTime) * 1000 + 250);
+                return;
+            }
             currentSession = null;
             synthRunning = false;
             clearTimeout(session.endTimer);
@@ -7113,6 +7121,13 @@
             }
         };
 
+        function updateGuidedSessionNames() {
+            if (!activeGuidedSession) return;
+            document.querySelectorAll('.guided-session-name').forEach(el => {
+                el.textContent = t('guided.' + activeGuidedSession + '.title') + ' ' + t('guided.active');
+            });
+        }
+
         function startGuidedSession(sessionType) {
             const session = GUIDED_SESSIONS[sessionType];
             if(!session) return;
@@ -7147,9 +7162,7 @@
 
             // Show indicator(s)
             document.querySelectorAll('.guided-session-indicator').forEach(el => el.classList.remove('hidden'));
-            document.querySelectorAll('.guided-session-name').forEach(el => {
-                el.textContent = t('guided.' + sessionType + '.title') + ' ' + t('guided.active');
-            });
+            updateGuidedSessionNames();
 
             // Bring the player into view
             document.getElementById('synthPlayer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
