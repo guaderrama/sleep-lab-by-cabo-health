@@ -6382,6 +6382,11 @@
          */
         function getAudioContext() {
             if (!audioCtx) {
+                // iOS 17+: declare media playback before the context exists, so the
+                // ring/silent switch does not mute the sound and it survives screen lock
+                if ('audioSession' in navigator) {
+                    try { navigator.audioSession.type = 'playback'; } catch(e) {}
+                }
                 try {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 } catch(e) {
