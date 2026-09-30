@@ -11,12 +11,12 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/manifest.json',
   '/offline.html',
+  '/css/tailwind.css',
   // External CDN resources (cached on first use)
 ];
 
 // External resources to cache when fetched (prefixes; includes Font Awesome webfonts)
 const EXTERNAL_CACHE = [
-  'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/',
   'https://fonts.googleapis.com/',
   'https://fonts.gstatic.com/',

@@ -1,0 +1,11 @@
+{
+  "name": "sleep-lab-by-cabo-health",
+  "private": true,
+  "description": "SLEEP_LAB by Cabo Health — static PWA. Only the CSS is built; everything else is served as-is.",
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i styles/tailwind.input.css -o css/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}
