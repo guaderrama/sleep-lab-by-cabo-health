@@ -140,7 +140,7 @@
 
 ## 6. Pruebas
 
-- **40 pruebas funcionales automatizadas (40/40 pasan).** Cubren:
+- **43 pruebas funcionales automatizadas (43/43 pasan).** Cubren:
   - condiciones de carrera
   - sesiones guiadas
   - capas en vivo
@@ -151,6 +151,8 @@
   - calculadora
   - ruteo por hash
   - resiliencia sin CDN
+  - timer con el reloj de audio suspendido (llamada en iOS)
+  - cambio de idioma durante una sesión guiada
 - **Métricas de audio** con `OfflineAudioContext`:
   - pendiente espectral: rosa −2.97, café −6.42, blanco 0.08 dB/oct
   - continuidad del loop
@@ -160,10 +162,26 @@
 
 ---
 
-## 7. Pendientes recomendados (no incluidos en este cambio)
+## 7. Segunda fase (incluida)
+
+- **Tailwind compilado:**
+  - Se reemplazó el CDN de ejecución (~300 KB de JS que compilaba estilos en cada carga, no apto para producción) por una hoja de estilos compilada de **37 KB** (`npm run build:css`, tailwindcss 3.4).
+  - Se carga después de los estilos propios para conservar el mismo orden de cascada.
+  - El service worker la guarda en caché desde la instalación.
+- **Español completo** en las vistas Aprender y Recursos y en las notas de evidencia:
+  - 545 textos traducidos con un diccionario por nodo de texto.
+  - Al volver a inglés se restaura exactamente el original.
+  - Los títulos de papers se dejan en su idioma original, como se citan.
+- **Bebés:** advertencia en la guía de volumen (aparato lejos de la cuna, volumen bajo, sin ruido toda la noche).
+- **iOS:** se declara la sesión de audio "playback" antes de crear el AudioContext, para que el switch de silencio no apague el sonido.
+- **Carga más rápida:**
+  - Three.js (~600 KB, solo partículas decorativas) ya no bloquea el primer render: se carga después de que la página es interactiva.
+  - Se omite si el usuario pidió "reducir movimiento" o ahorro de datos.
+  - Renderiza a ~20 fps en lugar de 60, un tercio del consumo de GPU y batería.
+- **Timer robusto:** si el audio se suspende (por ejemplo, una llamada), la sesión espera a que el fade termine en el reloj de audio en vez de cortarse.
+
+## 8. Pendientes recomendados
 
 1. **Probar en dispositivos reales** con la pantalla bloqueada (iOS Safari y Android Chrome), sobre todo la música generativa y la campana de siesta. [Probable que funcione; no verificable en headless]
-2. Gran parte de las vistas Aprender y Recursos sigue **solo en inglés** (suplementos, frontier, perfiles, mitos).
-3. Tailwind desde `cdn.tailwindcss.com` no se recomienda en producción: conviene compilar el CSS.
-4. Diario de sueño (TCC-I), que ya estaba en reportes previos, sigue siendo la función de mayor valor clínico que falta.
-5. Considerar una advertencia específica contra ruido de banda ancha toda la noche para bebés (Basner 2026 lo menciona por el papel del REM en el neurodesarrollo).
+2. Diario de sueño (TCC-I): sigue siendo la función de mayor valor clínico que falta (ya estaba en reportes previos).
+3. Evaluar reemplazar el fondo 3D por CSS puro si las métricas de carga en teléfonos lo justifican.

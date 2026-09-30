@@ -48,8 +48,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         :root {
@@ -7686,58 +7684,81 @@
             gsap.utils.toArray('.bar-anim').forEach(e => gsap.fromTo(e, {scaleY:0, transformOrigin:"bottom"}, {scaleY:1, duration:1, scrollTrigger:{trigger:e, start:"top 80%"}}));
         }
 
-        // Three.js with error handling
+        // Three.js background (decorative). Loaded after the page is interactive so its
+        // ~600 KB never blocks first paint; skipped for reduced-motion / data-saver users.
         let scene, camera, renderer, mesh, sphere, mat;
-        try {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
-            renderer.setSize(window.innerWidth, window.innerHeight);
 
-            const geo = new THREE.BufferGeometry();
-            const count = 800;
-            const pos = new Float32Array(count*3);
-            for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5)*20;
-            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-            mat = new THREE.PointsMaterial({ size: 0.03, color: 0x00f3ff, transparent: true, opacity: 0.6 });
-            mesh = new THREE.Points(geo, mat);
-            scene.add(mesh);
-            sphere = new THREE.Mesh(
-                new THREE.IcosahedronGeometry(4, 1),
-                new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.05 })
-            );
-            scene.add(sphere);
-            camera.position.z = 5;
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = Date.now()*0.0005;
-                mesh.rotation.y = t*0.05;
-                sphere.rotation.y = t*0.05;
-                if(document.body.classList.contains('night-mode')) {
-                    mat.color.setHex(0xff3c00);
-                    sphere.material.color.setHex(0xff3c00);
-                } else {
-                    mat.color.setHex(0x00f3ff);
-                    sphere.material.color.setHex(0x00f3ff);
-                }
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth/window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        } catch (e) {
-            console.warn('WebGL not supported, using CSS fallback:', e);
+        function useStaticBackground() {
             const container = document.getElementById('canvas-container');
             if(container) {
                 container.style.background = 'radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 50%, #000000 100%)';
             }
         }
+
+        function initBackground3D() {
+            try {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                document.getElementById('canvas-container').appendChild(renderer.domElement);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+                const geo = new THREE.BufferGeometry();
+                const count = 800;
+                const pos = new Float32Array(count*3);
+                for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5)*20;
+                geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                mat = new THREE.PointsMaterial({ size: 0.03, color: 0x00f3ff, transparent: true, opacity: 0.6 });
+                mesh = new THREE.Points(geo, mat);
+                scene.add(mesh);
+                sphere = new THREE.Mesh(
+                    new THREE.IcosahedronGeometry(4, 1),
+                    new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.05 })
+                );
+                scene.add(sphere);
+                camera.position.z = 5;
+
+                // The scene rotates very slowly, so ~20 fps looks identical to 60 fps
+                // at a third of the GPU/battery cost (the app is often open at night).
+                let lastFrame = 0;
+                function animate(now) {
+                    requestAnimationFrame(animate);
+                    if (now - lastFrame < 50) return;
+                    lastFrame = now;
+                    const t = Date.now()*0.0005;
+                    mesh.rotation.y = t*0.05;
+                    sphere.rotation.y = t*0.05;
+                    const color = document.body.classList.contains('night-mode') ? 0xff3c00 : 0x00f3ff;
+                    mat.color.setHex(color);
+                    sphere.material.color.setHex(color);
+                    renderer.render(scene, camera);
+                }
+                requestAnimationFrame(animate);
+
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth/window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            } catch (e) {
+                console.warn('WebGL not supported, using CSS fallback:', e);
+                useStaticBackground();
+            }
+        }
+
+        function loadBackground3D() {
+            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const saveData = navigator.connection && navigator.connection.saveData;
+            if (reduceMotion || saveData) { useStaticBackground(); return; }
+            if (window.THREE) { initBackground3D(); return; }
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+            script.onload = initBackground3D;
+            script.onerror = useStaticBackground;
+            document.head.appendChild(script);
+        }
+        if (document.readyState === 'complete') setTimeout(loadBackground3D, 300);
+        else window.addEventListener('load', () => setTimeout(loadBackground3D, 300));
 
         // Cleanup on page unload to prevent memory leaks
         window.addEventListener('beforeunload', () => {
