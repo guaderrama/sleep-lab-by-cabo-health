@@ -2,7 +2,7 @@
 // Enables offline functionality and caching
 
 // Bump on every deploy that changes cached files so clients drop stale copies
-const CACHE_NAME = 'sleeplab-v2';
+const CACHE_NAME = 'sleeplab-v3';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install
@@ -12,15 +12,23 @@ const PRECACHE_ASSETS = [
   '/manifest.json',
   '/offline.html',
   '/css/tailwind.css',
-  // External CDN resources (cached on first use)
+  '/css/sleep-app.css',
+  '/js/sleep-core.js',
+  '/js/sleep-app.js',
+  // Libraries served from this site (vendor/README.md)
+  '/vendor/gsap/gsap.min.js',
+  '/vendor/gsap/ScrollTrigger.min.js',
+  '/vendor/fontawesome/css/all.min.css',
+  '/vendor/fontawesome/webfonts/fa-solid-900.woff2',
+  '/vendor/fontawesome/webfonts/fa-regular-400.woff2',
+  '/vendor/fontawesome/webfonts/fa-brands-400.woff2'
 ];
 
-// External resources to cache when fetched (prefixes; includes Font Awesome webfonts)
+// External resources to cache when fetched (prefixes). GSAP and Font Awesome are now
+// served from this site; only the web fonts and the decorative Three.js stay on CDNs.
 const EXTERNAL_CACHE = [
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/',
   'https://fonts.googleapis.com/',
   'https://fonts.gstatic.com/',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/',
   'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/'
 ];
 

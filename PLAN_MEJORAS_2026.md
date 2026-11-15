@@ -6,6 +6,8 @@
 
 **Decisión de producto (13 de noviembre de 2026):** SLEEP_LAB será una herramienta 100 % de autoservicio para cualquier persona, sin médicos ni clínica en su uso. Este documento ya refleja esa decisión: el programa es autoguiado, no hay reportes para médicos ni contenido sobre medicamentos, y la seguridad se resuelve dentro de la app.
 
+**Decisión de contenido (15 de noviembre de 2026):** el contenido actual se queda tal como está, incluidos péptidos, tratamientos clínicos y suplementos. Las mejoras se construyen encima sin quitar ni reescribir textos. La tabla de la sección 2.3 queda como referencia por si se revisa más adelante. Lo construido está en la sección 11.
+
 ---
 
 ## 1. Veredicto
@@ -214,8 +216,8 @@ Los tamaños son estimados [Especulando]: **S** = una sesión de trabajo con Cla
 |---|---|---|---|
 | 0.1 | Contenido visible por defecto; la animación solo se activa si GSAP cargó. Alojar GSAP, íconos y tipografías en el propio sitio. | Elimina la página vacía y la dependencia de terceros. | S |
 | 0.2 | Recrear y guardar las pruebas automatizadas, y correrlas en cada cambio (GitHub Actions). | Sin esto, cada fase siguiente rompe algo de la anterior. | M |
-| 0.3 | Aplicar la tabla 2.3: quitar péptidos, tratamientos clínicos (cámara hiperbárica, sueros de NAD+, células madre), cifras de inversión y remedios sin respaldo; corregir las contradicciones internas. | Riesgo legal y de credibilidad. | M |
-| 0.4 | Insignia de evidencia y advertencias en cada suplemento, con el mismo sistema que ya usan los sonidos. | Convierte la sección más débil en un diferenciador. | M |
+| 0.3 | ~~Aplicar la tabla 2.3~~ Descartado por la decisión del 15 de noviembre: el contenido se queda. | — | — |
+| 0.4 | ~~Insignia de evidencia en cada suplemento~~ Descartado por la misma decisión. | — | — |
 | 0.5 | Detectar el idioma del teléfono; mover los botones flotantes. | Primer contacto correcto. | S |
 | 0.6 | Renombrar "Diagnose Me / Diagnosis Center" y poner el aviso "esto no es un diagnóstico" junto a las herramientas, no solo al pie. | Riesgo regulatorio. | S |
 | 0.7 | Fecha de revisión de la evidencia y fuente visible en cada herramienta y cada tarjeta. | Confianza y posicionamiento en Google. | S |
@@ -325,7 +327,7 @@ El diario es el primer dato de la app que duele perder. Mientras no haya servido
 
 **Ya decidido (13 de noviembre de 2026):** la app es 100 % de autoservicio, sin médicos ni clínica en su uso. Lo que eso cambia:
 
-1. **El contenido tiene que ser más conservador, no menos.** Sin revisión médica salen completos los péptidos, los tratamientos clínicos y las combinaciones de suplementos con dosis. Los suplementos quedan como tabla informativa con su nivel de evidencia.
+1. **El contenido existente se queda sin cambios** (decisión del 15 de noviembre). Mi recomendación de quitar péptidos, tratamientos clínicos y dosis sin respaldo sigue en la tabla 2.3, por si se revisa más adelante.
 2. **La ventana de sueño usa la versión suave por defecto** y un mínimo de 6 horas.
 3. **Los cuestionarios clínicos con licencia ya no hacen falta.** El chequeo usa preguntas propias y las métricas salen del diario.
 
@@ -350,3 +352,31 @@ El diario es el primer dato de la app que duele perder. Mientras no haya servido
   - Las cifras de sensibilidad de las alertas de apnea, que la investigación leyó en el expediente de la FDA y yo no reabrí.
   - Los estudios enlazados a PubMed Central (Hwang 2025, Aji 2019, Lee-Tobin 2017): leídos por la investigación, no recomprobados por mí.
 - **Lo que la app no es:** atención médica. No la sustituye ni depende de ella, y lo dice en una línea.
+
+---
+
+## 11. Estado de implementación (15 de noviembre de 2026)
+
+Construido en la rama `claude/web-app-overview-yrwtyv`, sin cambiar ningún texto del contenido existente.
+
+| Plan | Qué se hizo | Archivos |
+|---|---|---|
+| 0.1 | La página ya no queda vacía si falla la librería de animación: el contenido es visible por defecto y solo se oculta para animarse si GSAP cargó (y la persona no pidió reducir movimiento). GSAP y los íconos ahora se sirven desde el propio sitio. | `index.html`, `vendor/` |
+| 0.2 | 21 pruebas unitarias y 14 de extremo a extremo en Chromium, que corren en GitHub Actions en cada PR. | `tests/`, `.github/workflows/test.yml` |
+| 0.5 | La app abre en el idioma del teléfono la primera vez. Los botones de modo noche e idioma pasaron al encabezado y ya no tapan contenido. | `index.html` |
+| 0.9 | Lo nuevo vive en módulos separados: la lógica pura (probada sola) y la interfaz. | `js/sleep-core.js`, `js/sleep-app.js`, `css/sleep-app.css` |
+| 1.1 | Diario de un minuto con botones grandes; promedios semanales, sin calificación por noche. | |
+| 1.2 | Índice de regularidad del sueño, variación de la hora de dormirse, jet lag social y gráfica de 14 noches. | |
+| 1.3 | Chequeo inicial que elige la ruta (Optimizar, Reiniciar, Ruta suave), con autochequeo de seguridad y avisos de una línea. El aviso de crisis usa la Línea de la Vida (800 911 2000) y el 988, verificados el 15 de noviembre. | |
+| 1.4 | "Mi noche": hora de dormir, último café ajustado por dosis y factores, luz, baño tibio, ejercicio y cena, con exportación a calendario (.ics) como recordatorios diarios. La calculadora de ciclos se conserva. | |
+| 1.5 | Programa autoguiado de 6 semanas: semana de registro, ventana de sueño (suave por defecto, mínimo 6 h), revisión semanal con la regla del tratamiento breve, contenido por semana y resumen antes/después. | |
+| 3.1–3.4 | "No puedo dormir" con pantalla oscura, "Cierra el día", barajado mental y un marcapasos de respiración silencioso. | |
+| 3.6 | Respiración: duración 5/10/20 min, ritmo de 5 a 7 por minuto y vibración en Android. | `index.html` |
+| 4.1 | Respaldo completo, diario en hoja de cálculo, restaurar y borrar todo. | |
+| — | Nueva pestaña "Mi sueño" y una tarjeta en Inicio que cambia según el estado de la persona. | |
+
+**Pendiente:**
+- Sesiones narradas (requieren decidir voz y si se graban o se generan).
+- Plan de luz, siestas, cronotipo continuo, jet lag y turno nocturno (fase 2).
+- Analítica (0.8): se activa en el panel de Vercel.
+- Probar en teléfonos reales, sobre todo el sonido con pantalla bloqueada en iPhone y la importación del calendario.

@@ -38,15 +38,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome (served from this site: see vendor/README.md) -->
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- GSAP (served from this site: see vendor/README.md) -->
+    <script src="/vendor/gsap/gsap.min.js"></script>
+    <script src="/vendor/gsap/ScrollTrigger.min.js"></script>
+    <script>
+        // Content is visible by default. It is hidden for its entrance animation only when
+        // GSAP really loaded and the user has not asked for reduced motion, so a failed
+        // script can never leave the page blank.
+        if (window.gsap && window.ScrollTrigger &&
+            !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            document.documentElement.classList.add('anim');
+        }
+    </script>
 
 
     <style>
@@ -117,7 +126,7 @@
             transition: background 0.5s ease;
         }
 
-        .fade-up { opacity: 0; transform: translateY(30px); }
+        .anim .fade-up { opacity: 0; transform: translateY(30px); }
 
         /* Tabs */
         .tab-btn { position: relative; overflow: hidden; white-space: nowrap; }
@@ -153,6 +162,14 @@
         .noise-type-btn { padding: 8px 14px; border-radius: 20px; font-size: 1rem; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #bbb; transition: all 0.3s; cursor: pointer; }
         .noise-type-btn.active { background: var(--primary-glow); color: black; border-color: var(--primary-glow); }
         .noise-type-btn:hover:not(.active) { border-color: var(--primary-glow); color: var(--primary-glow); }
+        /* Breathing lab: pace and duration selectors */
+        .breath-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+        .breath-opt-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+        .breath-opt-row[hidden] { display: none; }
+        .breath-opt-label { font-size: 0.875rem; color: #9ca3af; min-width: 5.5em; text-align: right; }
+        .breath-opt-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .breath-opt-chips .noise-type-btn { min-width: 52px; min-height: 44px; font-size: 0.95rem; }
+        #breathVibrateBtn[aria-pressed="true"] { background: var(--primary-glow); color: black; border-color: var(--primary-glow); }
 
         /* Tool Info Cards */
         .tool-info-card {
@@ -182,14 +199,15 @@
         .real-bar { width: 4px; background: linear-gradient(to top, var(--primary-glow), var(--secondary-glow)); border-radius: 2px; min-height: 3px; transition: height 0.05s ease; }
 
         /* Floating Buttons */
-        .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 100; display: flex; flex-direction: column; gap: 15px; }
-        .fab-btn {
-            width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.8);
+        /* Night-mode and language buttons, in the top bar so they never cover content */
+        .hdr-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .hdr-btn {
+            width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,0.6);
             border: 1px solid var(--primary-glow); color: var(--primary-glow);
-            display: flex; align-items: center; justify-content: center; font-size: 20px;
-            cursor: pointer; box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
         }
-        .fab-btn:hover { transform: scale(1.1); background: var(--primary-glow); color: black; }
+        .hdr-btn:hover { background: var(--primary-glow); color: black; }
         
         /* Mobile Menu */
         #mobile-menu {
@@ -373,19 +391,21 @@
             flex-direction: column;
             align-items: center;
             gap: 0.15rem;
-            padding: 0.5rem 1rem;
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 0.5rem 0.15rem;
             color: #555;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 600;
             transition: all 0.3s;
             background: none;
             border: none;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
+            letter-spacing: 0;
         }
         .bottom-nav-btn i { font-size: 1.15rem; transition: all 0.3s; }
+        .bottom-nav-btn span { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .bottom-nav-btn.active { color: var(--primary-glow); }
         .bottom-nav-btn.active i { text-shadow: 0 0 12px var(--primary-glow); }
         .bottom-nav-btn:hover { color: var(--primary-glow); }
@@ -393,23 +413,16 @@
         /* Adjust body for bottom nav */
         body { padding-bottom: 65px; }
 
-        /* Move FAB above bottom nav */
-        .fab-container { bottom: 85px; }
     </style>
 
     <!-- Tailwind CSS: compiled at build time (npm run build:css) instead of the runtime CDN.
          Loaded after the custom styles to keep the same cascade order the CDN produced. -->
     <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/css/sleep-app.css">
 </head>
 <body class="antialiased">
 
     <div id="canvas-container"></div>
-
-    <!-- Floating Actions -->
-    <div class="fab-container">
-        <button class="fab-btn" onclick="toggleNightMode()" title="Night Mode" aria-label="Toggle Night Mode"><i class="fa-solid fa-moon"></i></button>
-        <button class="fab-btn text-sm font-bold" onclick="toggleLanguage()" aria-label="Toggle Language">EN</button>
-    </div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
@@ -426,12 +439,17 @@
                 <!-- Desktop Menu - View Navigation -->
                 <div class="hidden md:flex items-center space-x-1">
                     <button onclick="showView('home')" data-view="home" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition active"><i class="fa-solid fa-house mr-1"></i><span data-i18n="nav.home">Home</span></button>
+                    <button onclick="showView('sleep')" data-view="sleep" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-bed mr-1"></i><span data-i18n="nav.sleep">My Sleep</span></button>
                     <button onclick="showView('tools')" data-view="tools" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i><span data-i18n="nav.tools">Tools</span></button>
                     <button onclick="showView('learn')" data-view="learn" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-graduation-cap mr-1"></i><span data-i18n="nav.learn">Learn</span></button>
                     <button onclick="showView('resources')" data-view="resources" class="nav-view-btn px-3 py-2 rounded-lg text-sm font-bold transition"><i class="fa-solid fa-book-open mr-1"></i><span data-i18n="nav.resources">Resources</span></button>
                 </div>
 
                 <!-- Mobile: navigation handled by bottom bar -->
+                <div class="hdr-actions">
+                    <button class="hdr-btn" onclick="toggleNightMode()" title="Night Mode" aria-label="Toggle Night Mode"><i class="fa-solid fa-moon"></i></button>
+                    <button class="hdr-btn" id="langToggleBtn" onclick="toggleLanguage()" aria-label="Toggle Language">ES</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -461,6 +479,14 @@
             <i class="fa-solid fa-chevron-down text-2xl"></i>
         </div>
     </header>
+
+    <!-- Personal entry point and the "My Sleep" view: rendered by js/sleep-app.js -->
+    <section id="home-sleep-cta" data-no-translate aria-label="My Sleep"></section>
+    <section id="my-sleep" class="sl-view" data-no-translate style="display:none">
+        <div id="sl-root" class="sl-container">
+            <noscript><p class="sl-muted">This section needs JavaScript.</p></noscript>
+        </div>
+    </section>
 
     <!-- ========================================== -->
     <!-- SECTION: INTERACTIVE TOOLS (Moved to Top) -->
@@ -2057,6 +2083,29 @@
                     </div>
                     <p class="text-sm text-gray-400 text-center mb-4" id="breathPatternDesc" data-i18n="breath.pattern.resonanceDesc">Resonance 6/min: inhale 4 s, exhale 6 s — the best-studied pattern before sleep</p>
 
+                    <!-- Pace (resonance only) and session length -->
+                    <div class="breath-options">
+                        <div class="breath-opt-row" id="breathPaceRow">
+                            <span class="breath-opt-label" id="breathPaceLabel" data-i18n="breath.pace">Pace / min</span>
+                            <div class="breath-opt-chips" role="group" aria-labelledby="breathPaceLabel">
+                                <button type="button" class="noise-type-btn breath-pace-btn" data-pace="5" onclick="setBreathPace(5)" aria-pressed="false">5</button>
+                                <button type="button" class="noise-type-btn breath-pace-btn" data-pace="5.5" onclick="setBreathPace(5.5)" aria-pressed="false">5.5</button>
+                                <button type="button" class="noise-type-btn breath-pace-btn active" data-pace="6" onclick="setBreathPace(6)" aria-pressed="true">6</button>
+                                <button type="button" class="noise-type-btn breath-pace-btn" data-pace="6.5" onclick="setBreathPace(6.5)" aria-pressed="false">6.5</button>
+                                <button type="button" class="noise-type-btn breath-pace-btn" data-pace="7" onclick="setBreathPace(7)" aria-pressed="false">7</button>
+                            </div>
+                        </div>
+                        <div class="breath-opt-row" id="breathDurationRow">
+                            <span class="breath-opt-label" id="breathDurationLabel" data-i18n="breath.duration">Duration</span>
+                            <div class="breath-opt-chips" role="group" aria-labelledby="breathDurationLabel">
+                                <button type="button" class="noise-type-btn breath-dur-btn active" data-dur="5" onclick="setBreathDuration(5)" aria-pressed="true">5 min</button>
+                                <button type="button" class="noise-type-btn breath-dur-btn" data-dur="10" onclick="setBreathDuration(10)" aria-pressed="false">10 min</button>
+                                <button type="button" class="noise-type-btn breath-dur-btn" data-dur="20" onclick="setBreathDuration(20)" aria-pressed="false">20 min</button>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-300 text-center" id="breathSummary" aria-live="polite"></p>
+                    </div>
+
                     <div class="flex flex-col items-center">
                         <div id="breathCircle" class="breath-circle mb-4 transition-all duration-[4000ms] ease-in-out relative">
                             <!-- SVG Progress Ring -->
@@ -2076,6 +2125,10 @@
                             </button>
                             <button onclick="toggleBreathSound()" id="breathSoundBtn" class="px-4 py-2 border border-white/20 rounded-full text-sm hover:bg-white/10 transition" title="Toggle audio cues" aria-label="Toggle audio cues">
                                 <i class="fa-solid fa-volume-high" id="breathSoundIcon"></i>
+                            </button>
+                            <!-- Shown only where the phone can vibrate (Android) -->
+                            <button onclick="toggleBreathVibrate()" id="breathVibrateBtn" class="px-4 py-2 border border-white/20 rounded-full text-sm hover:bg-white/10 transition" title="Vibration" aria-label="Vibration" aria-pressed="false" hidden>
+                                <i class="fa-solid fa-mobile-screen-button"></i>
                             </button>
                         </div>
                     </div>
@@ -4034,6 +4087,10 @@
             <i class="fa-solid fa-house"></i>
             <span data-i18n="nav.home">Home</span>
         </button>
+        <button onclick="showView('sleep')" data-view="sleep" class="bottom-nav-btn" aria-label="My Sleep">
+            <i class="fa-solid fa-bed"></i>
+            <span data-i18n="nav.sleep">My Sleep</span>
+        </button>
         <button onclick="showView('tools')" data-view="tools" class="bottom-nav-btn" aria-label="Tools">
             <i class="fa-solid fa-wand-magic-sparkles"></i>
             <span data-i18n="nav.tools">Tools</span>
@@ -4261,6 +4318,7 @@
             en: {
                 // Navigation - New Level-based Structure
                 'nav.tools': 'Tools',
+                'nav.sleep': 'My Sleep',
                 'nav.level1': 'Level 1',
                 'nav.level2': 'Level 2',
                 'nav.level3': 'Level 3',
@@ -4425,6 +4483,11 @@
                 'breath.start': 'Start',
                 'breath.stop': 'Stop',
                 'breath.cycle': 'Cycle',
+                'breath.pace': 'Breaths / min',
+                'breath.duration': 'Duration',
+                'breath.summaryRes': '{pace} breaths per minute: in {inhale} s, out {exhale} s · {cycles} breaths ≈ {min} min',
+                'breath.summary': '{cycles} cycles ≈ {min} min',
+                'breath.summary478': '4 cycles, as its author recommends',
 
                 // Sleep Calculator
                 'calc.title': 'Cycle Calculator',
@@ -4909,6 +4972,7 @@
             es: {
                 // Navigation - New Level-based Structure
                 'nav.tools': 'Herramientas',
+                'nav.sleep': 'Mi sueño',
                 'nav.level1': 'Nivel 1',
                 'nav.level2': 'Nivel 2',
                 'nav.level3': 'Nivel 3',
@@ -5073,6 +5137,11 @@
                 'breath.start': 'Iniciar',
                 'breath.stop': 'Detener',
                 'breath.cycle': 'Ciclo',
+                'breath.pace': 'Respiraciones / min',
+                'breath.duration': 'Duración',
+                'breath.summaryRes': '{pace} respiraciones por minuto: inhala {inhale} s, exhala {exhale} s · {cycles} respiraciones ≈ {min} min',
+                'breath.summary': '{cycles} ciclos ≈ {min} min',
+                'breath.summary478': '4 ciclos, como recomienda su autor',
 
                 // Sleep Calculator
                 'calc.title': 'Calculadora de Ciclos',
@@ -6116,7 +6185,7 @@
                 acceptNode(node) {
                     if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
                     const parent = node.parentElement;
-                    if (!parent || parent.closest('script, style, [data-i18n], [data-i18n-html]')) return NodeFilter.FILTER_REJECT;
+                    if (!parent || parent.closest('script, style, [data-i18n], [data-i18n-html], [data-no-translate]')) return NodeFilter.FILTER_REJECT;
                     return NodeFilter.FILTER_ACCEPT;
                 }
             });
@@ -6185,6 +6254,8 @@
             syncLayerSwitches();
             updateGuidedSessionNames();
 
+            updateBreathOptionsUI();
+
             // Update breath text (current phase while breathing)
             const breathText = document.getElementById('breathText');
             if (breathText) {
@@ -6216,7 +6287,7 @@
             }
 
             // Update language button
-            const langBtn = document.querySelector('.fab-btn.text-sm');
+            const langBtn = document.getElementById('langToggleBtn');
             if(langBtn) {
                 langBtn.textContent = currentLang === 'en' ? 'ES' : 'EN';
             }
@@ -6229,6 +6300,9 @@
 
             // Update HTML lang attribute
             document.documentElement.lang = currentLang === 'es' ? 'es' : 'en';
+
+            // Let separately loaded modules (js/sleep-app.js) re-render in the new language
+            document.dispatchEvent(new CustomEvent('sleeplab:langchange', { detail: { lang: currentLang } }));
         }
 
         function toggleLanguage() {
@@ -7309,6 +7383,11 @@
         let currentBreathPattern = 'resonance';
         let totalBreathCycles = 30;
         let breathSoundEnabled = true;
+        let breathPace = 6;            // breaths per minute, resonance pattern only
+        let breathDurationMin = 5;     // session length; 4-7-8 keeps its 4 breaths
+        let breathVibrate = false;     // phase cues by vibration (Android; iOS has no vibration API)
+        const BREATH_PACES = [5, 5.5, 6, 6.5, 7];
+        const BREATH_DURATIONS = [5, 10, 20];
 
         // Each pattern is a list of phases; `scale` animates the circle during that phase.
         // cycles = default session length (resonance and cyclic sighing ~5 min, as studied;
@@ -7328,10 +7407,94 @@
             ] }
         };
 
+        // Resonance breathing at the chosen pace: 40 % inhale, 60 % exhale (4 s / 6 s at 6/min)
+        function getBreathPhases(pattern) {
+            pattern = pattern || currentBreathPattern;
+            if (pattern === 'resonance') {
+                const cycle = 60 / breathPace;
+                const inhale = Math.round(cycle * 0.4 * 10) / 10;
+                return [{ p: 'inhale', s: inhale, scale: 1.5 }, { p: 'exhale', s: Math.round((cycle - inhale) * 10) / 10, scale: 1 }];
+            }
+            return BREATH_PATTERNS[pattern].phases;
+        }
+
+        function computeBreathCycles(pattern) {
+            pattern = pattern || currentBreathPattern;
+            if (pattern === '478') return BREATH_PATTERNS['478'].cycles;
+            const cycleSec = getBreathPhases(pattern).reduce((sum, ph) => sum + ph.s, 0);
+            return Math.max(1, Math.round(breathDurationMin * 60 / cycleSec));
+        }
+
+        function updateBreathOptionsUI() {
+            const paceRow = document.getElementById('breathPaceRow');
+            const durRow = document.getElementById('breathDurationRow');
+            if (paceRow) paceRow.hidden = currentBreathPattern !== 'resonance';
+            if (durRow) durRow.hidden = currentBreathPattern === '478';
+            document.querySelectorAll('.breath-pace-btn').forEach(b => {
+                const on = Number(b.dataset.pace) === breathPace;
+                b.classList.toggle('active', on); b.setAttribute('aria-pressed', on);
+            });
+            document.querySelectorAll('.breath-dur-btn').forEach(b => {
+                const on = Number(b.dataset.dur) === breathDurationMin;
+                b.classList.toggle('active', on); b.setAttribute('aria-pressed', on);
+            });
+            const summary = document.getElementById('breathSummary');
+            if (summary) {
+                const phases = getBreathPhases();
+                const cycleSec = phases.reduce((sum, ph) => sum + ph.s, 0);
+                const min = Math.round(totalBreathCycles * cycleSec / 60);
+                let text;
+                if (currentBreathPattern === '478') text = t('breath.summary478');
+                else if (currentBreathPattern === 'resonance') text = t('breath.summaryRes');
+                else text = t('breath.summary');
+                summary.textContent = text.replace('{pace}', breathPace).replace('{inhale}', phases[0].s)
+                    .replace('{exhale}', phases[phases.length - 1].s).replace('{cycles}', totalBreathCycles).replace('{min}', min);
+            }
+            const vib = document.getElementById('breathVibrateBtn');
+            if (vib) {
+                vib.hidden = !('vibrate' in navigator);
+                vib.setAttribute('aria-pressed', breathVibrate);
+            }
+        }
+
+        function refreshBreathConfig() {
+            if (isBreathing) stopBreathing();
+            totalBreathCycles = computeBreathCycles();
+            const cycleCount = document.getElementById('breathCycleCount');
+            if (cycleCount) cycleCount.innerText = `${t('breath.cycle')} 0/${totalBreathCycles}`;
+            updateBreathOptionsUI();
+            saveSettings();
+        }
+
+        function setBreathPace(pace) {
+            if (!BREATH_PACES.includes(pace)) return;
+            breathPace = pace;
+            refreshBreathConfig();
+        }
+
+        function setBreathDuration(minutes) {
+            if (!BREATH_DURATIONS.includes(minutes)) return;
+            breathDurationMin = minutes;
+            refreshBreathConfig();
+        }
+
+        function vibrateBreath(phase) {
+            if (!breathVibrate || !navigator.vibrate) return;
+            try { navigator.vibrate(phase === 'inhale' ? 60 : phase === 'exhale' ? [40, 90, 40] : 25); } catch (e) {}
+        }
+
+        function toggleBreathVibrate() {
+            breathVibrate = !breathVibrate;
+            updateBreathOptionsUI();
+            if (breathVibrate) vibrateBreath('inhale');
+            saveSettings();
+        }
+
         function setBreathPattern(pattern) {
             if (!BREATH_PATTERNS[pattern]) return;
             currentBreathPattern = pattern;
-            totalBreathCycles = BREATH_PATTERNS[pattern].cycles;
+            totalBreathCycles = computeBreathCycles(pattern);
+            updateBreathOptionsUI();
             document.querySelectorAll('[id^="breath-"]').forEach(btn => {
                 if (!btn.classList.contains('noise-type-btn')) return;
                 btn.classList.toggle('active', btn.id === 'breath-' + pattern);
@@ -7459,7 +7622,7 @@
             }
             document.getElementById('breathCycleCount').innerText = `${t('breath.cycle')} ${breathCycle}/${totalBreathCycles}`;
 
-            const phases = BREATH_PATTERNS[currentBreathPattern].phases;
+            const phases = getBreathPhases();
             const totalTime = phases.reduce((sum, ph) => sum + ph.s, 0);
             const text = document.getElementById('breathText');
             const circle = document.getElementById('breathCircle');
@@ -7481,6 +7644,7 @@
                 currentBreathPhase = ph.p;
                 text.innerText = t('breath.' + ph.p);
                 playBreathCue(ph.p, ph.s);
+                vibrateBreath(ph.p);
                 if (ph.scale) {
                     circle.style.transition = `transform ${ph.s}s ease-in-out`;
                     circle.style.transform = `scale(${ph.scale})`;
@@ -7632,6 +7796,9 @@
                 timer: p.timer,
                 breathPattern: p.breathPattern,
                 breathSound: breathSoundEnabled,
+                breathPace: breathPace,
+                breathDuration: breathDurationMin,
+                breathVibrate: breathVibrate,
                 calcMode: calcMode,
                 sleepLatency: document.getElementById('sleepLatency')?.value || '14',
                 wakeTime: document.getElementById('wakeTime')?.value || '07:00',
@@ -7659,6 +7826,12 @@
             }
             if (typeof settings !== 'object' || settings === null) settings = null;
 
+            // First visit: follow the phone's language
+            if (!settings) {
+                const prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
+                currentLang = /^es\b/i.test(prefs[0] || '') ? 'es' : 'en';
+            }
+
             if (settings) {
                 if (isValidSetting(settings.language, VALID_SETTINGS.languages)) currentLang = settings.language;
                 if (isValidSetting(settings.synthMode, VALID_SETTINGS.synthModes)) currentMode = settings.synthMode;
@@ -7666,6 +7839,9 @@
                 if (isValidSetting(settings.noiseType, VALID_SETTINGS.noiseTypes)) currentNoiseType = settings.noiseType;
                 if (isValidSetting(settings.breathPattern, VALID_SETTINGS.breathPatterns)) currentBreathPattern = settings.breathPattern;
                 if (typeof settings.breathSound === 'boolean') breathSoundEnabled = settings.breathSound;
+                if (BREATH_PACES.includes(Number(settings.breathPace))) breathPace = Number(settings.breathPace);
+                if (BREATH_DURATIONS.includes(Number(settings.breathDuration))) breathDurationMin = Number(settings.breathDuration);
+                if (typeof settings.breathVibrate === 'boolean') breathVibrate = settings.breathVibrate;
                 if (isValidSetting(settings.calcMode, VALID_SETTINGS.calcModes)) calcMode = settings.calcMode;
 
                 if (settings.version === SETTINGS_VERSION) {
@@ -7717,8 +7893,9 @@
         loadSettings();
 
         // GSAP Animations
-        // Guarded: if the GSAP CDN fails, the rest of this script (views, service worker) must still run
-        if (window.gsap && window.ScrollTrigger) {
+        // Only when the <head> check enabled animations (GSAP loaded, no reduced-motion request);
+        // otherwise the content simply stays visible and the rest of this script still runs.
+        if (document.documentElement.classList.contains('anim')) {
             gsap.registerPlugin(ScrollTrigger);
             gsap.utils.toArray('.fade-up').forEach(e => gsap.fromTo(e, {opacity:0, y:50}, {opacity:1, y:0, duration:0.8, scrollTrigger:{trigger:e, start:"top 85%"}}));
             gsap.utils.toArray('.bar-anim').forEach(e => gsap.fromTo(e, {scaleY:0, transformOrigin:"bottom"}, {scaleY:1, duration:1, scrollTrigger:{trigger:e, start:"top 80%"}}));
@@ -7901,7 +8078,8 @@
         let currentView = 'home';
 
         const viewSections = {
-            home: ['hero-section', 'tools', 'level-1', 'diagnosis'],
+            home: ['hero-section', 'home-sleep-cta', 'tools', 'level-1', 'diagnosis'],
+            sleep: ['my-sleep'],
             tools: ['synth-full'],
             learn: ['level-2', 'why-sleep', 'how-to', 'foundation', 'advanced-protocols', 'architecture', 'supplements', 'profiles', 'frontier', 'protocol'],
             resources: ['investment', 'myths', 'tech-lab', 'maestros', 'chronotypes', 'evidence']
@@ -7933,6 +8111,10 @@
                     btn.classList.remove('active');
                 }
             });
+
+            // Sections that were hidden have no layout until now: recompute scroll animations
+            if (window.ScrollTrigger) ScrollTrigger.refresh();
+            document.dispatchEvent(new CustomEvent('sleeplab:viewchange', { detail: { view: viewName } }));
 
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -8029,5 +8211,7 @@
         routeFromHash();
         window.addEventListener('hashchange', routeFromHash);
     </script>
+    <script src="/js/sleep-core.js"></script>
+    <script src="/js/sleep-app.js"></script>
 </body>
 </html>
